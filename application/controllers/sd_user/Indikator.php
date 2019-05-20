@@ -3,7 +3,7 @@ class Indikator extends CI_Controller {
 
     function __construct() {
 		parent::__construct();
-        $this->load->model(FOLDER_SD.'m_indikatoradmin');
+        $this->load->model(FOLDER_SD_USER.'m_indikatoruser');
     }
 
 	function index() {
@@ -13,19 +13,19 @@ class Indikator extends CI_Controller {
         } else {
 			$id_kompetensi = $this->input->get('id_kompetensi');
             if (isset($id_kompetensi) and $id_kompetensi !== "") { 
-			  $data['n20'] = $this->m_indikatoradmin->namaindikator($id_kompetensi);  
+			  $data['n20'] = $this->m_indikatoruser->namaindikator($id_kompetensi);  
 			  $data['n20'] = 
-			  $this->load->view(FOLDER_SD.'dataindikator', $data); 
+			  $this->load->view(FOLDER_SD_USER.'dataindikator', $data); 
             } else {
               $data['n20'] = ""; 
-			  $this->load->view(FOLDER_SD.'dataindikator' );
+			  $this->load->view(FOLDER_SD_USER.'dataindikator' );
             }
             
         }
 	}
 	function ambildatakompetensi2() {
 		$id_kompetensi = $this->input->get('id_kompetensi');
-		$data = $this->m_indikatoradmin->datakompetensi2($id_kompetensi);
+		$data = $this->m_indikatoruser->datakompetensi2($id_kompetensi);
 		$key = 0;
 		$list = array();
 			foreach ($data as $row)
@@ -44,7 +44,7 @@ class Indikator extends CI_Controller {
 			$id_kelompok = $this->input->get('id_kelompok');
 			$search = $this->input->get('search');
 			$page = $this->input->get('page');
-			$data = $this->m_indikatoradmin->datakompetensi($search, $page, $id_kelompok);
+			$data = $this->m_indikatoruser->datakompetensi($search, $page, $id_kelompok);
 			$key=0;
 			$list = array();
 			foreach ($data as $row)
@@ -82,7 +82,7 @@ class Indikator extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            $this->load->view(FOLDER_SD.'form_addindikator');
+            $this->load->view(FOLDER_SD_USER.'form_addindikator');
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -105,7 +105,7 @@ class Indikator extends CI_Controller {
 				'no_urut_indikator'=>$this->input->post('no_urut_indikator'),
 				'keaktifan_indikator'=>$this->input->post('keaktifan_indikator'),
             );
-            $data = $this->m_indikatoradmin->addindikator($data_indikator);
+            $data = $this->m_indikatoruser->addindikator($data_indikator);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -127,8 +127,8 @@ class Indikator extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_indikator=$this->input->get('id_indikator');
-			$data['n2'] = $this->m_indikatoradmin->getdataindikator($id_indikator);
-            $this->load->view(FOLDER_SD.'form_editindikator', $data);
+			$data['n2'] = $this->m_indikatoruser->getdataindikator($id_indikator);
+            $this->load->view(FOLDER_SD_USER.'form_editindikator', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -155,7 +155,7 @@ class Indikator extends CI_Controller {
 						'nama_indikator'=>$this->input->post('editnama_indikator'),
 						'keaktifan_indikator'=>$this->input->post('editkeaktifan_indikator'),
 					);
-				$data = $this->m_indikatoradmin->updateindikator($data_indikator,$id_indikator);
+				$data = $this->m_indikatoruser->updateindikator($data_indikator,$id_indikator);
 				if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil diubah";
 					} else {
@@ -169,7 +169,7 @@ class Indikator extends CI_Controller {
 					'no_urut_indikator'=>$this->input->post('editno_urut_indikator'),
 					'keaktifan_indikator'=>$this->input->post('editkeaktifan_indikator'),
 				);
-				$data = $this->m_indikatoradmin->updateindikator($data_indikator,$id_indikator);
+				$data = $this->m_indikatoruser->updateindikator($data_indikator,$id_indikator);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -195,8 +195,8 @@ class Indikator extends CI_Controller {
 		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 		  $id_indikator = $this->input->get('id_indikator');
-		  $data['n2'] = $this->m_indikatoradmin->getdataindikator($id_indikator);
-		  $this->load->view(FOLDER_SD.'form_hapusindikator', $data);
+		  $data['n2'] = $this->m_indikatoruser->getdataindikator($id_indikator);
+		  $this->load->view(FOLDER_SD_USER.'form_hapusindikator', $data);
 		} else {
             $this->load->view('v_sesiberakhir');
         }
@@ -211,7 +211,7 @@ class Indikator extends CI_Controller {
 			$id_indikator=$this->input->post('id_indikator');
 			$query = $this->db->get_where(M_INDIKATOR_SD, array('id_indikator' => $id_indikator));
 			if ($query->num_rows() == 1) {
-				$data = $this->m_indikatoradmin->deleteindikator($id_indikator);
+				$data = $this->m_indikatoruser->deleteindikator($id_indikator);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil dihapus";
 					} else {
@@ -233,11 +233,11 @@ class Indikator extends CI_Controller {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
 				$id_kompetensi = $this->input->get('id_kompetensi');
 				if (isset($id_kompetensi) and $id_kompetensi  !== "") { 
-				$data = $this->m_indikatoradmin->indikator_list($id_kompetensi);
+				$data = $this->m_indikatoruser->indikator_list($id_kompetensi);
 				} 
            	 	else {
 				$id_kompetensi = "";
-				$data = $this->m_indikatoradmin->indikator_list($id_kompetensi);
+				$data = $this->m_indikatoruser->indikator_list($id_kompetensi);
 				}
                 echo json_encode($data);
             }

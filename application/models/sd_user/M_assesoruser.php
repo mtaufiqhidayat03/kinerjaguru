@@ -1,5 +1,5 @@
 <?php
-class M_assesoradmin extends CI_Model {
+class M_assesoruser extends CI_Model {
     
     function getdataassesor($id_assesor){
         $sql="SELECT id_assesor, (b.nama_guru) as g1, (c.nama_guru) as g2 FROM `".D_ASSESOR_SD.$this->session->userdata("tahun")."` as a left join `".M_GURU_SD."` as b ON a.nuptk_assesor=b.nuptk left join `".M_GURU_SD."` as c ON a.tugas_assesor=c.nuptk where id_assesor=?";

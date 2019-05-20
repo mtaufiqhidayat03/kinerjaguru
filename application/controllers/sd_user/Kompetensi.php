@@ -3,7 +3,7 @@ class Kompetensi extends CI_Controller {
 
     function __construct() {
 		parent::__construct();
-        $this->load->model(FOLDER_SD.'m_kompetensiadmin');
+        $this->load->model(FOLDER_SD_USER.'m_kompetensiuser');
     }
 
 	function index() {
@@ -11,13 +11,13 @@ class Kompetensi extends CI_Controller {
         {
             redirect(base_url("login"));
         } else {
-            $this->load->view(FOLDER_SD.'datakompetensi' );
+            $this->load->view(FOLDER_SD_USER.'datakompetensi' );
         }
 	}
 	
 	function ambildatakelompokkompetensi2() {
 		$id_kelompok = $this->input->get('id_kelompok');
-		$data = $this->m_kompetensiadmin->datakelompokkompetensi2($id_kelompok);
+		$data = $this->m_kompetensiuser->datakelompokkompetensi2($id_kelompok);
 		$key = 0;
 		$list = array();
 			foreach ($data as $row)
@@ -35,7 +35,7 @@ class Kompetensi extends CI_Controller {
 			{
 			$search = $this->input->get('search');
 			$page = $this->input->get('page');
-			$data = $this->m_kompetensiadmin->datakelompokkompetensi($search, $page);
+			$data = $this->m_kompetensiuser->datakelompokkompetensi($search, $page);
 			$key=0;
 			$list = array();
 			foreach ($data as $row)
@@ -73,7 +73,7 @@ class Kompetensi extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            $this->load->view(FOLDER_SD.'form_addkompetensi');
+            $this->load->view(FOLDER_SD_USER.'form_addkompetensi');
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -96,7 +96,7 @@ class Kompetensi extends CI_Controller {
 				'no_urut_kompetensi'=>$this->input->post('no_urut_kompetensi'),
 				'keaktifan'=>$this->input->post('keaktifan'),
             );
-            $data = $this->m_kompetensiadmin->addkompetensi($data_kompetensi);
+            $data = $this->m_kompetensiuser->addkompetensi($data_kompetensi);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -118,8 +118,8 @@ class Kompetensi extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_kompetensi=$this->input->get('id_kompetensi');
-            $data['n2'] = $this->m_kompetensiadmin->getdatakompetensi($id_kompetensi);
-            $this->load->view(FOLDER_SD.'form_editkompetensi', $data);
+            $data['n2'] = $this->m_kompetensiuser->getdatakompetensi($id_kompetensi);
+            $this->load->view(FOLDER_SD_USER.'form_editkompetensi', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -146,7 +146,7 @@ class Kompetensi extends CI_Controller {
 						'nama_kompetensi'=>$this->input->post('editnama_kompetensi'),
 						'keaktifan'=>$this->input->post('editkeaktifan'),
 				);
-				$data = $this->m_kompetensiadmin->updatekompetensi($data_kompetensi,$id_kompetensi);
+				$data = $this->m_kompetensiuser->updatekompetensi($data_kompetensi,$id_kompetensi);
 				if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil diubah";
 					} else {
@@ -160,7 +160,7 @@ class Kompetensi extends CI_Controller {
 					'no_urut_kompetensi'=>$this->input->post('editno_urut_kompetensi'),
 					'keaktifan'=>$this->input->post('editkeaktifan'),
 				);
-				$data = $this->m_kompetensiadmin->updatekompetensi($data_kompetensi,$id_kompetensi);
+				$data = $this->m_kompetensiuser->updatekompetensi($data_kompetensi,$id_kompetensi);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -186,8 +186,8 @@ class Kompetensi extends CI_Controller {
 		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 		  $id_kompetensi = $this->input->get('id_kompetensi');
-		  $data['n2'] = $this->m_kompetensiadmin->getdatakompetensi($id_kompetensi);
-		  $this->load->view(FOLDER_SD.'form_hapuskompetensi', $data);
+		  $data['n2'] = $this->m_kompetensiuser->getdatakompetensi($id_kompetensi);
+		  $this->load->view(FOLDER_SD_USER.'form_hapuskompetensi', $data);
 		} else {
             $this->load->view('v_sesiberakhir');
         }
@@ -202,7 +202,7 @@ class Kompetensi extends CI_Controller {
 			$id_kompetensi=$this->input->post('id_kompetensi');
 			$query = $this->db->get_where(M_KOMPETENSI_SD, array('id_kompetensi' => $id_kompetensi));
 			if ($query->num_rows() == 1) {
-				$data = $this->m_kompetensiadmin->deletekompetensi($id_kompetensi);
+				$data = $this->m_kompetensiuser->deletekompetensi($id_kompetensi);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil dihapus";
 					} else {
@@ -224,11 +224,11 @@ class Kompetensi extends CI_Controller {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
 				$id_kelompok = $this->input->get('id_kelompok');
 				if (isset($id_kelompok) and $id_kelompok !== "") { 
-					$data = $this->m_kompetensiadmin->kompetensi_list($id_kelompok);
+					$data = $this->m_kompetensiuser->kompetensi_list($id_kelompok);
 				} 
 				else {
 					$id_kelompok = "";
-					$data = $this->m_kompetensiadmin->kompetensi_list($id_kelompok);
+					$data = $this->m_kompetensiuser->kompetensi_list($id_kelompok);
 				}    
                
                 echo json_encode($data);

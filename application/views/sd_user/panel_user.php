@@ -21,6 +21,10 @@
                         </li>
 				</ul>
 				<ul class="kt-menu__nav ">
+                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="pribadi") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>pribadi" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="flaticon2-user"></i></span><span class="kt-menu__link-text">Data Pribadi</span></a>
+                        </li>
+				</ul>
+				<ul class="kt-menu__nav ">
                         <li class="kt-menu__item <?php if ($this->uri->segment(2)=="sekolah") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>sekolah" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="flaticon-buildings"></i></span><span class="kt-menu__link-text">Data Sekolah</span></a>
                         </li>
 				</ul>

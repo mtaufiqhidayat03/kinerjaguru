@@ -1,42 +1,32 @@
 <?php
-class M_kuisioneradmin extends CI_Model {
+class M_kelompokuser extends CI_Model {
 
-	function addkuisioner($data_kuisioner) {
-		$this->db->insert(M_KUISIONER_SD,$data_kuisioner);
+	function addkelompok($data_kelompok) {
+		$this->db->insert(M_KELOMPOK_KOMPETENSI_SD,$data_kelompok);
 	}
 
-	function addpenilaiankuisioner($data_kuisioner) {
-		$this->db->insert(D_KUISIONER_SD.$this->session->userdata('tahun'),$data_kuisioner);
-	}
-
-	function getdatakuisioner($id_kuisioner) {
-		$sql="SELECT * FROM `".M_KUISIONER_SD."` where id_kuisioner=?";
-		$query=$this->db->query($sql,array($id_kuisioner));
+	function getdatakelompok($id_kelompok) {
+		$sql="SELECT * FROM `".M_KELOMPOK_KOMPETENSI_SD."` where id_kelompok=?";
+		$query=$this->db->query($sql,array($id_kelompok));
 		return $query->result();
 	}
 
-	function getdatakuisioner2($id_kuisioner) {
-		$sql="SELECT * FROM `".M_KUISIONER_SD."` as a left join `".M_KELOMPOK_KOMPETENSI_SD."` as b ON a.id_kelompok_kuisioner_sd=b.id_kelompok where a.id_kuisioner=?";
-		$query=$this->db->query($sql,array($id_kuisioner));
-		return $query->result();
-	}
-
-	function updatekuisioner($data_kuisioner,$id_kuisioner) {
-        $this->db->where('id_kuisioner', $id_kuisioner);
-        $this->db->update(M_KUISIONER_SD,$data_kuisioner);
+	function updatekelompok($data_kelompok,$id_kelompok) {
+        $this->db->where('id_kelompok', $id_kelompok);
+        $this->db->update(M_KELOMPOK_KOMPETENSI_SD,$data_kelompok);
 	}
 	
-    function deletekuisioner($id_kuisioner){
-        $this->db->where('id_kuisioner', $id_kuisioner);
-        $this->db->delete(M_KUISIONER_SD);
+    function deletekelompok($id_kelompok){
+        $this->db->where('id_kelompok', $id_kelompok);
+        $this->db->delete(M_KELOMPOK_KOMPETENSI_SD);
 	}
 	
-	function kuisioner_list() {
+	function kelompok_list() {
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('id_kuisioner','id_kuisioner','kelompok_kompetensi','nama_kuisioner');
-		$sIndexColumn = "a.id_kuisioner";
-		$sTable = "`".M_KUISIONER_SD."` as a left join `".M_KELOMPOK_KOMPETENSI_SD."` as b ON a.id_kelompok_kuisioner_sd=b.id_kelompok";
+		$aColumns = array('id_kelompok','id_kelompok','kelompok_kompetensi','hub_jenis_guru','hub_detail_guru');
+		$sIndexColumn = "a.id_kelompok";
+		$sTable = "`".M_KELOMPOK_KOMPETENSI_SD."` as a";
 		$sLimit = "";
 		/*  Paging */
 		if ($this->input->post('start') !== "" && $this->input->post('length') != '-1' )
@@ -101,10 +91,13 @@ class M_kuisioneradmin extends CI_Model {
 			{
 				if ( $i == 1)
 				{
-					$row[] = "<div class='btn-group-vertical center' role='group'>
-					<a data-toggle='modal' href='kuisioner/form_editkuisioner?id_kuisioner=".$aRow['id_kuisioner']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
-					<a data-toggle='modal'  href='kuisioner/form_hapuskuisioner?id_kuisioner=".$aRow['id_kuisioner']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-eraser'></i> Hapus Data</a>
-					<a data-toggle='modal'  href='kuisioner/form_uploadfile?id_kuisioner=".$aRow['id_kuisioner']."' class='btn btn-sm btn-success btnku btn-elevate btn-elevate-air' data-target='#upload_file'  id='upload-file' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-cloud-upload-alt'></i> Upload File Bukti</a>
+					$row[] = "
+					<div class='btn-group-vertical center' role='group'>
+					<a data-toggle='modal' href='kelompok/form_hubkelompok?id_kelompok=".$aRow['id_kelompok']."' data-target='#hub_data' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='hub-data' data-id='".$aRow['id_kelompok']."'><i class='fa fa-globe'></i> Hubungkan Dengan Data Guru</a>
+					<div class='btn-group-vertical center' role='group'>
+					<a data-toggle='modal' href='kelompok/form_editkelompok?id_kelompok=".$aRow['id_kelompok']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['id_kelompok']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
+					<a data-toggle='modal'  href='kelompok/form_hapuskelompok?id_kelompok=".$aRow['id_kelompok']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['id_kelompok']."'><i class='fa fa-eraser'></i> Hapus Data</a>
+					<a href='kompetensi?id_kelompok=".$aRow['id_kelompok']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['id_kelompok']."'><i class='fa fa-search-plus'></i> Tampilkan Kompetensi</a>
 					</div>";
 				}
 				else if ($aColumns[$i] != "")

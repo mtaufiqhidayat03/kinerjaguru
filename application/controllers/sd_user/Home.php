@@ -4,7 +4,7 @@ class Home extends CI_Controller {
     function __construct() {
 		parent::__construct();
 		
-        $this->load->model(FOLDER_SD.'m_homesd');
+        $this->load->model(FOLDER_SD_USER.'m_homesd');
         //error_reporting( 0 );
     }
     function index() {
@@ -12,7 +12,7 @@ class Home extends CI_Controller {
         {
             redirect(base_url("login"));
         } else {
-            $this->load->view(FOLDER_SD.'index');
+            $this->load->view(FOLDER_SD_USER.'index');
         }
     }
     function inputteks() {

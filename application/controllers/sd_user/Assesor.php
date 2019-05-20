@@ -2,7 +2,7 @@
 class Assesor extends CI_Controller {
     function __construct() {
         parent::__construct();
-		$this->load->model(FOLDER_SD_USER.'m_assesoradmin');   
+		$this->load->model(FOLDER_SD_USER.'m_assesoruser');   
         
     }
     function index() {
@@ -12,7 +12,7 @@ class Assesor extends CI_Controller {
         } else {
             $npsn_nss = $this->input->get('npsn_nss');
             if (isset($npsn_nss) and $npsn_nss !== "") { 
-              $data['n20'] = $this->m_assesoradmin->namasekolah($npsn_nss); 
+              $data['n20'] = $this->m_assesoruser->namasekolah($npsn_nss); 
 			  $this->load->view(FOLDER_SD_USER.'dataassesor', $data);  
             } else {
               $data['n20'] = ""; 
@@ -46,7 +46,7 @@ class Assesor extends CI_Controller {
                 'nuptk_assesor'=>$this->input->post('assesor'),
                 'tugas_assesor'=>$this->input->post('guru_dinilai'),
             );
-            $data = $this->m_assesoradmin->addassesor($data_assesor);
+            $data = $this->m_assesoruser->addassesor($data_assesor);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -70,7 +70,7 @@ class Assesor extends CI_Controller {
 		{
 		$search = $this->input->get('search');
 		$page = $this->input->get('page');
-		$data = $this->m_assesoradmin->dataassesor($search, $page);
+		$data = $this->m_assesoruser->dataassesor($search, $page);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -115,7 +115,7 @@ class Assesor extends CI_Controller {
 		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $assesor));
 		$rowku = $queryku->row_array();
 		$npsn_nss_assesor=$rowku['npsn_nss_guru_sd'];
-		$data = $this->m_assesoradmin->datagurudinilai($search, $page, $assesor, $npsn_nss_assesor);
+		$data = $this->m_assesoruser->datagurudinilai($search, $page, $assesor, $npsn_nss_assesor);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -152,7 +152,7 @@ class Assesor extends CI_Controller {
     function form_hapusassesor() {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 			$id_assesor = $this->input->get('id_assesor');
-			$data['n2'] = $this->m_assesoradmin->getdataassesor($id_assesor);
+			$data['n2'] = $this->m_assesoruser->getdataassesor($id_assesor);
             $this->load->view(FOLDER_SD_USER.'form_hapusassesor', $data);
         } else {
             show_404();
@@ -166,7 +166,7 @@ class Assesor extends CI_Controller {
         $id_assesor = $this->input->post('id_assesor');
         $query = $this->db->get_where(D_ASSESOR_SD.$this->session->userdata("tahun"), array('id_assesor' => $id_assesor));
             if ($query->num_rows() == 1) {
-            $data = $this->m_assesoradmin->deleteassesor($id_assesor);
+            $data = $this->m_assesoruser->deleteassesor($id_assesor);
                 if ($this->db->affected_rows() != 1) {
                 echo "Tidak ada data yang berhasil dihapus";
                 } else {
@@ -188,11 +188,11 @@ class Assesor extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             $npsn_nss = $this->input->get('npsn_nss');
             if (isset($npsn_nss) and $npsn_nss !== "") { 
-            $data = $this->m_assesoradmin->assesor_list($npsn_nss);
+            $data = $this->m_assesoruser->assesor_list($npsn_nss);
             } 
             else {
             $npsn_nss = "";
-            $data = $this->m_assesoradmin->assesor_list($npsn_nss);
+            $data = $this->m_assesoruser->assesor_list($npsn_nss);
             }             
             echo json_encode($data);
         } else {

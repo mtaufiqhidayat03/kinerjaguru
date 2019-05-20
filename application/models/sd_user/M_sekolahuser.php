@@ -1,5 +1,5 @@
 <?php
-class M_sekolahadmin extends CI_Model {
+class M_sekolahuser extends CI_Model {
     
     function getdatasekolah($npsn_nss){
         $sql="SELECT * FROM `".M_SD."` as a left join master_daerah as b on a.no_daerah=b.no_daerah where npsn_nss=?";

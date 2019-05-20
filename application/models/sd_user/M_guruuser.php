@@ -1,5 +1,5 @@
 <?php
-class M_guruadmin extends CI_Model {
+class M_guruuser extends CI_Model {
     
     function getdataguru($nuptk){
         $sql="SELECT * FROM `".M_GURU_SD."` where nuptk=?";

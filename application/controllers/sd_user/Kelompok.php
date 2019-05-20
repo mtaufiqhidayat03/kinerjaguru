@@ -3,7 +3,7 @@ class Kelompok extends CI_Controller {
 
     function __construct() {
 		parent::__construct();
-        $this->load->model(FOLDER_SD.'m_kelompokadmin');
+        $this->load->model(FOLDER_SD_USER.'m_kelompokuser');
     }
 
 	function index() {
@@ -11,7 +11,7 @@ class Kelompok extends CI_Controller {
         {
             redirect(base_url("login"));
         } else {
-            $this->load->view(FOLDER_SD.'datakelompok' );
+            $this->load->view(FOLDER_SD_USER.'datakelompok' );
         }
 	}
 	
@@ -20,7 +20,7 @@ class Kelompok extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            $this->load->view(FOLDER_SD.'form_addkelompok');
+            $this->load->view(FOLDER_SD_USER.'form_addkelompok');
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -36,7 +36,7 @@ class Kelompok extends CI_Controller {
 			$data_kelompok = array(
                 'kelompok_kompetensi'=>$this->input->post('nama_kelompok')
             );
-            $data = $this->m_kelompokadmin->addkelompok($data_kelompok);
+            $data = $this->m_kelompokuser->addkelompok($data_kelompok);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -55,8 +55,8 @@ class Kelompok extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_kelompok=$this->input->get('id_kelompok');
-            $data['n2'] = $this->m_kelompokadmin->getdatakelompok($id_kelompok);
-            $this->load->view(FOLDER_SD.'form_editkelompok', $data);
+            $data['n2'] = $this->m_kelompokuser->getdatakelompok($id_kelompok);
+            $this->load->view(FOLDER_SD_USER.'form_editkelompok', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -70,8 +70,8 @@ class Kelompok extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_kelompok=$this->input->get('id_kelompok');
-            $data['n2'] = $this->m_kelompokadmin->getdatakelompok($id_kelompok);
-            $this->load->view(FOLDER_SD.'form_hubkelompok', $data);
+            $data['n2'] = $this->m_kelompokuser->getdatakelompok($id_kelompok);
+            $this->load->view(FOLDER_SD_USER.'form_hubkelompok', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -90,7 +90,7 @@ class Kelompok extends CI_Controller {
 				$data_kelompok = array(
 					'kelompok_kompetensi'=>$this->input->post('editnama_kelompok')
 				);
-				$data = $this->m_kelompokadmin->updatekelompok($data_kelompok,$id_kelompok);
+				$data = $this->m_kelompokuser->updatekelompok($data_kelompok,$id_kelompok);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -118,7 +118,7 @@ class Kelompok extends CI_Controller {
 					'hub_jenis_guru'=>$this->input->post('jenis_guru'),
 					'hub_detail_guru'=>$this->input->post('detail_guru'),
 				);
-				$data = $this->m_kelompokadmin->updatekelompok($data_kelompok,$id_kelompok);
+				$data = $this->m_kelompokuser->updatekelompok($data_kelompok,$id_kelompok);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -141,8 +141,8 @@ class Kelompok extends CI_Controller {
 		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 		  $id_kelompok = $this->input->get('id_kelompok');
-		  $data['n2'] = $this->m_kelompokadmin->getdatakelompok($id_kelompok);
-		  $this->load->view(FOLDER_SD.'form_hapuskelompok', $data);
+		  $data['n2'] = $this->m_kelompokuser->getdatakelompok($id_kelompok);
+		  $this->load->view(FOLDER_SD_USER.'form_hapuskelompok', $data);
 		} else {
             $this->load->view('v_sesiberakhir');
         }
@@ -157,7 +157,7 @@ class Kelompok extends CI_Controller {
 			$id_kelompok=$this->input->post('id_kelompok');
 			$query = $this->db->get_where(M_KELOMPOK_KOMPETENSI_SD, array('id_kelompok' => $id_kelompok));
 			if ($query->num_rows() == 1) {
-				$data = $this->m_kelompokadmin->deletekelompok($id_kelompok);
+				$data = $this->m_kelompokuser->deletekelompok($id_kelompok);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil dihapus";
 					} else {
@@ -177,7 +177,7 @@ class Kelompok extends CI_Controller {
 	function ajax_data_kelompok() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
-                $data = $this->m_kelompokadmin->kelompok_list();
+                $data = $this->m_kelompokuser->kelompok_list();
                 echo json_encode($data);
             }
 			else {

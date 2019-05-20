@@ -3,7 +3,7 @@ class Kuisioner extends CI_Controller {
 
     function __construct() {
 		parent::__construct();
-        $this->load->model(FOLDER_SD.'m_kuisioneradmin');
+        $this->load->model(FOLDER_SD_USER.'m_kuisioneruser');
     }
 
 	function index() {
@@ -11,7 +11,7 @@ class Kuisioner extends CI_Controller {
         {
             redirect(base_url("login"));
         } else {
-            $this->load->view(FOLDER_SD.'datakuisioner' );
+            $this->load->view(FOLDER_SD_USER.'datakuisioner' );
         }
 	}
 
@@ -19,7 +19,7 @@ class Kuisioner extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            $this->load->view(FOLDER_SD.'form_addkuisioner');
+            $this->load->view(FOLDER_SD_USER.'form_addkuisioner');
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -36,7 +36,7 @@ class Kuisioner extends CI_Controller {
 				'id_kelompok_kuisioner_sd'=>$this->input->post('kelompok_kompetensi'),
 				'nama_kuisioner'=>$this->input->post('nama_kuisioner'),
             );
-            $data = $this->m_kuisioneradmin->addkuisioner($data_kuisioner);
+            $data = $this->m_kuisioneruser->addkuisioner($data_kuisioner);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -55,8 +55,8 @@ class Kuisioner extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_kuisioner=$this->input->get('id_kuisioner');
-            $data['n2'] = $this->m_kuisioneradmin->getdatakuisioner($id_kuisioner);
-            $this->load->view(FOLDER_SD.'form_editkuisioner', $data);
+            $data['n2'] = $this->m_kuisioneruser->getdatakuisioner($id_kuisioner);
+            $this->load->view(FOLDER_SD_USER.'form_editkuisioner', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -70,8 +70,8 @@ class Kuisioner extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 			$id_kuisioner=$this->input->get('id_kuisioner');
-            $data['n2'] = $this->m_kuisioneradmin->getdatakuisioner2($id_kuisioner);
-            $this->load->view(FOLDER_SD.'form_uploadfile', $data);
+            $data['n2'] = $this->m_kuisioneruser->getdatakuisioner2($id_kuisioner);
+            $this->load->view(FOLDER_SD_USER.'form_uploadfile', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -91,7 +91,7 @@ class Kuisioner extends CI_Controller {
 					'id_kelompok_kuisioner_sd'=>$this->input->post('editkelompok_kompetensi'),
 					'nama_kuisioner'=>$this->input->post('editnama_kuisioner'),
 				);
-				$data = $this->m_kuisioneradmin->updatekuisioner($data_kuisioner,$id_kuisioner);
+				$data = $this->m_kuisioneruser->updatekuisioner($data_kuisioner,$id_kuisioner);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -113,8 +113,8 @@ class Kuisioner extends CI_Controller {
 		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
 		  $id_kuisioner = $this->input->get('id_kuisioner');
-		  $data['n2'] = $this->m_kuisioneradmin->getdatakuisioner($id_kuisioner);
-		  $this->load->view(FOLDER_SD.'form_hapuskuisioner', $data);
+		  $data['n2'] = $this->m_kuisioneruser->getdatakuisioner($id_kuisioner);
+		  $this->load->view(FOLDER_SD_USER.'form_hapuskuisioner', $data);
 		} else {
             $this->load->view('v_sesiberakhir');
         }
@@ -129,7 +129,7 @@ class Kuisioner extends CI_Controller {
 			$id_kuisioner=$this->input->post('id_kuisioner');
 			$query = $this->db->get_where(M_KUISIONER_SD, array('id_kuisioner' => $id_kuisioner));
 			if ($query->num_rows() == 1) {
-				$data = $this->m_kuisioneradmin->deletekuisioner($id_kuisioner);
+				$data = $this->m_kuisioneruser->deletekuisioner($id_kuisioner);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil dihapus";
 					} else {
@@ -171,7 +171,7 @@ class Kuisioner extends CI_Controller {
 				'nilai_kuisioner'=>$nilai_kuisioner,
 				'upload_file_kuisioner_sd'=>$config['upload_path'].$this->upload->data('file_name'),
 			);
-            $data = $this->m_kuisioneradmin->addpenilaiankuisioner($data_kuisioner);
+            $data = $this->m_kuisioneruser->addpenilaiankuisioner($data_kuisioner);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -191,7 +191,7 @@ class Kuisioner extends CI_Controller {
 	function ajax_data_kuisioner() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
-                $data = $this->m_kuisioneradmin->kuisioner_list();
+                $data = $this->m_kuisioneruser->kuisioner_list();
                 echo json_encode($data);
             }
 			else {

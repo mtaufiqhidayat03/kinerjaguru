@@ -2,13 +2,7 @@
 class Sekolah extends CI_Controller {
     function __construct() {
         parent::__construct();
-        
-       //  if ( $this->session->userdata('status') != "login" and empty($this->session->userdata('username')))
-       //  {
-            //$this->load->view('v_sesiberakhir');
-            //redirect(base_url("login"));
-       // }
-        $this->load->model(FOLDER_SD_USER.'m_sekolahadmin');        
+        $this->load->model(FOLDER_SD_USER.'m_sekolahuser');        
     }
 
     function index() {
@@ -27,7 +21,7 @@ class Sekolah extends CI_Controller {
 		{
 		$search = $this->input->get('search');
 		$page = $this->input->get('page');
-		$data = $this->m_sekolahadmin->datagurusd($search, $page);
+		$data = $this->m_sekolahuser->datagurusd($search, $page);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -69,7 +63,7 @@ class Sekolah extends CI_Controller {
 		$search = $this->input->get('search');
 		$page = $this->input->get('page');
 		$id_kelompok = $this->input->get('kelompok');
-		$data = $this->m_sekolahadmin->datagurusdmengajar($search, $page, $id_kelompok);
+		$data = $this->m_sekolahuser->datagurusdmengajar($search, $page, $id_kelompok);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -115,7 +109,7 @@ class Sekolah extends CI_Controller {
 
     function ambildatakotakab(){
             $nama_provinsi = $this->input->get('nama_provinsi');
-            $data = $this->m_sekolahadmin->kotakab($nama_provinsi);
+            $data = $this->m_sekolahuser->kotakab($nama_provinsi);
             echo "<option value=''>Silahkan pilih kota/kabupaten dibawah ini</option>";
             foreach ($data as $row)
             {
@@ -126,7 +120,7 @@ class Sekolah extends CI_Controller {
     function ambildatakecamatan(){
             $nama_provinsi = $this->input->get('nama_provinsi');
             $nama_kotakab = $this->input->get('nama_kotakab');
-            $data = $this->m_sekolahadmin->kecamatan($nama_provinsi,$nama_kotakab);
+            $data = $this->m_sekolahuser->kecamatan($nama_provinsi,$nama_kotakab);
             echo "<option value=''>Silahkan pilih kecamatan dibawah ini</option>";
             foreach ($data as $row)
             {
@@ -138,7 +132,7 @@ class Sekolah extends CI_Controller {
             $nama_provinsi = $this->input->get('nama_provinsi');
             $nama_kotakab = $this->input->get('nama_kotakab');
             $nama_kec = $this->input->get('nama_kec');
-            $data = $this->m_sekolahadmin->kelurahan($nama_provinsi,$nama_kotakab,$nama_kec);
+            $data = $this->m_sekolahuser->kelurahan($nama_provinsi,$nama_kotakab,$nama_kec);
             echo "<option value=''>Silahkan pilih kelurahan/desa dibawah ini</option>";
             foreach ($data as $row)
             {
@@ -151,7 +145,7 @@ class Sekolah extends CI_Controller {
             $nama_kotakab = $this->input->get('nama_kotakab');
             $nama_kec = $this->input->get('nama_kec');
             $nama_desa_kel = $this->input->get('nama_desa_kel');
-            $data = $this->m_sekolahadmin->no_daerah($nama_provinsi,$nama_kotakab,$nama_kec,$nama_desa_kel);
+            $data = $this->m_sekolahuser->no_daerah($nama_provinsi,$nama_kotakab,$nama_kec,$nama_desa_kel);
             foreach ($data as $row)
             {
             echo $row->no_daerah;
@@ -171,7 +165,7 @@ class Sekolah extends CI_Controller {
 					'npsn_nss_sd'=>$npsn_nss,            
 					'nip_kepala'=>$nipkepala
 				);
-				$data = $this->m_sekolahadmin->updatekepalasekolah($data_kepala);
+				$data = $this->m_sekolahuser->updatekepalasekolah($data_kepala);
 				if ($this->db->affected_rows() != 1) {
 				echo "Tidak ada data yang berhasil diubah";
 				} else {
@@ -201,7 +195,7 @@ class Sekolah extends CI_Controller {
                 'telp_fax'=>$this->input->post('telp_fax'),
                 'no_daerah'=>$this->input->post('no_daerah')
             );
-            $data = $this->m_sekolahadmin->addsekolah($data_sekolah);
+            $data = $this->m_sekolahuser->addsekolah($data_sekolah);
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -231,7 +225,7 @@ class Sekolah extends CI_Controller {
                 'no_daerah'=>$this->input->post('no_daerah')
             );
             $npsn_nss=$this->input->post('npsn_nss');
-            $data = $this->m_sekolahadmin->updatesekolah($data_sekolah,$npsn_nss);
+            $data = $this->m_sekolahuser->updatesekolah($data_sekolah,$npsn_nss);
             if ($this->db->affected_rows() != 1) {
             echo "Tidak ada data yang berhasil diubah";
             } else {
@@ -256,7 +250,7 @@ class Sekolah extends CI_Controller {
         $query = $this->db->get_where(M_SD, array('npsn_nss' => $npsn_nss));
             if ($query->num_rows() == 1) {
             $npsn_nss=$this->input->post('npsn_nss');
-            $data = $this->m_sekolahadmin->deletesekolah($npsn_nss);
+            $data = $this->m_sekolahuser->deletesekolah($npsn_nss);
                 if ($this->db->affected_rows() != 1) {
                 echo "Tidak ada data yang berhasil dihapus";
                 } else {
@@ -281,7 +275,7 @@ class Sekolah extends CI_Controller {
         $query = $this->db->get_where("`".D_SD.$this->session->userdata('tahun')."`", array('npsn_nss_sd' => $npsn_nss));
             if ($query->num_rows() == 1) {
             $npsn_nss=$this->input->post('npsn_nss');
-            $data = $this->m_sekolahadmin->deletekepalasekolah($npsn_nss);
+            $data = $this->m_sekolahuser->deletekepalasekolah($npsn_nss);
                 if ($this->db->affected_rows() != 1) {
                 echo "Tidak ada data yang berhasil dihapus";
                 } else {
@@ -302,7 +296,7 @@ class Sekolah extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            $data['n1'] = $this->m_sekolahadmin->prov(); 
+            $data['n1'] = $this->m_sekolahuser->prov(); 
             $this->load->VIEW(FOLDER_SD_USER.'form_addsekolah', $data);
         } else {
             $this->load->VIEW(FOLDER_SD_USER.'v_sesiberakhir');
@@ -315,7 +309,7 @@ class Sekolah extends CI_Controller {
     function form_hapussekolah() {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             $npsn_nss = $this->input->get('npsn_nss');
-            $data['n2'] = $this->m_sekolahadmin->getdatasekolah($npsn_nss);
+            $data['n2'] = $this->m_sekolahuser->getdatasekolah($npsn_nss);
             $this->load->VIEW(FOLDER_SD_USER.'form_hapussekolah', $data);
         } else {
             show_404();
@@ -325,22 +319,22 @@ class Sekolah extends CI_Controller {
     function form_editsekolah() {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             $npsn_nss = $this->input->get('npsn_nss');
-            $data['n1'] = $this->m_sekolahadmin->prov();
-            $data['n2'] = $this->m_sekolahadmin->getdatasekolah($npsn_nss);
+            $data['n1'] = $this->m_sekolahuser->prov();
+            $data['n2'] = $this->m_sekolahuser->getdatasekolah($npsn_nss);
             foreach ($data['n2'] as $row)
             {
                 $no_daerah = $row->no_daerah;
             }
-            $daerahku = $this->m_sekolahadmin->getdaerah($no_daerah);
+            $daerahku = $this->m_sekolahuser->getdaerah($no_daerah);
             foreach ($daerahku as $row)
             {
                 $nama_provinsi = $row->nama_provinsi;
                 $nama_kotakab = $row->nama_kota_kab;
                 $nama_kec = $row->nama_kec;
             }
-            $data['kabkota'] = $this->m_sekolahadmin->kotakab($nama_provinsi);
-            $data['kec'] = $this->m_sekolahadmin->kecamatan($nama_provinsi,$nama_kotakab);
-            $data['kel'] = $this->m_sekolahadmin->kelurahan($nama_provinsi,$nama_kotakab,$nama_kec);
+            $data['kabkota'] = $this->m_sekolahuser->kotakab($nama_provinsi);
+            $data['kec'] = $this->m_sekolahuser->kecamatan($nama_provinsi,$nama_kotakab);
+            $data['kel'] = $this->m_sekolahuser->kelurahan($nama_provinsi,$nama_kotakab,$nama_kec);
             $this->load->view(FOLDER_SD_USER.'form_editsekolah', $data);
         } else {
             show_404();
@@ -350,7 +344,7 @@ class Sekolah extends CI_Controller {
     function form_kepalasekolah(){
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 			$npsn_nss = $this->input->get('npsn_nss');
-			$data['n1'] = $this->m_sekolahadmin->getdatasekolah($npsn_nss);
+			$data['n1'] = $this->m_sekolahuser->getdatasekolah($npsn_nss);
 			$this->load->view(FOLDER_SD_USER.'form_kepalasekolah', $data);
             
         } else {
@@ -361,7 +355,7 @@ class Sekolah extends CI_Controller {
 	function form_hapuskepalasekolah() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 		  $npsn_nss = $this->input->get('npsn_nss');
-		  $data['n1'] = $this->m_sekolahadmin->getdatasekolah($npsn_nss);
+		  $data['n1'] = $this->m_sekolahuser->getdatasekolah($npsn_nss);
 		  $this->load->view(FOLDER_SD_USER.'form_hapuskepalasekolah', $data);
 	  } else {
 		  show_404();
@@ -370,7 +364,7 @@ class Sekolah extends CI_Controller {
     function ajax_data_sekolah() {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
-                $data = $this->m_sekolahadmin->sekolah_list();
+                $data = $this->m_sekolahuser->sekolah_list();
                 echo json_encode($data);
             }
 			else {

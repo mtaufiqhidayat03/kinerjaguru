@@ -1,5 +1,5 @@
 <?php
-class M_hasilkuisioneradmin extends CI_Model {
+class M_hasilkuisioneruser extends CI_Model {
 
     function deletehasilkuisioner($no_kuisioner){
         $this->db->where('no_kuisioner', $no_kuisioner);
