@@ -29843,7 +29843,7 @@ body {
     transition: all 0.3s ease
 }
 .kt-subheader {
-        margin: 10px 10px 0px 10px;
+        margin: 10px 10px 0px 0px;
 }
 .kt-header--fixed.kt-subheader--fixed .kt-subheader {
     position: fixed;

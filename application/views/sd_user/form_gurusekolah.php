@@ -23,7 +23,7 @@ if (jenisguru === "Guru Kelas") {
 </script>
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">Pilih Sekolah Untuk Guru</h5>
+<h5 class="modal-title">Pilih Jenis Guru</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -52,25 +52,27 @@ if (jenisguru === "Guru Kelas") {
 		<div class="form-group row">
 		<div class="kt-input-icon kt-input-icon--left">
 		<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-		<input name="nama_guru" id="nama_guru" type="text" size = "40" required readonly class="form-control" placeholder="Masukkan nama guru" value="<?php echo $baris->nama_guru;?>"></div></div></td>
+		<input name="nama_guru" id="nama_guru" type="text" size = "40" required readonly class="form-control" placeholder="Masukkan nama guru" value="<?php echo $baris->nama_guru;?>"></div></div>
+		</td>
     <td></td>
   </tr>
 <tr valign="top">
    <td height="60">&nbsp;</td>
     <td><label>Nama Sekolah</label></td>
     <td>:</td>
-    <td>
-    <div class="form-group row">
+    <td> 
+	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-    <select name="edit_gurusekolah" data-rel='chosen' class="form-control" id="edit_gurusekolah" required >
-	<option value=""></option>
-    </select>
-	</div>
-	</div>   
+	<input name="edit_gurusekolah2" id="edit_gurusekolah2" type="text" size = "40" required readonly class="form-control" placeholder="Masukkan nama sekolah" value="<?php echo $baris->nama_sekolah; ?>"></div></div> 
     </td>
     <td></td>
 	</tr>
+	<tr valign=top>
+    <td height="0" colspan="4" style="display:none">
+	<input name="edit_gurusekolah3" id="edit_gurusekolah3" class="form-control" type="text" required readonly value="<?php echo $baris->npsn_nss; ?>" placeholder="">
+	</td>
+  </tr>
 	<tr valign=top>
     <td height="60"></td>
     <td><label>Jenis Guru</label></td>
@@ -89,10 +91,8 @@ if (jenisguru === "Guru Kelas") {
       </div></div></td>
   </tr>
   <tr valign=top>
-    <td height="0"></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td height="0" colspan="4">
+	</td>
   </tr>
   <?php } ?>
 </table>
@@ -150,7 +150,7 @@ $(function() {
 			cache: false,
       		contentType: false,
       		processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>guru/aksieditgurusekolah",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>guru/aksieditgurusekolah",
 			data: databaru,
 				beforeSend: function(){
 				},

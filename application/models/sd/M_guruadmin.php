@@ -71,7 +71,7 @@ class M_guruadmin extends CI_Model {
 	$db = get_instance()->db->conn_id;
 	$params = $_REQUEST;
     $aColumns = array('nuptk','nuptk','nama_sekolah','nuptk', 'nama_guru', 'nip', 'karpeg', 'tempat_lahir', 'DATE_FORMAT(tgl_lahir, CONCAT(\'%e \', ELT(MONTH(tgl_lahir),"Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"), \' %Y\'))','pangkat_jabatan', 
-    'CONCAT(floor(datediff(CURDATE(), tmt_guru)/365),\' tahun \',floor((datediff(CURDATE(), tmt_guru)-(floor(datediff(CURDATE(), tmt_guru)/365)*365))/30),\' bulan \', (datediff(CURDATE(), tmt_guru) mod 30),\' hari\')','jenis_kelamin','pendidikan_terakhir','program_keahlian','jenis_guru','detail_guru','npsn_nss');
+    'CONCAT(floor(datediff(CURDATE(), tmt_guru)/365),\' tahun \',floor((datediff(CURDATE(), tmt_guru)-(floor(datediff(CURDATE(), tmt_guru)/365)*365))/30),\' bulan \', (datediff(CURDATE(), tmt_guru) mod 30),\' hari\')','jenis_kelamin','pendidikan_terakhir','program_keahlian','jenis_guru','detail_guru','npsn_nss','npsn_nss_guru_sd');
 	$sIndexColumn = "a.nuptk";
 	$sTable = "`".M_GURU_SD."` as a left join `".D_GURU_SD.$_SESSION["tahun"]."` as b ON a.nuptk=b.nuptk_guru_sd left join `".M_SD."` as c ON c.npsn_nss=b.npsn_nss_guru_sd ";
 	$sLimit = "";
@@ -147,7 +147,7 @@ class M_guruadmin extends CI_Model {
 		{
 			if ( $i == 1)
 			{
-				if ($aRow[$aColumns[14]] == "") {
+				if ($aRow[$aColumns[17]] == "") {
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
 				<a data-toggle='modal' href='guru/form_gurusekolah?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Sekolah</a>

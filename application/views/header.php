@@ -87,7 +87,7 @@
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="kt-header__topbar-user">
                            <span class="kt-header__topbar-username kt-hidden-mobile">
-						   <?php echo "Selamat Datang. ".$this->session->userdata['nama']; ?>
+						   <?php echo "".$this->session->userdata['nama']; ?>
 						   </span>
                            <img class="kt-hidden" alt="Pic" src="<?php echo base_url();?>assets/media/users/default.jpg"/>
                            <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
@@ -144,3 +144,18 @@
     </div>
 
     <!-- end:: Header -->
+<?php if (($this->session->userdata('level') == 'Guru') or ($this->session->userdata('level') == 'Kepsek')) { ?>
+	<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+	<div class="kt-subheader__main">
+	<h4 class="kt-subheader__title" style="font-weight:800 !important;font-size:1.4rem !important;color:#000000 !important">
+	<?php
+	$nuptk = $this->session->userdata("username");
+    $sql= "SELECT nama_sekolah FROM `".D_GURU_SD.$_SESSION["tahun"]."` as a left join `".M_SD."` as b ON b.npsn_nss=a.npsn_nss_guru_sd where nuptk_guru_sd=?";
+    $query=$this->db->query($sql, array($nuptk))->result();
+    foreach ($query as $row) {
+		echo "Sekolah : ".$row->nama_sekolah;
+	}
+	?>
+	</h4>
+	</div></div>
+	<?php } ?>

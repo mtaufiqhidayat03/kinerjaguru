@@ -13,9 +13,6 @@
             <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                 <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="0" data-ktmenu-dropdown-timeout="500">
 				<?php if ($this->session->userdata('level') !== "") { ?>
-				<h4 class="kt-menu__section-text" style="font-weight:800 !important;text-align:center">
-				<?php if ($this->session->userdata("sekolah")== "SD" ) { echo "Sekolah Dasar (SD)";}?>
-				</h4>
 				<ul class="kt-menu__nav ">
                         <li class="kt-menu__item  <?php if ($this->uri->segment(1)=="home") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url();?>home" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="flaticon-presentation"></i></span><span class="kt-menu__link-text">Beranda</span></a>
                         </li>

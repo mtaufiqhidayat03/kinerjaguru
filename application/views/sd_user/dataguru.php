@@ -55,21 +55,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 						<div class="kt-portlet__body">
 							<div class="form-group">
+							<?php if ($this->session->userdata("level") =="Kepsek") {?>
 							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 										href="<?php echo base_url().FOLDER_SD."guru/form_addguru";?>"
 										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
 										<i class="la la-plus"></i>
 										Tambah Data
-									</a>
-							<?php 
-							$npsn_nss = $this->input->get('npsn_nss');
-            				if (isset($npsn_nss) and $npsn_nss !== "") { 
-							?>
-							<a class="btn btn-brand btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."guru";?>"
-										 id="guru_semua">
-										<i class="flaticon-users-1"></i>
-										Tampilkan Semua Guru SD
 									</a>
 							<?php } ?>
 							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"

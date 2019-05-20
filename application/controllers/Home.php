@@ -11,7 +11,7 @@ class Home extends CI_Controller {
         error_reporting( 0 );
     }
     function index() {
-        if ($this->session->userdata('level') !== 'Guru') {
+        if (($this->session->userdata('level') == 'Administrator Kota') or ($this->session->userdata('level') == 'Administrator Sekolah')) {
             $this->load->view('v_homeadmin');
         } else {
             if ($this->session->userdata('sekolah')=='SD') {

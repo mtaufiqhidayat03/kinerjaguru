@@ -17,8 +17,8 @@
                     <!--begin::Portlet-->
                     <div class="kt-portlet kt-portlet--tab">
                         <div class="kt-portlet__body">
-                            <h5>Selamat Datang, <b><?php echo $this->session->userdata('nama') ?></b></h5>
-							<h5>Silahkan pilih tombol yang tersedia dibawah ini :</h5><br/>
+                            <h3>Selamat Datang, <b><?php echo $this->session->userdata('nama') ?></b></h3>
+							<h4>Silahkan pilih sekolah yang tersedia dibawah ini :</h4><br/>
 							<div class="row" style="min-height:400px;">
                 			<div class="col-md-6">
 							<a href="<?php echo base_url();?>sd/home" class="btn btn-warning btn-lg btn-elevate btn-elevate-air" style="padding:3rem 3rem !important;font-size: 1.5rem !important;"><i class="la la-bank"></i>SEKOLAH DASAR (SD)</a>

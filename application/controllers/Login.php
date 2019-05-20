@@ -11,7 +11,7 @@ class Login extends CI_Controller{
  
 	function index(){
 		if ($this->session->userdata("username") && $this->session->userdata("id_user") ) {
-            if (($this->session->userdata('level') == "Administrator Kota") or ($this->session->userdata('level') == "Administrator Sekolah")) {
+            if (($this->session->userdata('level') === "Administrator Kota") or ($this->session->userdata('level') === "Administrator Sekolah")) {
                 redirect(base_url("Home"));
             } else {
 				if ($this->session->userdata('sekolah') == "SD") {
@@ -61,19 +61,26 @@ class Login extends CI_Controller{
 			$levelnya = $row->level;
 			$nama_admin = $row->nama_administrator;
         }
-        // cek jika user adalah guru
-		$levelgurusd = $this->m_login->auth_guru($username)->num_rows();
+        // cek jika user adalah guru sd
+		$levelgurusd = $this->m_login->auth_guru($username)->num_rows();		
 		$levelgurusd2 = $this->m_login->auth_guru($username)->result();
 		foreach ($levelgurusd2 as $row)
         {
-            $nama_gurusd = $row->nama_guru;
+			$nama_gurusd = $row->nama_guru;
+			$nip_sd = $row->nip;
         }
+		// cek jika user adalah kepsek sd
+		$levelkepseksd = $this->m_login->check_if_kepseksd($nip_sd,$tahun)->num_rows();
+		// cek jika user adalah guru smp
 		$levelgurusmp = $this->m_login->auth_gurusmp($username)->num_rows();
 		$levelgurusmp2 = $this->m_login->auth_gurusmp($username)->result();
 		foreach ($levelgurusmp2 as $row)
         {
-            $nama_gurusmp = $row->nama_guru;
-        }
+			$nama_gurusmp = $row->nama_guru;
+			$nip_smp = $row->nip;
+		}
+		// cek jika user adalah kepsek smp
+		$levelkepseksmp = $this->m_login->check_if_kepseksmp($nip_smp,$tahun)->num_rows();
 		if($cek == 1){
 			$data_session = array(
 				'username' => $username,
@@ -85,7 +92,11 @@ class Login extends CI_Controller{
 			   $data_session['level'] = $levelnya;
 			   $data_session['nama'] = $nama_admin;
               } else if($levelgurusd == 1){
-				$data_session['level'] = "Guru";
+                if ($levelkepseksd == 1) {
+                    $data_session['level'] = "Kepsek";
+                } else {
+					$data_session['level'] = "Guru";
+				}
 				$data_session['sekolah'] = "SD";
 				$data_session['nama'] = $nama_gurusd;
               } else if($levelgurusmp == 1){

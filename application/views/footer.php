@@ -1472,6 +1472,61 @@ $('#hapus_data').on('show.bs.modal', function(e) {
 		}
 		});
 });	
+// DATA PRIBADI GURU
+<?php } else if ($this->uri->segment(2)=="pribadi") { ?>
+blockPageUI();
+$('document').ready(function() {
+	<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>	
+var Datepicker2 = function() {
+  var t;
+  t = KTUtil.isRTL() ? {
+    leftArrow: '<i class="la la-angle-right"></i>',
+    rightArrow: '<i class="la la-angle-left"></i>'
+  } : {
+    leftArrow: '<i class="la la-angle-left"></i>',
+    rightArrow: '<i class="la la-angle-right"></i>'
+  };
+  return {
+    init: function(event) {
+		$("#edittgl_lahir").datepicker({
+		rtl: KTUtil.isRTL(),
+		todayHighlight: !0,
+		language:"id",
+		orientation: "bottom left",
+		autoclose: true,
+		showOnFocus:true,
+		format:'yyyy-mm-dd'
+		});
+		$("#edittmt_guru").datepicker({
+        rtl: KTUtil.isRTL(),
+		todayHighlight: !0,
+		language:"id",
+        orientation: "bottom left",
+		autoclose: true,
+		showOnFocus:true,
+		format:'yyyy-mm-dd'
+	  });
+    }
+  }
+}(); 
+		if($(".datepicker").datepicker( "widget" ).is(":visible")){
+			$("div.datepicker.datepicker-inline").remove(); 
+		} else {
+            blockPageUI();
+            Datepicker2.init();
+            selectPlaceholder('#pangkat_jabatan');
+            unblockPageUI();
+        }		
+});
 <?php } ?>
 	$('.modal').on('shown.bs.modal', function () {
 		//unblockPageUI();

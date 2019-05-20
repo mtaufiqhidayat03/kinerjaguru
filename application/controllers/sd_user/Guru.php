@@ -27,7 +27,7 @@ class Guru extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
             //$data['n1'] = $this->m_guruuser->getsekolah(); 
-            $this->load->view(FOLDER_SD.'form_addguru');
+            $this->load->view(FOLDER_SD_USER.'form_addguru');
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -96,7 +96,7 @@ class Guru extends CI_Controller {
             $nuptk=$this->input->get('nuptk');
             //$data['n1'] = $this->m_guruuser->getsekolah(); 
             $data['n2'] = $this->m_guruuser->getdataguru($nuptk);
-            $this->load->view(FOLDER_SD.'form_editguru', $data);
+            $this->load->view(FOLDER_SD_USER.'form_editguru', $data);
         } else {
             show_404();
         }
@@ -107,7 +107,7 @@ class Guru extends CI_Controller {
 		  $nuptk=$this->input->get('nuptk');
 		  //$data['n1'] = $this->m_guruuser->getsekolah(); 
 		  $data['n2'] = $this->m_guruuser->getdataguru($nuptk);
-		  $this->load->view(FOLDER_SD.'form_gantipasswordguru', $data);
+		  $this->load->view(FOLDER_SD_USER.'form_gantipasswordguru', $data);
 	  } else {
 		  show_404();
 	  }
@@ -125,7 +125,7 @@ class Guru extends CI_Controller {
 		);
 		$data = $this->m_guruuser->updatepasswordguru($data_guru2, $nuptk);
 			if ($this->db->affected_rows() != 1) {
-				echo "Tidak ada data yang berhasil diinput";
+				echo "Password sama dengan sebelumnya. Tidak ada yang berubah";
 			} else {
 				echo $data;
 			}
@@ -138,14 +138,15 @@ class Guru extends CI_Controller {
 	} else {
 		show_404();
 	}
-}
+	}
 
 	function form_gurusekolah() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 		  $nuptk=$this->input->get('nuptk');
 		  //$data['n1'] = $this->m_guruuser->getsekolah(); 
-		  $data['n1'] = $this->m_guruuser->getdataguru($nuptk);
-		  $this->load->view(FOLDER_SD.'form_gurusekolah', $data);
+		 // $data['n1'] = $this->m_guruuser->getdataguru($nuptk);
+		  $data['n1'] = $this->m_guruuser->getdataguru2($nuptk);
+		  $this->load->view(FOLDER_SD_USER.'form_gurusekolah', $data);
 	  	} else {
 		  show_404();
 	  	}
@@ -232,7 +233,7 @@ class Guru extends CI_Controller {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             $nuptk = $this->input->get('nuptk');
             $data['n2'] = $this->m_guruuser->getdataguru($nuptk);
-            $this->load->view(FOLDER_SD.'form_hapusguru', $data);
+            $this->load->view(FOLDER_SD_USER.'form_hapusguru', $data);
         } else {
             show_404();
         }
@@ -269,7 +270,7 @@ class Guru extends CI_Controller {
 		  $data['n1'] = $this->m_guruuser->getdataguru($nuptk);
 		  $npsn_nss = $this->input->get('npsn_nss');
 		  $data['n2'] = $this->m_guruuser->namasekolah($npsn_nss);
-		  $this->load->view(FOLDER_SD.'form_hapusgurusekolah', $data);
+		  $this->load->view(FOLDER_SD_USER.'form_hapusgurusekolah', $data);
 	  } else {
 		  show_404();
 	  }
@@ -283,7 +284,7 @@ class Guru extends CI_Controller {
 	$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
 		if ($query->num_rows() == 1) {
 		$nuptk=$this->input->post('nuptk');
-		$data = $this->m_guruuser->deletegurusekolah($nuptk);
+		$data = $this->m_guruuser->deletejenisguru($nuptk);
 			if ($this->db->affected_rows() != 1) {
 			echo "Tidak ada data yang berhasil dihapus";
 			} else {
@@ -305,22 +306,18 @@ class Guru extends CI_Controller {
 			if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
 			{
 			$nuptk=$this->input->post('nuptk');
-			$edit_gurusekolah=$this->input->post('edit_gurusekolah');
+			$edit_gurusekolah=$this->input->post('edit_gurusekolah3');
 			$jenis_guru=$this->input->post('jenis_guru');
 			$detail_guru=$this->input->post('detail_guru');
-			$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
+			$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk, 'npsn_nss_guru_sd' => $edit_gurusekolah));
 			if ($jenis_guru === "Guru Kelas") {
-			$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru));
-			}	
-			if ($jenis_guru == "Guru Kelas") {
-				if ($query->num_rows() == 0 && $query2->num_rows() == 0) {	
+				$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru));
+				if ($query->num_rows() == 1 && $query2->num_rows() == 0) {	
 					$data_guru = array(  
-						'nuptk_guru_sd'=>$nuptk,            
-						'npsn_nss_guru_sd'=>$edit_gurusekolah,
 						'jenis_guru' => $jenis_guru,
 						'detail_guru' => $detail_guru
 					);
-					$data = $this->m_guruuser->updategurusekolah($data_guru);
+					$data = $this->m_guruuser->updategurusekolah($data_guru, $nuptk);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil diubah";
 					} else {
@@ -331,14 +328,12 @@ class Guru extends CI_Controller {
 					echo "Guru wali kelas sudah pada sekolah ini sudah digunakan";   
 				}
 			} else {
-				if ($query->num_rows() == 0) {
+				if ($query->num_rows() == 1) {
 					$data_guru = array(  
-							'nuptk_guru_sd'=>$nuptk,            
-							'npsn_nss_guru_sd'=>$edit_gurusekolah,
 							'jenis_guru' => $jenis_guru,
 							'detail_guru' => $detail_guru
 					);
-					$data = $this->m_guruuser->updategurusekolah($data_guru);
+					$data = $this->m_guruuser->updategurusekolah($data_guru, $nuptk);
 					if ($this->db->affected_rows() != 1) {
 					echo "Tidak ada data yang berhasil diubah";
 					} else {
@@ -360,14 +355,14 @@ class Guru extends CI_Controller {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 			if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
 			{
-            $npsn_nss = $this->input->get('npsn_nss');
-            if (isset($npsn_nss) and $npsn_nss !== "") { 
+			$nuptk = $this->session->userdata("username");
+			$cek = $this->m_guruuser->getdatasekolah2($nuptk);
+			foreach ($cek as $row)
+            {
+            $npsn_nss = $row->npsn_nss;
+           	}
             $data = $this->m_guruuser->guru_list($npsn_nss);
-            } 
-            else {
-            $npsn_nss = "";
-            $data = $this->m_guruuser->guru_list($npsn_nss);
-            }             
+                         
 			echo json_encode($data);
 			}
         } else {

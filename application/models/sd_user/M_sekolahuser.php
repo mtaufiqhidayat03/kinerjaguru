@@ -5,8 +5,14 @@ class M_sekolahuser extends CI_Model {
         $sql="SELECT * FROM `".M_SD."` as a left join master_daerah as b on a.no_daerah=b.no_daerah where npsn_nss=?";
         $query=$this->db->query($sql,array($npsn_nss));
         return $query->result();
-    }
-    
+	}
+	
+    function getdatasekolah2($nuptk) {
+		$sql= "SELECT * FROM `".D_GURU_SD.$_SESSION["tahun"]."` as a left join `".M_SD."` as b ON b.npsn_nss=a.npsn_nss_guru_sd left join master_daerah as c on b.no_daerah=c.no_daerah where nuptk_guru_sd=?";
+		$query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
+
     function prov(){
         $query=$this->db->query("SELECT nama_provinsi FROM master_daerah group by nama_provinsi");
         return $query->result();
@@ -102,43 +108,7 @@ class M_sekolahuser extends CI_Model {
         $this->db->insert(M_SD, $data_sekolah);
     }
     
-    function sekolah_list() {
-			/* Ordering
-	/* if ( isset($params['order'][0]['column']))
-	{
-		$sOrder = "ORDER BY cast(";
-		for ( $i=0 ; $i<intval( $this->input->post('iSortingCols') ) ; $i++ )
-		{
-			if ( $this->input->post('bSortable_'.intval($this->input->post('iSortCol_'.$i))) == "true )
-			{
-				$sOrder .= $aColumns[ intval( $this->input->post('iSortCol_'.$i)) ]." as unsigned)"."
-				 	".mysqli_real_escape_string( $db,$this->input->post('sSortDir_'.$i) ) .", ";
-			}
-		}
-		
-		$sOrder = substr_replace( $sOrder, "", -2 );
-		if ($sOrder == "ORDER BY")
-		{
-			$sOrder = "";
-		}
-	}  
-		
-	Individual column filtering 
-	for ( $i=0 ; $i<count($aColumns) ; $i++ )
-	{
-		if ( $this->input->post('searchable'.$i) == "true" && $this->input->post('search'.$i) != '' )
-		{
-			if ( $sWhere == "" )
-			{
-				$sWhere = "WHERE ";
-			}
-			else
-			{
-				$sWhere .= " AND ";
-			}
-			$sWhere .= $aColumns[$i]." LIKE '%".mysqli_real_escape_string($db,$this->input->post('search_'.$i))."%' ";
-		}
-	} */
+    function sekolah_list($npsn_nss) {
 	$db = get_instance()->db->conn_id;
 	$params = $_REQUEST;
 	$aColumns = array('npsn_nss','npsn_nss', 'npsn_nss', 'nama_guru', 'nip_kepala', 'nama_sekolah', 'telp_fax', 'nama_desa_kel', 'nama_kec', 'nama_kota_kab', 'nama_provinsi');
@@ -165,10 +135,10 @@ class M_sekolahuser extends CI_Model {
 	{
 		$sOrder = "";
 	}
-	
+	$sWhere = "where npsn_nss='".$npsn_nss."' ";
 	if (!empty($params['search']['value']))
 	{
-		$sWhere = "where (";
+		$sWhere .= "and (";
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
 			$sWhere .= $aColumns[$i]." LIKE '%".mysqli_real_escape_string( $db, $params['search']['value'])."%' OR ";
@@ -193,7 +163,7 @@ class M_sekolahuser extends CI_Model {
 	$iFilteredTotal = $aResultFilterTotal;
 	
 	/* Total data set length */
-	$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM  $sTable";
+	$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM  $sTable where npsn_nss='".$npsn_nss."'";
 	$rResultTotal = $this->db->query($sQuery);
 	$aResultTotal = $rResultTotal->row()->Count;
 	$iTotal = $aResultTotal;
@@ -211,27 +181,19 @@ class M_sekolahuser extends CI_Model {
 		{
 			if ( $i == 1)
 			{
-                if ($aRow[$aColumns[4]] == "") {
+					if ($this->session->userdata("level") == "Kepsek") {
                 	$row[] = "<div class='btn-group-vertical' role='group'>
 					<a data-toggle='modal' href='sekolah/form_editsekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-pen'></i> Edit Data</a>
-					<a data-toggle='modal'  href='sekolah/form_hapussekolah?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-eraser'></i> Hapus Data</a>	
-					<a data-toggle='modal' href='sekolah/form_kepalasekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#kepala_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air'  id='kepala-sekolah' data-id='".$aRow['npsn_nss']."'><i class='fa fa-binoculars'></i> Pilih Kepala Sekolah </a>
-					
 					<a href='guru?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Guru</a></div>
 					";
-                } else {
+					} else {
 					$row[] = "<div class='btn-group-vertical' role='group'>
-					<a data-toggle='modal' href='sekolah/form_editsekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-pen'></i> Edit Data</a>
-					<a data-toggle='modal'  href='sekolah/form_hapussekolah?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' data-target='#hapus_data' id='hapus-data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-eraser'></i> Hapus Data</a>					
-					<a data-toggle='modal' href='sekolah/form_hapuskepalasekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#hapus_datakepala' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapuskepala-sekolah' data-id='".$aRow['npsn_nss']."'><i class='fa fa-eraser'></i> Hapus Kepala Sekolah</a>
 					<a href='guru?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Guru</a></div>
 					";
-				}
+					}
 			}
 			else if ($aColumns[$i] != "")
 			{
-                //$cek = substr($aColumns[$i],strpos($aColumns[$i],".") + 1);
-				//$row[] = '<font size=3>'.$aRow[$cek].'</font>';
 				if ($aRow[$aColumns[$i]] == "" ) {
                     $row[] = '<span class="kt-badge kt-badge--inline kt-badge--danger" style="font-size:14px; font-weight:400">-</span>';
                 } else {

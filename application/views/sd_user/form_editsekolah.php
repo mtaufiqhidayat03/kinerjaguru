@@ -24,7 +24,7 @@ function rubah_()
 var opt = $('#nama_provinsi').find(':selected');
 var prov = opt.val();
 if (!prov) return;
-xmlhttp_.open('get', '<?php echo base_url().FOLDER_SD; ?>sekolah/ambildatakotakab?nama_provinsi='+prov, true);
+xmlhttp_.open('get', '<?php echo base_url().FOLDER_SD_USER; ?>sekolah/ambildatakotakab?nama_provinsi='+prov, true);
 
 xmlhttp_.onreadystatechange = function()
 {
@@ -44,7 +44,7 @@ var prov = opt.val();
 var opt2 = $('#editnama_kota_kab').find(':selected');
 var kotakab = opt2.val();
 if (!prov && !kotakab) return;
-xmlhttp2_.open('get', '<?php echo base_url().FOLDER_SD; ?>sekolah/ambildatakecamatan?nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
+xmlhttp2_.open('get', '<?php echo base_url().FOLDER_SD_USER; ?>sekolah/ambildatakecamatan?nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
 
 xmlhttp2_.onreadystatechange = function()
 {
@@ -64,7 +64,7 @@ var kotakab = opt2.val();
 var opt3 = $('#editnama_kecamatan').find(':selected');
 var kec = opt3.val();
 if (!prov && !kec && !kotakab) return;
-xmlhttp3_.open('get', '<?php echo base_url().FOLDER_SD; ?>sekolah/ambildatakelurahan?nama_kec='+kec+'&nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
+xmlhttp3_.open('get', '<?php echo base_url().FOLDER_SD_USER; ?>sekolah/ambildatakelurahan?nama_kec='+kec+'&nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
 
 xmlhttp3_.onreadystatechange = function()
 {
@@ -85,7 +85,7 @@ var kec = opt3.val();
 var opt4 = $('#editnama_kelurahan').find(':selected');
 var kel = opt4.val();
 if (!prov && !kel && !kec && !kotakab) return;
-xmlhttp4_.open('get', '<?php echo base_url().FOLDER_SD; ?>sekolah/ambildatanodaerah?nama_desa_kel='+kel+'&nama_kec='+kec+'&nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
+xmlhttp4_.open('get', '<?php echo base_url().FOLDER_SD_USER; ?>sekolah/ambildatanodaerah?nama_desa_kel='+kel+'&nama_kec='+kec+'&nama_kotakab='+kotakab+'&nama_provinsi='+prov, true);
 
 xmlhttp4_.onreadystatechange = function()
 {
@@ -288,7 +288,7 @@ $('.modal').on('shown.bs.modal', function() {
 			cache: false,
      		contentType: false,
      		processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>sekolah/aksieditsekolah",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>sekolah/aksieditsekolah",
 			data: databaru,
 				beforeSend: function(){
 				},

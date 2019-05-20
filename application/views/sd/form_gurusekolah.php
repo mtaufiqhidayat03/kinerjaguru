@@ -71,29 +71,6 @@ if (jenisguru === "Guru Kelas") {
     </td>
     <td></td>
 	</tr>
-	<tr valign=top>
-    <td height="60"></td>
-    <td><label>Jenis Guru</label></td>
-    <td>:</td>
-    <td>
-	<div class="form-group row">
-	<div class="kt-input-icon kt-input-icon--left">
-	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-        <select name="jenis_guru" data-rel='chosen'  class="form-control" required id="jenis_guru" onChange="javascript:rubah(this)">
-        <option value="">Pilih jenis guru dibawah ini</option>
-        <optgroup label="Guru Sekolah Dasar">
-        <option value="Guru Kelas">Guru Kelas</option>
-		<option value="Guru Mata Pelajaran">Guru Mata Pelajaran</option>
-        </optgroup>
-      </select>
-      </div></div></td>
-  </tr>
-  <tr valign=top>
-    <td height="0"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
   <?php } ?>
 </table>
 </form>

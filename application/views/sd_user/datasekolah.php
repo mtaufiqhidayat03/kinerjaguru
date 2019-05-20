@@ -53,15 +53,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							</div>
 						</div>
 						<div class="kt-portlet__body">
-							<div class="form-group">
-							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate btn-elevate-air"
-										href="<?php echo base_url().FOLDER_SD."sekolah/form_addsekolah";?>"
-										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
-										<i class="la la-plus"></i>
-										Tambah Data
-									</a>
-									&nbsp;
-							</div>
 							<div class="alert alert-warning data_sekolah" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_sekolah dataTables" id="data_sekolah" width=100%>
 								<thead>

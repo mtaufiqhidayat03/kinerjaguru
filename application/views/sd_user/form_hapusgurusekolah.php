@@ -11,7 +11,7 @@
 <?php foreach ($n1 as $row) { ?>
 <tr>
 <td width="2%"></td>
-    <td width="92%"><h4>Apakah anda ingin menghapus <b> <?php echo $row->nama_guru; ?> dari <?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h4></td>
+    <td width="92%"><h4>Apakah anda ingin menghapus jenis guru untuk <b> <?php echo $row->nama_guru; ?> di <?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h4></td>
     <td></td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@
 			async:true,
     	type: "POST",
 			data: $('form.form_hapus_dataguru').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>guru/aksihapusgurusekolah",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>guru/aksihapusgurusekolah",
 				beforeSend: function(){
 				},
         	success: function(data){

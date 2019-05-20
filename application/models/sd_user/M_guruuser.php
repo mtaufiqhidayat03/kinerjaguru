@@ -6,6 +6,18 @@ class M_guruuser extends CI_Model {
         $query=$this->db->query($sql,array($nuptk));
         return $query->result();
 	}
+
+	function getdataguru2($nuptk){
+        $sql="SELECT * FROM `".M_SD."` as a left join `".D_GURU_SD.$_SESSION["tahun"]."` as b  ON a.npsn_nss=b.npsn_nss_guru_sd left join `".M_GURU_SD."` as c ON b.nuptk_guru_sd=c.nuptk where nuptk_guru_sd=?";
+        $query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
+
+	function getdatasekolah2($nuptk) {
+		$sql= "SELECT * FROM `".D_GURU_SD.$_SESSION["tahun"]."` as a left join `".M_SD."` as b ON b.npsn_nss=a.npsn_nss_guru_sd left join master_daerah as c on b.no_daerah=c.no_daerah where nuptk_guru_sd=?";
+		$query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
 	
     function getsekolah() {
         $sql="SELECT npsn_nss,nama_sekolah FROM `".M_SD."`";
@@ -58,13 +70,16 @@ class M_guruuser extends CI_Model {
         $this->db->insert(M_USERS,$data_guru2);
 	}
 
-    function updategurusekolah($data_guru) {
-		$this->db->insert("`".D_GURU_SD.$this->session->userdata('tahun')."`", $data_guru);
+    function updategurusekolah($data_guru,$nuptk) {
+		$this->db->where('nuptk_guru_sd', $nuptk);
+		$this->db->update("`".D_GURU_SD.$this->session->userdata('tahun')."`",$data_guru);
 	}
 
-	function deletegurusekolah($nuptk){
-        $this->db->where('nuptk_guru_sd', $nuptk);
-        $this->db->delete("`".D_GURU_SD.$this->session->userdata('tahun')."`");
+	function deletejenisguru($nuptk){
+		$this->db->set('jenis_guru', '');
+		$this->db->set('detail_guru', '');
+		$this->db->where('nuptk_guru_sd', $nuptk);
+		$this->db->update("`".D_GURU_SD.$this->session->userdata('tahun')."`");
 	}
 	
     function guru_list($npsn_nss) {
@@ -95,17 +110,13 @@ class M_guruuser extends CI_Model {
 		$sOrder = "";
 	}
 
-    if (isset($npsn_nss) and $npsn_nss != "") {
-	   $sWhere = "where b.npsn_nss_guru_sd='".$npsn_nss."' ";
-	}
+   // if (isset($npsn_nss) and $npsn_nss != "") {
+	   $sWhere = "where npsn_nss_guru_sd='".$npsn_nss."' ";
+	//}
 
 	if (!empty($params['search']['value']))
 	{
-		if (isset($npsn_nss) and $npsn_nss != "") {
-            $sWhere = "where b.npsn_nss_guru_sd='".$npsn_nss."' and (";
-        } else {
-            $sWhere = "where (";
-        }
+        $sWhere .= "and (";
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
 			$sWhere .= $aColumns[$i]." LIKE '%".mysqli_real_escape_string( $db, $params['search']['value'])."%' OR ";
@@ -129,7 +140,7 @@ class M_guruuser extends CI_Model {
 	$iFilteredTotal = $aResultFilterTotal;
 	
 	/* Total data set length */
-	$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM  $sTable";
+	$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM  $sTable where npsn_nss_guru_sd='".$npsn_nss."'";
 	$rResultTotal = $this->db->query($sQuery);
 	$aResultTotal = $rResultTotal->row()->Count;
 	$iTotal = $aResultTotal;
@@ -150,7 +161,7 @@ class M_guruuser extends CI_Model {
 				if ($aRow[$aColumns[14]] == "") {
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_gurusekolah?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Sekolah</a>
+				<a data-toggle='modal' href='guru/form_gurusekolah?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Jenis Guru</a>
 				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 				<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
 				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
@@ -158,7 +169,7 @@ class M_guruuser extends CI_Model {
 				} else {
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>
+				<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Jenis Guru</a>
 				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 				<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
 				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>

@@ -216,7 +216,7 @@ $(function() {
 			cache: false,
             contentType: false,
             processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>guru/aksieditguru",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>guru/aksieditguru",
 			data: databaru,
 				beforeSend: function(){
 				},

@@ -127,7 +127,7 @@ class Guru extends CI_Controller {
 		);
 		$data = $this->m_guruadmin->updatepasswordguru($data_guru2, $nuptk);
 			if ($this->db->affected_rows() != 1) {
-				echo "Tidak ada data yang berhasil diinput";
+				echo "Password sama dengan sebelumnya. Tidak ada yang berubah";
 			} else {
 				echo $data;
 			}
@@ -308,31 +308,9 @@ class Guru extends CI_Controller {
 			{
 			$nuptk=$this->input->post('nuptk');
 			$edit_gurusekolah=$this->input->post('edit_gurusekolah');
-			$jenis_guru=$this->input->post('jenis_guru');
-			$detail_guru=$this->input->post('detail_guru');
+			$jenis_guru="";
+			$detail_guru="";
 			$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
-			if ($jenis_guru === "Guru Kelas") {
-			$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru));
-			}	
-			if ($jenis_guru == "Guru Kelas") {
-				if ($query->num_rows() == 0 && $query2->num_rows() == 0) {	
-					$data_guru = array(  
-						'nuptk_guru_sd'=>$nuptk,            
-						'npsn_nss_guru_sd'=>$edit_gurusekolah,
-						'jenis_guru' => $jenis_guru,
-						'detail_guru' => $detail_guru
-					);
-					$data = $this->m_guruadmin->updategurusekolah($data_guru);
-					if ($this->db->affected_rows() != 1) {
-					echo "Tidak ada data yang berhasil diubah";
-					} else {
-					echo $data;
-					}
-				}
-				else {
-					echo "Guru wali kelas sudah pada sekolah ini sudah digunakan";   
-				}
-			} else {
 				if ($query->num_rows() == 0) {
 					$data_guru = array(  
 							'nuptk_guru_sd'=>$nuptk,            
@@ -349,7 +327,7 @@ class Guru extends CI_Controller {
 				} else {
 					echo "Guru ini sudah mengajar di sekolah ini";   
 				}
-			}		
+					
 			}else{
 				echo "session_expired";
 			}

@@ -364,7 +364,13 @@ class Sekolah extends CI_Controller {
     function ajax_data_sekolah() {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
             if ($this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user'))) {
-                $data = $this->m_sekolahuser->sekolah_list();
+				$nuptk = $this->session->userdata("username");
+				$cek = $this->m_sekolahuser->getdatasekolah2($nuptk);
+				foreach ($cek as $row)
+            	{
+                $npsn_nss = $row->npsn_nss;
+           		}
+                $data = $this->m_sekolahuser->sekolah_list($npsn_nss);
                 echo json_encode($data);
             }
 			else {

@@ -6,11 +6,11 @@ $this->load->view(FOLDER_SD_USER.'panel_user.php');
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
         <!-- begin:: Subheader -->
-        <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <!--  <div class="kt-subheader   kt-grid__item" id="kt_subheader">
             <div class="kt-subheader__main">
                 <h4><i class="flaticon-presentation" style="padding-right:5px"></i>  Beranda </h4>
             </div>
-        </div>
+        </div> -->
         <!-- end:: Subheader -->
         <!-- begin:: Content -->
         <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
@@ -19,11 +19,11 @@ $this->load->view(FOLDER_SD_USER.'panel_user.php');
                     <!--begin::Portlet-->
                     <div class="kt-portlet kt-portlet--tab">
                         <div class="kt-portlet__body">
-                            <h5>Selamat Datang, <b><?php echo $this->session->userdata('nama') ?></b></h5>
-							<h5>Silahkan pilih menu yang tersedia yang terletak di sebelah kanan. Atau gunakan shortcut dibawah ini :</h5><br/>
+                            <h3>Selamat Datang, <b><?php echo $this->session->userdata('nama') ?></b></h3>
+							<h4>Silahkan pilih menu yang tersedia yang terletak di sebelah kanan. Atau gunakan shortcut dibawah ini :</h4><br/>
 							<div class="row" style="min-height:150px;">
                 			<div class="col-sm">
-							<a href="<?php echo base_url();?>home" class="btn btn-dark btn-lg btn-elevate btn-elevate-air"><i class="flaticon-presentation"></i>BERANDA</a>
+							<a href="<?php echo base_url();?>sd_user/pribadi" class="btn btn-dark btn-lg btn-elevate btn-elevate-air"><i class="flaticon2-user"></i>Data Pribadi</a>
 							</div>
 							<div class="col-sm">
 							<a href="<?php echo base_url();?>sd_user/sekolah" class="btn btn-warning btn-lg btn-elevate btn-elevate-air"><i class="la la-bank"></i>Data Sekolah</a>
