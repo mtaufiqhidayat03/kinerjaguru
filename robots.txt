@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /template/admin/
+Disallow: /template/kepsek/
+Disallow: /template/pengurus/
+Disallow: /template/TU/
+Disallow: /template/home/
+Disallow: /template/pegawai/
+Disallow: /template/guru/
+Disallow: /template/siswa/
+Disallow: /template/
+Disallow: /img/
+Disallow: /file/
+Disallow: /fileSK/
+Disallow: /assets/
+Disallow: /nilai/
