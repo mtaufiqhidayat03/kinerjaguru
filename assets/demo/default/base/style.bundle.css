@@ -32223,7 +32223,7 @@ body:not(.kt-aside--enabled) .kt-header-menu-wrapper .kt-header-logo {
 }
 }
 .kt-aside-menu .kt-menu__nav {
-    margin: 0;
+    margin: 1px;
     list-style: none;
     padding: 5px 0
 }
