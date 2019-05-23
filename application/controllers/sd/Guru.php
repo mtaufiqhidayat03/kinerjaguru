@@ -335,7 +335,103 @@ class Guru extends CI_Controller {
 				show_404();
 			}
 	}
-    
+
+	function form_gurumapel() {
+		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+		  $nuptk=$this->input->get('nuptk');
+		  $data['n1'] = $this->m_guruadmin->getdataguru2($nuptk);
+		  $this->load->view(FOLDER_SD.'form_gurumapel', $data);
+	  	} else {
+		  show_404();
+	  	}
+	}
+	 
+	function form_hapusgurumapel() {
+		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+		  $nuptk = $this->input->get('nuptk');
+		  $data['n1'] = $this->m_guruadmin->getdataguru($nuptk);
+		  $npsn_nss = $this->input->get('npsn_nss');
+		  $data['n2'] = $this->m_guruadmin->namasekolah($npsn_nss);
+		  $this->load->view(FOLDER_SD.'form_hapusgurumapel', $data);
+	  } else {
+		  show_404();
+	  }
+	}
+
+	function aksihapusgurusekolahmapel(){
+		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
+		{
+		$nuptk=$this->input->post('nuptk');
+		$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
+			if ($query->num_rows() == 1) {
+			$nuptk=$this->input->post('nuptk');
+			$data = $this->m_guruadmin->deletejenisgurumapel($nuptk);
+				if ($this->db->affected_rows() != 1) {
+				echo "Tidak ada data yang berhasil dihapus";
+				} else {
+				echo $data;
+				}
+			} else {
+			 echo "NPSN/NSS tidak ditemukan";   
+			}
+		}else{
+			echo "session_expired";
+		}
+		} else {
+			show_404();
+		}
+	}
+	
+	function aksieditgurusekolahmapel(){
+			if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+				if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
+				{
+				$nuptk=$this->input->post('nuptk');
+				$edit_gurusekolah=$this->input->post('edit_gurusekolah3');
+				$jenis_guru=$this->input->post('jenis_guru');
+				$detail_guru=$this->input->post('detail_guru');
+				$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk, 'npsn_nss_guru_sd' => $edit_gurusekolah));
+				if ($jenis_guru === "Guru Kelas") {
+					$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru,'npsn_nss_guru_sd' => $edit_gurusekolah));
+					if ($query->num_rows() == 1 && $query2->num_rows() == 0) {	
+						$data_guru = array(  
+							'jenis_guru' => $jenis_guru,
+							'detail_guru' => $detail_guru
+						);
+						$data = $this->m_guruadmin->updategurusekolahmapel($data_guru, $nuptk);
+						if ($this->db->affected_rows() != 1) {
+						echo "Tidak ada data yang berhasil diubah";
+						} else {
+						echo $data;
+						}
+					}
+					else {
+						echo "Guru wali kelas sudah pada sekolah ini sudah digunakan";   
+					}
+				} else {
+					if ($query->num_rows() == 1) {
+						$data_guru = array(  
+								'jenis_guru' => $jenis_guru,
+								'detail_guru' => $detail_guru
+						);
+						$data = $this->m_guruadmin->updategurusekolahmapel($data_guru, $nuptk);
+						if ($this->db->affected_rows() != 1) {
+						echo "Tidak ada data yang berhasil diubah";
+						} else {
+						echo $data;
+						}
+					} else {
+						echo "Guru ini sudah mengajar di sekolah ini";   
+					}
+				}		
+				}else{
+					echo "session_expired";
+				}
+				} else {
+					show_404();
+				}
+	}
     function ajax_data_guru() {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 			if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))

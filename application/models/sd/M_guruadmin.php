@@ -6,7 +6,13 @@ class M_guruadmin extends CI_Model {
         $query=$this->db->query($sql,array($nuptk));
         return $query->result();
 	}
-	
+
+	function getdataguru2($nuptk){
+        $sql="SELECT * FROM `".M_SD."` as a left join `".D_GURU_SD.$_SESSION["tahun"]."` as b  ON a.npsn_nss=b.npsn_nss_guru_sd left join `".M_GURU_SD."` as c ON b.nuptk_guru_sd=c.nuptk where nuptk_guru_sd=?";
+        $query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
+
     function getsekolah() {
         $sql="SELECT npsn_nss,nama_sekolah FROM `".M_SD."`";
         $query=$this->db->query($sql);
@@ -66,7 +72,19 @@ class M_guruadmin extends CI_Model {
         $this->db->where('nuptk_guru_sd', $nuptk);
         $this->db->delete("`".D_GURU_SD.$this->session->userdata('tahun')."`");
 	}
-	
+
+	function deletejenisgurumapel($nuptk){
+		$this->db->set('jenis_guru', '');
+		$this->db->set('detail_guru', '');
+		$this->db->where('nuptk_guru_sd', $nuptk);
+		$this->db->update("`".D_GURU_SD.$this->session->userdata('tahun')."`");
+	}
+
+	function updategurusekolahmapel($data_guru,$nuptk) {
+		$this->db->where('nuptk_guru_sd', $nuptk);
+		$this->db->update("`".D_GURU_SD.$this->session->userdata('tahun')."`",$data_guru);
+	}
+	  
     function guru_list($npsn_nss) {
 	$db = get_instance()->db->conn_id;
 	$params = $_REQUEST;
@@ -83,7 +101,6 @@ class M_guruadmin extends CI_Model {
 		}	
 	
 	//$sOrder =  " ORDER BY  `". $aColumns[$params['order'][0]['column']]."` ".$params['order'][0]['dir']."";
-
 	$sOrder = "ORDER BY  ";
 	for ( $i=0 ; $i<count($_POST['order']) ; $i++ )
 	{
@@ -148,21 +165,33 @@ class M_guruadmin extends CI_Model {
 			if ( $i == 1)
 			{
 				if ($aRow[$aColumns[17]] == "") {
-				$row[] = "
-				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_gurusekolah?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Sekolah</a>
-				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
-				<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
-				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
-				</div>";
+					$row[] = "
+					<div class='btn-group-vertical' role='group'>
+					<a data-toggle='modal' href='guru/form_gurusekolah?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Sekolah</a>
+					<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
+					<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
+					<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
+					</div>";				
 				} else {
-				$row[] = "
-				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>
-				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
-				<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
-				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
-				</div>";
+					if ($aRow[$aColumns[14]] == "") {
+						$row[] = 
+						"<div class='btn-group-vertical' role='group'>
+						<a data-toggle='modal' href='guru/form_gurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#guru_sekolahmapel' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Mapel/Kelas</a>
+						<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
+						<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>						
+						<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
+						<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
+						</div>";
+					} else {
+						$row[] = 
+						"<div class='btn-group-vertical' role='group'>
+						<a data-toggle='modal' href='guru/form_hapusgurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolahmapel' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus ".$aRow['jenis_guru']."</a>
+						<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
+						<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>						
+						<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
+						<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
+						</div>";
+					}
 				}
 			}
 			else if ($aColumns[$i] != "")

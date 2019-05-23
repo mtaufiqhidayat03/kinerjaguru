@@ -140,17 +140,17 @@ class Guru extends CI_Controller {
 	}
 	}
 
-	function form_gurusekolah() {
+	function form_gurumapel() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 		  $nuptk=$this->input->get('nuptk');
 		  //$data['n1'] = $this->m_guruuser->getsekolah(); 
 		 // $data['n1'] = $this->m_guruuser->getdataguru($nuptk);
 		  $data['n1'] = $this->m_guruuser->getdataguru2($nuptk);
-		  $this->load->view(FOLDER_SD_USER.'form_gurusekolah', $data);
+		  $this->load->view(FOLDER_SD_USER.'form_gurumapel', $data);
 	  	} else {
 		  show_404();
 	  	}
-	  }
+	}
 	  
   	function ambildatasekolahsd () {
 	if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
@@ -264,13 +264,13 @@ class Guru extends CI_Controller {
         }
 	}  
 	
-	function form_hapusgurusekolah() {
+	function form_hapusgurumapel() {
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 		  $nuptk = $this->input->get('nuptk');
 		  $data['n1'] = $this->m_guruuser->getdataguru($nuptk);
 		  $npsn_nss = $this->input->get('npsn_nss');
 		  $data['n2'] = $this->m_guruuser->namasekolah($npsn_nss);
-		  $this->load->view(FOLDER_SD_USER.'form_hapusgurusekolah', $data);
+		  $this->load->view(FOLDER_SD_USER.'form_hapusgurumapel', $data);
 	  } else {
 		  show_404();
 	  }
@@ -311,7 +311,7 @@ class Guru extends CI_Controller {
 			$detail_guru=$this->input->post('detail_guru');
 			$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk, 'npsn_nss_guru_sd' => $edit_gurusekolah));
 			if ($jenis_guru === "Guru Kelas") {
-				$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru));
+				$query2 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru,'npsn_nss_guru_sd' => $edit_gurusekolah));
 				if ($query->num_rows() == 1 && $query2->num_rows() == 0) {	
 					$data_guru = array(  
 						'jenis_guru' => $jenis_guru,

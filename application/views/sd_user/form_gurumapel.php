@@ -8,12 +8,6 @@ if (jenisguru === "Guru Kelas") {
 	$('#guru_sekolah tr:last').remove();
 	$('#guru_sekolah tr:last').after(
 	'<tr valign="top"><div id="detail_kelas" style="display:none"><td></td><td><label>Wali Kelas</label></td><td>:</td><td><div class="form-group row"><div class="kt-input-icon kt-input-icon--left"><span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span><select name="detail_guru" data-rel="chosen" class="form-control" required id="detail_guru" ><option value="">Pilih kelas dibawah ini</option><optgroup label="Kelas Sekolah Dasar"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></optgroup></select></div></div></td><td></td></div></tr>');
-	/* $("#detail_kelas").css('height','70');
-	$("#detail_kelas").css('display','visible');
-	$("#kelas_guru").attr("disabled", false);
-	$("#detail_mapel").css('height','0');
-	$("#guru_sekolah tr #detail_mapel").css('display','none');
-	$("#detail_guru").attr("disabled", true); */
 } else {
 	$('#guru_sekolah tr:last').remove();
 	$('#guru_sekolah tr:last').after(
@@ -101,7 +95,7 @@ if (jenisguru === "Guru Kelas") {
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_guru"><i class="fa fa-pen"></i> Pilih Sekolah</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_guru"><i class="fa fa-pen"></i> Pilih Jenis Guru</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>

@@ -11,7 +11,7 @@
 <?php foreach ($n1 as $row) { ?>
 <tr>
 <td width="2%"></td>
-    <td width="92%"><h4>Apakah anda ingin menghapus <b> <?php echo $row->nama_guru; ?> dari <?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h4></td>
+    <td width="92%"><h5>Apakah anda ingin menghapus <b> <?php echo $row->nama_guru; ?> untuk mengajar di <?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h5></td>
     <td></td>
     </tr>
     <tr>
@@ -52,13 +52,13 @@
       			 }, false);
 			 return xhr;
    			 },
-			async:true,
-    	type: "POST",
-			data: $('form.form_hapus_dataguru').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>guru/aksihapusgurusekolah",
+				async:true,
+				type: "POST",
+				data: $('form.form_hapus_dataguru').serialize(),
+				url: "<?php echo base_url().FOLDER_SD;?>guru/aksihapusgurusekolah",
 				beforeSend: function(){
 				},
-        	success: function(data){
+        		success: function(data){
 				if (data != "") {
 				toastr.options = {
   				"closeButton": true,

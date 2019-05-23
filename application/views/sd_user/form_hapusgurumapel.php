@@ -1,7 +1,7 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user") ) { ?>
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">Hapus Sekolah Tempat Mengajar</h5>
+<h5 class="modal-title">Hapus Mata Pelajaran/Kelas</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -11,7 +11,7 @@
 <?php foreach ($n1 as $row) { ?>
 <tr>
 <td width="2%"></td>
-    <td width="92%"><h4>Apakah anda ingin menghapus jenis guru untuk <b> <?php echo $row->nama_guru; ?> di <?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h4></td>
+    <td width="92%"><h5>Apakah anda ingin menghapus <b> <?php echo $row->nama_guru; ?></b> untuk mengajar mata pelajaran/kelas di <b><?php foreach ($n2 as $row2) { echo $row2->nama_sekolah; }?></b> ?</h5></td>
     <td></td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
 			 return xhr;
    			 },
 			async:true,
-    	type: "POST",
+    		type: "POST",
 			data: $('form.form_hapus_dataguru').serialize(),
 			url: "<?php echo base_url().FOLDER_SD_USER;?>guru/aksihapusgurusekolah",
 				beforeSend: function(){

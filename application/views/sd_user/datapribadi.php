@@ -37,7 +37,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 		<!-- begin:: Content -->
 		<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 		<div class="row">
-				<div class="col-xl-6">
+				<div class="col-md-6">
 				<div class="row">
 				<div class="col-sm-12 col-md-12 col-xl-12">
 					<!--begin::Portlet-->
@@ -176,7 +176,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					</div>
 					</div>
 					</div>
-				<div class="col-xl-6">
+				<div class="col-md-6">
 				<div class="row">
 				<div class="col-sm-12 col-md-12 col-xl-12">
 					<!--begin::Portlet-->

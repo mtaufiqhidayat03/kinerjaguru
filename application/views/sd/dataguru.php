@@ -276,6 +276,42 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							min-width: 850px;
 						}
 
+						#hapusguru_sekolahmapel .portlet-body {
+							min-width: 400px;
+						}
+
+						#hapusguru_sekolahmapel .modal-dialog {
+							width: 70%;
+							height: 50%;
+							
+							margin: auto;
+							position: absolute;
+							top: 0;
+							left: 0;
+							bottom: 0;
+							right: 0;
+						}
+
+						#hapusguru_sekolahmapel .modal-body {
+							max-height: 520px;
+							/* Firefox */
+							max-height: -moz-calc(100vh - 120px);
+							/* WebKit */
+							max-height: -webkit-calc(100vh - 120px);
+							/* Opera */
+							max-height: -o-calc(100vh - 120px);
+							/* Standard */
+							max-height: calc(100vh - 120px);
+							/* IE-OLD */
+							max-height: expression(100vh - 120px);
+							overflow-y: auto;
+							overflow-x: auto;
+						}
+
+						#hapusguru_sekolahmapel .portlet-body {
+							min-width: 400px;
+						}
+
 						#aktifkan_data .modal-dialog {
 							width: 65%;
 							height: 50%;
@@ -475,6 +511,41 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						#ganti_password .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
+						#guru_sekolahmapel .modal-dialog {
+							width: 60%;
+							height: 100%;
+							
+							margin: auto;
+							position: absolute;
+							top: 0;
+							left: 0;
+							bottom: 0;
+							right: 0;
+							padding-top:10px;
+						}
+						#guru_sekolahmapel .modal-body {
+							max-height: 600px;
+							/* Firefox */
+							max-height: -moz-calc(100vh - 170px);
+							/* WebKit */
+							max-height: -webkit-calc(100vh - 170px);
+							/* Opera */
+							max-height: -o-calc(100vh - 170px);
+							/* Standard */
+							max-height: calc(100vh - 170px);
+							/* IE-OLD */
+							max-height: expression(100vh - 170px);
+							overflow-y: auto;
+							overflow-x: auto;
+						}
+
+						#guru_sekolahmapel .portlet-body {
+							min-width: 750px;
+						}
+
+						#guru_sekolahmapel .modal-footer {
+							border-bottom: 1px solid #e5e5e5;
+						}
 					</style>
 					<div class="modal fade" id="tambah_data2" tabindex="-1" role="dialog" style="display: none;"
 						aria-hidden="true">
@@ -541,6 +612,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 					</div>
 					<!-- END MODAL -->
+					<div class="modal fade" id="hapusguru_sekolahmapel" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+								</div>
+								<div class="modal-body form">
+								</div>
+								<div class="modal-footer">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL -->
 					<div class="modal fade" id="ganti_password" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -594,6 +678,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					</div>
 					<!-- END MODAL -->
 					<div class="modal fade" id="guru_sekolah" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+								</div>
+								<div class="modal-body form">
+								</div>
+								<div class="modal-footer">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL -->
+					<div class="modal fade" id="guru_sekolahmapel" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">

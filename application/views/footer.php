@@ -591,6 +591,52 @@ $('#guru_sekolah').on('shown.bs.modal', function(e) {
 		}
 		});
 });
+
+$('#guru_sekolahmapel').on('show.bs.modal', function(e) {
+	blockPageUI();
+	<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#guru_sekolahmapel').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});
+
+$('#hapusguru_sekolahmapel').on('show.bs.modal', function(e) {
+	blockPageUI();
+	<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#hapusguru_sekolahmapel').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});
 // DATA ASSESOR
 <?php } else if ($this->uri->segment(2)=="assesor") { ?>
 	$('#tambah_data').on('shown.bs.modal', function(e) {
