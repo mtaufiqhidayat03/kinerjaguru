@@ -32,10 +32,10 @@
 		<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
 		<input name="nama_sekolah" id="nama_sekolah" type="text" size = "40" required readonly class="form-control" placeholder="Masukkan nama sekolah" value="<?php echo $baris->nama_sekolah;?>"></div></div></td>
     <td></td>
-  </tr>
+	</tr>
 <tr valign="top">
    <td height="50"></td>
-    <td valign="top"><label>Kepala Sekolah</label></td>
+    <td valign="top"><label>Kepala Sekolah</label><br/><small>Diambil dari guru yang berada pada sekolah bersangkutan</small></td>
     <td valign="top">:</td>
     <td valign="top">
     <div class="form-group row">
@@ -143,7 +143,6 @@
 					$('#kepala_sekolah').modal('hide');
 					$('#kepala_sekolah').on('hidden.bs.modal', function(){
 					$("input:checked").parent().removeClass("checked").find("span").html("");
-					//$('#keaktifan').find('option').remove().end().append('<option value="">Pilih keaktifan sekolah</option>');
 					$(this).find('form')[0].reset();
 					unblockPageUI();
 					});

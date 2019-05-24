@@ -101,16 +101,6 @@ var DatatablesDataSourceAjaxServer = function() {
 			//responsive: false,
 			//scrollX:!0,
 			//scrollCollapse:!0,
-			//buttons:true,
-			//buttons: [
-			//	{
-			//			text: 'My button',
-			//			action: function ( e, dt, node, config ) {
-			//					alert( 'Button activated' );
-			//			}
-			//	}
-			// ],
-			//scrollX: "100%",
 			ajax: {
                 url : "sekolah/ajax_data_sekolah",
                 type: 'post',
@@ -176,25 +166,19 @@ var DatatablesDataSourceAjaxServer = function() {
 					}
 			  },           
 		});
-		var npsn_nss = getURLParameter('npsn_nss');
-		if ((npsn_nss !== null)) {
-			var alamaturlguru = "guru/ajax_data_guru?npsn_nss="+npsn_nss;
-		} else {
-			var alamaturlguru = "guru/ajax_data_guru";	
-		}
 		var table2 = $('#data_guru');
 		table2.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'desc']],
+			order: [[2, 'desc'],[4,'asc']],
 			pageLength: 10,
 			autoWidth: false,
 			responsive: true,
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url : alamaturlguru,	
-                type: 'post',
+				url : "guru/ajax_data_guru",	
+        type: 'post',
 			},
 			"aoColumnDefs": [
 				{"bSortable":false, "className": "dt-center", "aTargets": [1] },

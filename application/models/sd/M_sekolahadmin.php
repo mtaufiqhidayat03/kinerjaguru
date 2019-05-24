@@ -12,9 +12,12 @@ class M_sekolahadmin extends CI_Model {
         return $query->result();
 	}
 
-	function datagurusd($search, $page){
-		$array = array('nama_guru' => $search, 'nip' => $search);
-		$this->db->or_like($array);
+	function datagurusd($search, $page, $npsn_nss){
+		$this->db->select('nip,nama_guru');
+		$this->db->from(D_GURU_SD.$this->session->userdata('tahun'));	
+		$this->db->where('npsn_nss_guru_sd', $npsn_nss);	
+		$this->db->where("(nama_guru like '%".$search."%' ESCAPE '!' OR nuptk like '%".$search."%' ESCAPE '!')");	 
+		$this->db->join(M_GURU_SD, M_GURU_SD.'.nuptk='.D_GURU_SD.$this->session->userdata('tahun').'.nuptk_guru_sd', 'left');	
 		if ($page == 1) {
 			$pageku = $page - 1;
             $this->db->limit($page*10, $pageku);
@@ -22,7 +25,7 @@ class M_sekolahadmin extends CI_Model {
 			$pageku = ($page - 1) * 10;
 			$this->db->limit($page*10, $pageku);
 		}		
-		$query2=$this->db->get(M_GURU_SD);
+		$query2=$this->db->get();
         return $query2->result();
 	}
 	

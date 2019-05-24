@@ -245,10 +245,27 @@ class Guru extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
         $nuptk = $this->input->post('nuptk');
-        $query = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
+		$query = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
+		$query2 = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
+		foreach ($query2->result() as $row)
+		{
+			$nipkepala = $row->nip;
+		}
+		$query4 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
+		$query3 = $this->db->get_where("`".D_SD.$this->session->userdata('tahun')."`", array('nip_kepala' => $nipkepala));
             if ($query->num_rows() == 1) {
-            $nuptk = $this->input->post('nuptk');
-            $data = $this->m_guruadmin->deleteguru($nuptk);
+			if ($query3->num_rows() == 1) {
+				$data = $this->m_guruadmin->deleteguru($nuptk);
+				$data = $this->m_guruadmin->deletekepalasekolah($nipkepala);
+				if ($query4->num_rows() == 1) {
+					$data = $this->m_guruadmin->deleteguru2($nuptk);
+				}
+			} else {
+				$data = $this->m_guruadmin->deleteguru($nuptk);
+				if ($query4->num_rows() == 1) {
+					$data = $this->m_guruadmin->deleteguru2($nuptk);
+				}
+			}            
                 if ($this->db->affected_rows() != 1) {
                 echo "Tidak ada data yang berhasil dihapus";
                 } else {
@@ -283,9 +300,19 @@ class Guru extends CI_Controller {
 	{
 	$nuptk=$this->input->post('nuptk');
 	$query = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
+	$query2 = $this->db->get_where("`".M_GURU_SD."`", array('nuptk' => $nuptk));
+	foreach ($query2->result() as $row)
+		{
+			$nipkepala = $row->nip;
+		}
+	$query3 = $this->db->get_where("`".D_SD.$this->session->userdata('tahun')."`", array('nip_kepala' => $nipkepala));
 		if ($query->num_rows() == 1) {
-		$nuptk=$this->input->post('nuptk');
-		$data = $this->m_guruadmin->deletegurusekolah($nuptk);
+		if ($query3->num_rows() == 1) {
+			$data = $this->m_guruadmin->deletegurusekolah($nuptk);
+			$data = $this->m_guruadmin->deletekepalasekolah($nipkepala);
+		} else {
+			$data = $this->m_guruadmin->deletegurusekolah($nuptk);
+		}
 			if ($this->db->affected_rows() != 1) {
 			echo "Tidak ada data yang berhasil dihapus";
 			} else {

@@ -53,7 +53,12 @@ class M_guruadmin extends CI_Model {
         $this->db->where('nuptk', $nuptk);
 		$this->db->delete(M_GURU_SD);
 		$this->db->where('username', $nuptk);
-        $this->db->delete(M_USERS);
+		$this->db->delete(M_USERS);
+	}
+	
+	function deleteguru2($nuptk){
+		$this->db->where('nuptk_guru_sd', $nuptk);
+        $this->db->delete("`".D_GURU_SD.$this->session->userdata('tahun')."`");
     }
     
     function addguru($data_guru) {
@@ -70,9 +75,14 @@ class M_guruadmin extends CI_Model {
 
 	function deletegurusekolah($nuptk){
         $this->db->where('nuptk_guru_sd', $nuptk);
-        $this->db->delete("`".D_GURU_SD.$this->session->userdata('tahun')."`");
+		$this->db->delete("`".D_GURU_SD.$this->session->userdata('tahun')."`");
 	}
 
+	function deletekepalasekolah($nipkepala){
+        $this->db->where('nip_kepala', $nipkepala);
+        $this->db->delete("`".D_SD.$this->session->userdata('tahun')."`");
+	}
+	
 	function deletejenisgurumapel($nuptk){
 		$this->db->set('jenis_guru', '');
 		$this->db->set('detail_guru', '');

@@ -324,6 +324,7 @@ $('#kepala_sekolah').on('shown.bs.modal', function(e) {
 		<?php  } ?>			
 		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
 		if (xhr.status == 200) {
+			var npsn_nss = $('#npsn_nss').val();
 			$(function(){
 			$('#editkepala_sekolah').select2({
 					allowClear: true,
@@ -336,16 +337,16 @@ $('#kepala_sekolah').on('shown.bs.modal', function(e) {
 						data: function (params) {
 						var query = {
 							search: params.term || '',
-							page: params.page || 1
+							page: params.page || 1,
+							npsn_nss : npsn_nss
 							} // Query parameters will be ?search=[term]&page=[page]
 						return query;
 						},
 						cache: true,
-						}
+						},
 			});
-			});
-			unblockPageUI();
-			
+			});		
+			unblockPageUI();	
 		} else {
 			koneksierror();
 			setTimeout(function(){ $('#kepala_sekolah').modal('hide');}, 1000);
@@ -367,10 +368,10 @@ $('#kepala_sekolah').on('shown.bs.modal', function(e) {
   return {
     init: function(event) {
 		$("#tgl_lahir").datepicker({
-        rtl: KTUtil.isRTL(),
+    rtl: KTUtil.isRTL(),
 		todayHighlight: !0,
 		language:"id",
-        orientation: "bottom left",
+    orientation: "bottom left",
 		autoclose: true,
 		showOnFocus:true,		
 		format:'yyyy-mm-dd',
@@ -380,10 +381,10 @@ $('#kepala_sekolah').on('shown.bs.modal', function(e) {
 		defaultViewDate: new Date(1970,01,01) 
 		});
 		$("#tmt_guru").datepicker({
-        rtl: KTUtil.isRTL(),
+    rtl: KTUtil.isRTL(),
 		todayHighlight: !0,
 		language:"id",
-        orientation: "bottom left",
+    orientation: "bottom left",
 		autoclose: true,
 		showOnFocus:true,
 		format:'yyyy-mm-dd',
@@ -566,7 +567,7 @@ $('#guru_sekolah').on('shown.bs.modal', function(e) {
        		$('#edit_gurusekolah, #edit_gurusekolah_validate').select2({
          	 	// minimumInputLength: 1,
           	 	allowClear: true,
-		   		language: "id",
+		   				language: "id",
            		placeholder: 'Pilih sekolah dengan masukkan nama sekolah atau NPSN/NSS',
            		ajax: {
               	dataType: 'json',
@@ -574,7 +575,7 @@ $('#guru_sekolah').on('shown.bs.modal', function(e) {
 			  		delay: 500,
 			  		data: function (params) {
       				var query = {
-					search: params.term || '',
+							search: params.term || '',
         			page: params.page || 1
      				} // Query parameters will be ?search=[term]&page=[page]
 				  	return query;
@@ -658,15 +659,15 @@ $('#hapusguru_sekolahmapel').on('show.bs.modal', function(e) {
 			$(function(){
 			$('#assesor').select2({	
            	allowClear: true,
-		   	language: "id",
+		   			language: "id",
           	placeholder: 'Pilih salah satu assesor',
            	ajax: {
               dataType: 'json',
               url: 'assesor/ambildataassesor',
-			  delay: 500,
-			  data: function (params) {
+			 			delay: 500,
+			  		data: function (params) {
       				var query = {
-					search: params.term || '',
+							search: params.term || '',
         			page: params.page || 1
      				} // Query parameters will be ?search=[term]&page=[page]
 				  return query;
@@ -687,11 +688,11 @@ $('#hapusguru_sekolahmapel').on('show.bs.modal', function(e) {
               url: 'assesor/ambildatagurudinilai',
 			  //delay: 500,
 			  data: function (params) {
-      				var query = {
+      		var query = {
 					search: params.term || '',
 					page: params.page || 1,
 					assesor: assesor
-     				} 
+     			} 
 				  return query;
 				},
 				cache: true,

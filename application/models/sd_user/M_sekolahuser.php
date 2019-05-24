@@ -124,7 +124,6 @@ class M_sekolahuser extends CI_Model {
 
 	//$sOrder =  " ORDER BY `". $aColumns[$params['order'][0]['column']]."` ".$params['order'][0]['dir']."";
 	$sOrder = "ORDER BY  ";
-
 	for ( $i=0 ; $i<count($_POST['order']) ; $i++ )
 	{
 		$sOrder .= "`".$aColumns[$params['order'][$i]['column']]."` ".$params['order'][$i]['dir'].", ";

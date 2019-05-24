@@ -44,7 +44,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
 						<i class="flaticon-users-1" style="padding-right:5px"></i> Data Guru 
-						<?php foreach($n20 as $baris) { echo $baris->nama_sekolah; } ?>
+						<?php //foreach($n20 as $baris) { echo $baris->nama_sekolah; } ?>
 						</h3>
 						</div>
 							<div class="kt-portlet__head-toolbar">
@@ -55,14 +55,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 						<div class="kt-portlet__body">
 							<div class="form-group">
-							<?php if ($this->session->userdata("level") =="Kepsek") {?>
-							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."guru/form_addguru";?>"
+							<?php // if ($this->session->userdata("level") =="Kepsek") {?>
+							<!-- <a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+										href="<?php //echo base_url().FOLDER_SD."guru/form_addguru";?>"
 										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
 										<i class="la la-plus"></i>
 										Tambah Data
-									</a>
-							<?php } ?>
+									</a> -->
+							<?php // } ?>
 							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 										href="<?php echo base_url().FOLDER_SD."sekolah";?>"
 										 id="sekolah_semua">

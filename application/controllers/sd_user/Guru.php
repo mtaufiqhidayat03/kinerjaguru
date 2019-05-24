@@ -22,7 +22,7 @@ class Guru extends CI_Controller {
         }
     }
         
-    function form_addguru(){
+   /* function form_addguru(){
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
@@ -89,7 +89,7 @@ class Guru extends CI_Controller {
         } else {
             show_404();
         }
-    }
+    } */
     
     function form_editguru() {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
@@ -244,10 +244,27 @@ class Guru extends CI_Controller {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
         $nuptk = $this->input->post('nuptk');
-        $query = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
-            if ($query->num_rows() == 1) {
-            $nuptk = $this->input->post('nuptk');
-            $data = $this->m_guruuser->deleteguru($nuptk);
+		$query = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
+		$query2 = $this->db->get_where(M_GURU_SD, array('nuptk' => $nuptk));
+		foreach ($query2->result() as $row)
+		{
+			$nipkepala = $row->nip;
+		}
+		$query4 = $this->db->get_where("`".D_GURU_SD.$this->session->userdata('tahun')."`", array('nuptk_guru_sd' => $nuptk));
+		$query3 = $this->db->get_where("`".D_SD.$this->session->userdata('tahun')."`", array('nip_kepala' => $nipkepala));
+            if ($query->num_rows() == 1) {		
+			if ($query3->num_rows() == 1) {
+				$data = $this->m_guruuser->deleteguru($nuptk);
+				$data = $this->m_guruuser->deletekepalasekolah($nipkepala);
+				if ($query4->num_rows() == 1) {
+					$data = $this->m_guruuser->deleteguru2($nuptk);
+				}
+			} else {
+				$data = $this->m_guruuser->deleteguru($nuptk);
+				if ($query4->num_rows() == 1) {
+					$data = $this->m_guruuser->deleteguru2($nuptk);
+				}
+			}		
                 if ($this->db->affected_rows() != 1) {
                 echo "Tidak ada data yang berhasil dihapus";
                 } else {

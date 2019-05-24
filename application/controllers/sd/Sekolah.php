@@ -24,8 +24,9 @@ class Sekolah extends CI_Controller {
 		if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
 		{
 		$search = $this->input->get('search');
-		$page = $this->input->get('page');
-		$data = $this->m_sekolahadmin->datagurusd($search, $page);
+        $page = $this->input->get('page');
+        $npsn_nss = $this->input->get('npsn_nss');
+		$data = $this->m_sekolahadmin->datagurusd($search, $page, $npsn_nss);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -39,9 +40,9 @@ class Sekolah extends CI_Controller {
 		$sIndexColumn = "nuptk";
 		$page2 = $page * 10;
 		if ($search !== "" ) {
-			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".M_GURU_SD."` where nip like '%".$search."%' or nama_guru like '%".$search."%'";
+			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".M_GURU_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b ON a.nuptk=b.nuptk_guru_sd where npsn_nss_guru_sd='".$npsn_nss."' and (nip like '%".$search."%' or nama_guru like '%".$search."%')";
 		} else {
-            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".M_GURU_SD."`";
+            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".M_GURU_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b ON a.nuptk=b.nuptk_guru_sd where npsn_nss_guru_sd='".$npsn_nss."'";
         }
 		$rResultTotal = $this->db->query($sQuery);
 		$aResultTotal = $rResultTotal->row()->Count;
