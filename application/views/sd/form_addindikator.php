@@ -73,18 +73,6 @@ function rubah()
 	<td></td>
   </tr>
   <tr valign=top>
-    <td width="6" height="60"></td>
-    <td width="175"><label>Nama Indikator</label></td>
-    <td width="16">:</td>
-    <td width="378">
-	<div class="form-group row">
-	<div class="kt-input-icon kt-input-icon--left">
-	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-	<input name="nama_indikator" type="text" required class="form-control" id="nama_indikator" placeholder="Silahkan masukkan nama indikator"></div></div>
-	</td>
-	<td width="10"></td>
-  </tr>
-  <tr valign=top>
     <td height="60"></td>
     <td>
     <label>No Urut Indikator</label></td>
@@ -97,6 +85,18 @@ function rubah()
     </div></div>
 	</td>
 	<td></td>
+  </tr>
+  <tr valign=top>
+    <td width="6" height="60"></td>
+    <td width="175"><label>Nama Indikator</label></td>
+    <td width="16">:</td>
+    <td width="378">
+	<div class="form-group row">
+	<div class="kt-input-icon kt-input-icon--left">
+	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
+	<input name="nama_indikator" type="text" required class="form-control" id="nama_indikator" placeholder="Silahkan masukkan nama indikator"></div></div>
+	</td>
+	<td width="10"></td>
   </tr>
   <tr valign=top>
     <td height="60"></td>

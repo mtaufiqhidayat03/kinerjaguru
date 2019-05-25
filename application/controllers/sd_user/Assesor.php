@@ -19,6 +19,16 @@ class Assesor extends CI_Controller {
 			  $this->load->view(FOLDER_SD_USER.'dataassesor');
             }
         }
+	}
+	function reload_panel(){
+		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+			if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
+			{
+			$this->load->view(FOLDER_SD_USER.'panel_user.php');
+			}
+			} else {
+				show_404();
+			}
     }
         
     function form_addassesor(){
@@ -70,7 +80,11 @@ class Assesor extends CI_Controller {
 		{
 		$search = $this->input->get('search');
 		$page = $this->input->get('page');
-		$data = $this->m_assesoruser->dataassesor($search, $page);
+		$nuptk = $this->session->userdata("username");
+		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
+		$rowku = $queryku->row_array();
+		$npsn_nss_assesor=$rowku['npsn_nss_guru_sd'];
+		$data = $this->m_assesoruser->dataassesor($search, $page, $npsn_nss_assesor);
 		$key=0;
 		$list = array();
 		foreach ($data as $row)
@@ -84,9 +98,9 @@ class Assesor extends CI_Controller {
 		$sIndexColumn = "nuptk_guru_sd";
 		$page2 = $page * 10;
 		if ($search !== "" ) {
-			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where nuptk like '%".$search."%' or nama_guru like '%".$search."%'";
+			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd='".$npsn_nss_assesor."' and  (nuptk like '%".$search."%' or nama_guru like '%".$search."%')";
 		} else {
-            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk";
+            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd='".$npsn_nss_assesor."'";
         }
 		$rResultTotal = $this->db->query($sQuery);
 		$aResultTotal = $rResultTotal->row()->Count;
@@ -129,9 +143,9 @@ class Assesor extends CI_Controller {
 		$sIndexColumn = "nuptk_guru_sd";
 		$page2 = $page * 10;
 		if ($search !== "" ) {
-			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd='".$npsn_nss_assesor."' and nuptk_guru_sd !='".$assesor."' and npsn_nss_guru_sd ='".$npsn_nss_assesor."'  and (nuptk like '%".$search."%' or nama_guru like '%".$search."%')";
+			$sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd='".$npsn_nss_assesor."' and nuptk_guru_sd !='".$assesor."' and (nuptk like '%".$search."%' or nama_guru like '%".$search."%')";
 		} else {
-            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd = '".$npsn_nss_assesor."' and nuptk_guru_sd !='".$assesor."' and npsn_nss_guru_sd ='".$npsn_nss_assesor."'";
+            $sQuery = "SELECT COUNT(".$sIndexColumn.") as 'Count' FROM `".D_GURU_SD.$this->session->userdata('tahun')."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where npsn_nss_guru_sd = '".$npsn_nss_assesor."' and nuptk_guru_sd !='".$assesor."'";
         }
 		$rResultTotal = $this->db->query($sQuery);
 		$aResultTotal = $rResultTotal->row()->Count;

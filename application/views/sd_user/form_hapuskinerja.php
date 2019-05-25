@@ -11,12 +11,13 @@
 <?php foreach ($n2 as $row) { ?>
 <tr>
 <td width="2%"></td>
-    <td width="92%"><h4>Apakah anda ingin menghapus <b><?php echo $row->nama_kompetensi; ?></b> ?</h4></td>
+    <td width="92%"><h4>Apakah anda ingin menghapus penilaian kinerja untuk indikator <b><?php echo $row->nama_indikator; ?></b> ?</h4></td>
     <td></td>
     </tr>
     <tr>
     <td colspan="3" style="display:none">
-    <input name="id_kompetensi" type="text" readonly value="<?php echo $row->id_kompetensi; ?>" />
+    <input name="id_indikator" type="text" required readonly value="<?php echo $row->id_indikator; ?>" />
+	<input name="nuptk_penilaian_sd" type="text" required readonly value="<?php echo $row->nuptk_penilaian_sd; ?>" />
     </td>
 </tr>
 <?php } ?>
@@ -61,7 +62,7 @@ $('.modal').on('shown.bs.modal', function() {
 			async:true,
     		type: "POST",
 			data: $('form.form_hapus_data').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>kompetensi/aksihapuskompetensi",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kinerja/aksihapuskinerja",
 				beforeSend: function(){
 				},
         		success: function(data){

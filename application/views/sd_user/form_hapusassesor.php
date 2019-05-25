@@ -55,7 +55,7 @@
 			async:true,
     		type: "POST",
 			data: $('form.form_hapus_data').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>assesor/aksihapusassesor",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>assesor/aksihapusassesor",
 				beforeSend: function(){
 				},
         		success: function(data){
@@ -101,6 +101,9 @@
 					tabel.fnStandingRedraw();	
 					}
 					berhasilhapus();
+					$.get('<?php echo base_url().FOLDER_SD_USER;?>assesor/reload_panel', function(data) {
+						$('.kt-aside').html(data);
+					});
 					$('#hapus_data').modal('hide');
 					$('#hapus_data').on('hidden.bs.modal', function(){
    					 $(this).find('form')[0].reset();

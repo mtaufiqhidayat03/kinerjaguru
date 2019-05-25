@@ -43,7 +43,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
-						<i class="fa fa-th-list" style="padding-right:5px"></i> Data Kuisioner
+						<i class="fa fa-th-list" style="padding-right:5px"></i> Penilaian Hasil Kuisioner
 						</h3>
 						</div>
 							<div class="kt-portlet__head-toolbar">

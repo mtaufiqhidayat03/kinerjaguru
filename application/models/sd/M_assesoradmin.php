@@ -34,6 +34,7 @@ class M_assesoradmin extends CI_Model {
 		$query2=$this->db->get();
         return $query2->result();
 	}
+	
 	function datagurudinilai($search, $page, $assesor, $npsn_nss_assesor){
 		$this->db->select('nuptk,nama_guru');
 		$this->db->from(D_GURU_SD.$this->session->userdata('tahun'));	
@@ -62,6 +63,7 @@ class M_assesoradmin extends CI_Model {
 	$params = $_REQUEST;
 	$aColumns = array('id_assesor','id_assesor','nama_sekolah','nuptk_assesor', '(d.nama_guru) as d', 'tugas_assesor', '(e.nama_guru) as e');
 	$aColumns2 = array('id_assesor','id_assesor','nama_sekolah','nuptk_assesor', '(d.nama_guru)', 'tugas_assesor', '(e.nama_guru)');
+	$aColumns3 = array('id_assesor','id_assesor','nama_sekolah','nuptk_assesor', 'd','tugas_assesor', 'e');
 	$sIndexColumn = "a.nuptk_assesor";
 	$sTable = "`".D_ASSESOR_SD.$this->session->userdata("tahun")."` as a left join `".D_GURU_SD.$this->session->userdata("tahun")."` as b ON a.nuptk_assesor=b.nuptk_guru_sd left join `".M_SD."` as c ON c.npsn_nss=b.npsn_nss_guru_sd left join `".M_GURU_SD."` as d ON a.nuptk_assesor=d.nuptk left join `".M_GURU_SD."` as e ON a.tugas_assesor=e.nuptk";
 	$sLimit = "";
@@ -77,7 +79,7 @@ class M_assesoradmin extends CI_Model {
 	$sOrder = "ORDER BY  ";
 	for ( $i=0 ; $i<count($_POST['order']) ; $i++ )
 	{
-		$sOrder .= "`".$aColumns[$params['order'][$i]['column']]."` ".$params['order'][$i]['dir'].", ";
+		$sOrder .= "`".$aColumns3[$params['order'][$i]['column']]."` ".$params['order'][$i]['dir'].", ";
 	}
 	$sOrder = substr_replace( $sOrder, "", -2 );
 	if ( $sOrder == "ORDER BY" )

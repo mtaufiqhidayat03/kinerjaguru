@@ -85,7 +85,7 @@
 </style>
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">Upload Berkas</h5>
+<h5 class="modal-title">Upload Bukti Penilaian Kinerja</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -107,13 +107,25 @@
   </tr>
 	<tr valign=top>
     <td height="60"></td>
-    <td><label>Nama Kuisioner</label></td>
+    <td><label>Nama Kompetensi</label></td>
     <td>:</td>
 	<td>
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-	<input name="editnama_kuisioner" type="text" readonly class="form-control"  id="editnama_kuisioner"  placeholder="Silahkan masukkan nama kuisioner" value="<?php echo $baris->nama_kuisioner;?>"/></div></div>
+	<input name="editnama_kompetensi" type="text" readonly class="form-control"  id="editnama_kompetensi"  placeholder="Silahkan masukkan nama kompetensi" value="<?php echo $baris->nama_kompetensi;?>"/></div></div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Nama Indikator</label></td>
+    <td>:</td>
+	<td>
+	<div class="form-group row">
+	<div class="kt-input-icon kt-input-icon--left">
+	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
+	<input name="editnama_indikator" type="text" readonly class="form-control"  id="editnama_indikator"  placeholder="Silahkan masukkan nama indikator" value="<?php echo $baris->nama_indikator;?>"/></div></div>
 	</td>
 	<td></td>
   </tr>
@@ -125,29 +137,13 @@
     <div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-    <select name="edit_guru" data-rel='chosen' class="form-control" id="edit_guru" required >
-	<option value=""></option>
-    </select>
-	</div>
-	</div>   
-    </td>
-    <td></td>
-	</tr>
-	<tr valign="top">
-   <td height="50"></td>
-    <td valign="top"><label>Nilai Kuisioner</label></td>
-    <td valign="top">:</td>
-    <td valign="top">
-    <div class="form-group row">
-	<div class="kt-input-icon kt-input-icon--left">
-	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-	<input name="nilai_kuisioner" type="text" class="form-control"  id="nilai_kuisioner"  placeholder="Silahkan masukkan nilai kuisioner" required onkeypress="return hanyaangka(event)"/></div></div>  
+	<input name="editnama_guru" type="text" readonly class="form-control"  id="editnama_guru"  placeholder="Silahkan masukkan nama guru" value="<?php foreach($n1 as $baris2) { echo $baris2->nama_guru; } ?>"/></div></div>   
     </td>
     <td></td>
 	</tr>
 	<tr valign="top">
     <td></td>
-	<td><label>Berkas File Yang Akan Diupload</label><div>Nama File Akan Otomatis Diganti</div></td>
+	<td><label>Berkas File Yang Akan Diupload</label></td>
 	<td>:</td>
 	<td>
 	<div id="preview-container">
@@ -175,23 +171,24 @@
 	<td></td>
 	<td></td>
 	<td style="display:none">
-	<input name="editid_kuisioner" id="editid_kuisioner" type="text" readonly value="<?php echo $baris->id_kuisioner; ?>" />
-    <input name="editkelompok_kompetensi2" id="editkelompok_kompetensi2" type="text" readonly value="<?php echo $baris->id_kelompok_kuisioner_sd;?>" />
+	<input name="id_kompetensi" id="id_kompetensi" type="text" required readonly value="<?php echo $baris->id_kompetensi; ?>" />
+	<input name="id_kelompok" id="id_kelompok" type="text" required readonly value="<?php echo $baris->id_kelompok;?>" />
+	<input name="id_indikator" id="id_indikator" type="text" required readonly value="<?php echo $baris->id_indikator;?>" />
 	</td>
 	<td></td>
 </tr>
-  <?php } ?>
+<?php } ?>
 </table>
 </form>
 
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_file"><i class="la la-plus"></i> Tambah Nilai Kuisioner</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_file"><i class="la la-plus"></i> Upload File Bukti Kinerja</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>
- $(function() {
+  $(function() {
 	$(document).on('click', "button#submit_file", function(){
 		$('#form_upload_file').validate({
 		errorElement: 'span',
@@ -239,7 +236,7 @@
 			cache: false,
       		contentType: false,
       		processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>kuisioner/aksiuploadfilekuisioner",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kinerja/aksiuploadfilekinerja",
 			data: databaru,
 				beforeSend: function(){
 				},
@@ -271,7 +268,7 @@
 				 unblockPageUI();
 			   }
 				 else {
-					berhasiledit();
+					berhasiltambah();
 					$(".dataTables").dataTable().fnClearTable(false); 
 					$(".dataTables").dataTable().fnStandingRedraw(); 
 					$('#upload_file').modal('hide');

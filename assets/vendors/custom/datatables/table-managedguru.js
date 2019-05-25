@@ -178,7 +178,7 @@ var DatatablesDataSourceAjaxServer = function() {
 			serverSide: true,
 			ajax: {
 				url : "guru/ajax_data_guru",	
-        type: 'post',
+        	type: 'post',
 			},
 			"aoColumnDefs": [
 				{"bSortable":false, "className": "dt-center", "aTargets": [1] },
@@ -405,33 +405,27 @@ var DatatablesDataSourceAjaxServer = function() {
 					}
 			  },           
 		});
-		var id_kompetensi = getURLParameter('id_kompetensi');
-		if ((id_kompetensi !== null)) {
-			var alamaturlindikator = "indikator/ajax_data_indikator?id_kompetensi="+id_kompetensi;
-		} else {
-			var alamaturlindikator = "indikator/ajax_data_indikator";	
-		}
-		var table5 = $('#data_indikator');
+		var table5 = $('#data_kinerja');
 		table5.DataTable({
 			lengthMenu: [5, 10, 25, 50, 100],
 			// Order settings
-			order: [[2,'desc'],[3,'asc'],[5,'asc']],
+			order: [[7,'asc'],[2,'desc'],[3,'asc'],[5,'asc']],
 			pageLength: 25,
 			autoWidth: false,
 			responsive: true,
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url : alamaturlindikator,	
+				url : "kinerja/ajax_data_kinerja",	
                 type: 'post',
 			},
 			"aoColumnDefs": [
 				{"sWidth": "1%" , "aTargets": [0] },
 				{"bSortable":false,"sWidth": "10%", "className": "dt-center", "aTargets": [1] },
 				{"sWidth": "15%" , "aTargets": [2] },
-				{"sWidth": "4%" , "aTargets": [3] },
+				{"sWidth": "4%" ,"visible": false, "aTargets": [3] },
 				{"sWidth": "25%" , "aTargets": [4] },
-				{"sWidth": "4%" , "aTargets": [5] },
+				{"sWidth": "4%" , "visible": false, "aTargets": [5] },
 				{"sWidth": "35%" , "aTargets": [6] },
 				{"sWidth": "4%" , "aTargets": [7] },
 				//{ "sWidth": "10%", "aTargets": [1,2,3,4,5, 6, 7, 8, 9] },
@@ -481,16 +475,16 @@ var DatatablesDataSourceAjaxServer = function() {
      		},
 			"fnDrawCallback": function () {
 				if((this.fnPagingInfo().iFilteredTotal) == 0) {
-					if($('#data_indikator_filter input').val() != '') {
-					$("div.alert.alert-warning.data_indikator").empty().append('Kata kunci <strong>'+$('#data_indikator_filter input').val()+'</strong> tidak menampilkan data hasil pencarian');
-					$("div.alert.alert-warning.data_indikator").css("display","block");
+					if($('#data_kinerja_filter input').val() != '') {
+					$("div.alert.alert-warning.data_kinerja").empty().append('Kata kunci <strong>'+$('#data_kinerja_filter input').val()+'</strong> tidak menampilkan data hasil pencarian');
+					$("div.alert.alert-warning.data_kinerja").css("display","block");
 					} else {
-					$("div.alert.alert-warning.data_indikator").empty().append('Tidak ada data yang sesuai dengan kriteria yang diinginkan');
-					$("div.alert.alert-warning.data_indikator").css("display","block");
+					$("div.alert.alert-warning.data_kinerja").empty().append('Tidak ada data yang sesuai dengan kriteria yang diinginkan');
+					$("div.alert.alert-warning.data_kinerja").css("display","block");
 					}
 					} else {
-					$("div.alert.alert-warning.data_indikator").empty().append('');
-					$("div.alert.alert-warning.data_indikator").css("display","none");
+					$("div.alert.alert-warning.data_kinerja").empty().append('');
+					$("div.alert.alert-warning.data_kinerja").css("display","none");
 					}
 			  },           
 		});
@@ -646,24 +640,19 @@ var DatatablesDataSourceAjaxServer = function() {
 					}
 			  },           
 		});
-		var npsn_nss = getURLParameter('npsn_nss');
-		if ((npsn_nss !== null)) {
-			var alamaturlassesor = "assesor/ajax_data_assesor?npsn_nss="+npsn_nss;
-		} else {
-			var alamaturlassesor = "assesor/ajax_data_assesor";	
-		}
+
 		var table8 = $('#data_assesor');
 		table8.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'asc'],[3, 'asc']],
+			order: [[2, 'asc'],[4, 'asc'],[6,'asc']],
 			pageLength: 10,
 			autoWidth: false,
 			responsive: true,
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url : alamaturlassesor,	
+				url : "assesor/ajax_data_assesor",	
                 type: 'post',
 			},
 			"aoColumnDefs": [

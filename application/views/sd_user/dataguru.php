@@ -63,12 +63,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										Tambah Data
 									</a> -->
 							<?php // } ?>
-							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."sekolah";?>"
-										 id="sekolah_semua">
-										<i class="flaticon-buildings"></i>
-										Kembali ke Data Sekolah
-									</a>	
 							</div>
 							
 							<div class="alert alert-warning data_guru" style="display:none"></div>

@@ -8,7 +8,6 @@
 <div class="portlet-body">
 <form action="" method="" id="form_assesor" class="form_assesor" enctype="multipart/form-data" >
 <table width="100%" height="100%">
-
 <tr valign="top">
    <td width="11" height="50"></td>
     <td width="211"><label>Assesor</label></td>
@@ -132,7 +131,10 @@
 					$(".dataTables").dataTable().fnClearTable(false); 
 					$(".dataTables").dataTable().fnStandingRedraw(); 
 					$('#tambah_data').modal('hide');
-					$('#tambah_data').on('hidden.bs.modal', function(){
+					$.get('<?php echo base_url().FOLDER_SD_USER;?>assesor/reload_panel', function(data) {
+						$('.kt-aside').html(data);
+					});
+					$('#tambah_data').on('hidden.bs.modal', function(){					
 					$("input:checked").parent().removeClass("checked").find("span").html("");
 					$(this).find('form')[0].reset();
 					unblockPageUI();

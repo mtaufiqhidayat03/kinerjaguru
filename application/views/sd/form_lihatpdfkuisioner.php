@@ -4,7 +4,7 @@
 height: 40rem; 
 /* border: 1rem solid rgba(0,0,0,.1); */
 }
-.modal .modal-content .modal-header .modal-title {
+h5.modal-title.punyaku{
 font-weight: normal !important;
 font-size: 1.2rem !important;
 }
@@ -12,7 +12,7 @@ font-size: 1.2rem !important;
 <div class="modal-content">
 <div class="modal-header">
 <?php foreach ($n2 as $row) { ?>
-<h5 class="modal-title">Lihat Berkas : <?php echo $row->nama_guru;?> Kuisioner : <?php echo $row->nama_kuisioner;?></h5>
+<h5 class="modal-title punyaku">Lihat Berkas : <?php echo $row->nama_guru;?> Kuisioner : <?php echo $row->nama_kuisioner;?></h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">

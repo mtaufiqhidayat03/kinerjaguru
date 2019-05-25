@@ -56,28 +56,11 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__body">
 							<div class="form-group">
 							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."assesor/form_addassesor";?>"
+										href="<?php echo base_url().FOLDER_SD_USER."assesor/form_addassesor";?>"
 										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
 										<i class="la la-plus"></i>
 										Tambah Data
 									</a>
-							<?php 
-							$npsn_nss = $this->input->get('npsn_nss');
-            				if (isset($npsn_nss) and $npsn_nss !== "") { 
-							?>
-							<a class="btn btn-brand btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."assesor";?>"
-										 id="assesor_semua">
-										<i class="flaticon-users-1"></i>
-										Tampilkan Semua Assesor
-									</a>
-							<?php } ?>
-							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."sekolah";?>"
-										 id="sekolah_semua">
-										<i class="flaticon-buildings"></i>
-										Kembali ke Data Sekolah
-									</a>	
 							</div>
 							
 							<div class="alert alert-warning data_guru" style="display:none"></div>

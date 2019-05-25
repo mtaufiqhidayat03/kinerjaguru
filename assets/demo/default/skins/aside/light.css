@@ -210,7 +210,7 @@
     color: #0000ff;
     -webkit-transition: all 0.3s;
     transition: width 0.3s;
-    line-height: 1em;
+    /* line-height: 1em; */
    /*border-bottom: 1px solid #0000ff; */
 }
 .kt-aside-menu .kt-menu__nav>.kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover>.kt-menu__heading .kt-menu__link-icon, .kt-aside-menu .kt-menu__nav>.kt-menu__item:not(.kt-menu__item--parent):not(.kt-menu__item--open):not(.kt-menu__item--here):not(.kt-menu__item--active):hover>.kt-menu__link .kt-menu__link-icon {
@@ -238,7 +238,8 @@
     color: #fff
 }
 .kt-aside-menu .kt-menu__nav>.kt-menu__section .kt-menu__section-text {
-    color: #a1a8c3
+	color: #000000;
+	font-size:1.1rem;
 }
 .kt-aside-menu .kt-menu__nav>.kt-menu__section .kt-menu__section-icon {
     color: #a1a8c3
