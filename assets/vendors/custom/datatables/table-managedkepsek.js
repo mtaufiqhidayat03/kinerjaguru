@@ -863,6 +863,8 @@ var DatatablesDataSourceAjaxServer = function() {
 					var tbl2 = $("#data_evaluasi").dataTable().api();
 					tbl2.search('').columns().search('').draw();
 			});
+			var $target = $('html, body'); 
+			$target.animate({scrollTop: $target.height()}, 1000);
      		},
 			/*"fnDrawCallback": function () {
 				if((this.fnPagingInfo().iFilteredTotal) == 0) {
@@ -879,6 +881,7 @@ var DatatablesDataSourceAjaxServer = function() {
 					}
 			}, */          
 			}); 
+			//window.scrollTo(0, $("#data_evaluasi").offset().top);
 			});
 	}; 
 	return {
