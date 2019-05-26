@@ -104,7 +104,7 @@ class M_kuisioneradmin extends CI_Model {
 					$row[] = "<div class='btn-group-vertical center' role='group'>
 					<a data-toggle='modal' href='kuisioner/form_editkuisioner?id_kuisioner=".$aRow['id_kuisioner']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 					<a data-toggle='modal'  href='kuisioner/form_hapuskuisioner?id_kuisioner=".$aRow['id_kuisioner']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-eraser'></i> Hapus Data</a>
-					<a data-toggle='modal'  href='kuisioner/form_uploadfile?id_kuisioner=".$aRow['id_kuisioner']."' class='btn btn-sm btn-success btnku btn-elevate btn-elevate-air' data-target='#upload_file'  id='upload-file' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-cloud-upload-alt'></i> Upload File Bukti</a>
+					<a data-toggle='modal'  href='kuisioner/form_uploadfile?id_kuisioner=".$aRow['id_kuisioner']."' class='btn btn-sm btn-success btnku btn-elevate btn-elevate-air' data-target='#upload_file'  id='upload-file' data-id='".$aRow['id_kuisioner']."'><i class='fa fa-cloud-upload-alt'></i> Upload File Bukti Kuisioner</a>
 					</div>";
 				}
 				else if ($aColumns[$i] != "")

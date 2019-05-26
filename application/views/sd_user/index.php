@@ -30,29 +30,23 @@ $this->load->view(FOLDER_SD_USER.'panel_user.php');
 							</div> 
 							<div class="col-sm">
 							<a href="<?php echo base_url();?>sd_user/guru" class="btn btn-success btn-lg btn-elevate btn-elevate-air"><i class="fa flaticon-users-1"></i>Data Guru</a>
-							</div>							
+							</div>
+							<?php if ($this->session->userdata('level') == 'Kepsek') { ?>							
 							<div class="col-sm">
 							<a href="<?php echo base_url();?>sd_user/assesor" class="btn btn-info btn-lg btn-elevate btn-elevate-air"><i class="fa fa-users-cog"></i>Pengaturan Assesor</a>
 							</div>
-							<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/kelompok" class="btn btn-danger btn-lg btn-elevate btn-elevate-air"><i class="flaticon-interface-6"></i>Kelompok Kompetensi</a>
-							</div>
+							<?php } ?>							
 							</div>
 							<div class="row" style="min-height:150px;">
                 			<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/kompetensi" class="btn btn-dark btn-lg btn-elevate btn-elevate-air"><i class="flaticon2-layers-1"></i>Kompetensi</a>
+							<a href="<?php echo base_url();?>sd_user/kinerja" class="btn btn-brand btn-lg btn-elevate btn-elevate-air"><i class="flaticon2-checking"></i>Penilaian Kinerja</a>
 							</div>
 							<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/indikator" class="btn btn-warning btn-lg btn-elevate btn-elevate-air"><i class="flaticon2-checking"></i>Indikator Kompetensi</a>
-							</div> 
-							<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/kuisioner" class="btn btn-success btn-lg btn-elevate btn-elevate-air"><i class="fa fa-thumbtack"></i>Pengaturan Kuisioner</a>
-							</div>							
-							<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/hasilkuisioner" class="btn btn-info btn-lg btn-elevate btn-elevate-air"><i class="fa fa-th-list"></i>Hasil Kuisioner</a>
+							<a href="<?php echo base_url();?>sd_user/kuisioneruser" class="btn btn-danger btn-lg btn-elevate btn-elevate-air"><i class="fa fa-thumbtack"></i>Penilaian Kuisioner</a>
 							</div>
 							<div class="col-sm">
-							<a href="<?php echo base_url();?>sd_user/penilaian" class="btn btn-danger btn-lg btn-elevate btn-elevate-air"><i class="fa fa-tachometer-alt"></i>Hasil Penilaian</a>
+							</div>
+							<div class="col-sm">
 							</div>
 							</div>
                         </div>

@@ -1,8 +1,11 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user") ) { ?>
 <style>
 .pdfobject-container { 
-height: 40rem; 
-/* border: 1rem solid rgba(0,0,0,.1); */
+height: -moz-calc(100vh - 130px);
+height: -webkit-calc(100vh - 130px);
+height: -o-calc(100vh - 130px);
+height: calc(100vh - 130px);
+height: expression(100vh - 130px); 
 }
 h5.modal-title.punyaku{
 font-weight: normal !important;
@@ -17,8 +20,7 @@ font-size: 1.2rem !important;
 </div>
 <div class="modal-body">
 <div class="portlet-body">
- <form action="" method="post" class="form_hapus_data" id="form_hapus_data">
- <table width="100%" border="0">
+<table width="100%" border="0">
 <tr valign=top>
 	<td style="display:none">
 	<input name="lokasifile" id="lokasifile" type="text" readonly value="<?php echo $row->upload_file_penilaian_sd; ?>" />
@@ -29,12 +31,10 @@ font-size: 1.2rem !important;
 	<div id="lihatfile"></div>
 	</td>
 </tr>
-
 </table>		
-</form>
 </div></div>
 <div class="modal-footer">
-<label class="mr-auto">*) Matikan sofware download manager jika preview file PDF tidak jalan</label>
+<!-- <label class="mr-auto">*) Matikan sofware download manager jika preview file PDF tidak jalan</label> -->
 <!--<a data-toggle="modal" href="kinerja/form_gantifilekinerja?id_indikator=<?php echo $row->id_indikator; ?>&id_kelompok=<?php echo $row->id_kelompok; ?>&id_kompetensi=<?php echo $row->id_kompetensi; ?>" data-target="#upload_file2" class="btn btn-success btnku btn-elevate2 btn-elevate-air2 dismiss" id="dismiss" data-id="<?php echo $row->id_indikator; ?>"><i class='fa fa-pencil-alt'></i> Ganti Berkas Bukti Penilaian Kinerja</a> -->
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i>  Tutup</button>
 </div>

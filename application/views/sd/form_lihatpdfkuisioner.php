@@ -1,8 +1,11 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user") ) { ?>
 <style>
 .pdfobject-container { 
-height: 40rem; 
-/* border: 1rem solid rgba(0,0,0,.1); */
+height: -moz-calc(100vh - 130px);
+height: -webkit-calc(100vh - 130px);
+height: -o-calc(100vh - 130px);
+height: calc(100vh - 130px);
+height: expression(100vh - 130px); 
 }
 h5.modal-title.punyaku{
 font-weight: normal !important;
@@ -34,7 +37,7 @@ font-size: 1.2rem !important;
 </form>
 </div></div>
 <div class="modal-footer">
-<label class="mr-auto">*) Matikan sofware download manager jika preview file PDF tidak jalan</label>
+<!-- <label class="mr-auto">*) Matikan sofware download manager jika preview file PDF tidak jalan</label> -->
 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-power-off"></i>  Tutup</button>
 </div>
 <script>

@@ -67,8 +67,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							</div>
 						</div>
 						<div class="kt-portlet__body">
-							<div class="form-group">
-							</div>
 							<div class="alert alert-warning data_kinerja" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_kinerja dataTables" id="data_kinerja" width=100%>
 								<thead>
@@ -88,7 +86,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					</div>
 					<style type="text/css">
 						#upload_file .modal-dialog {
-							width: 70%;
+							width: 75%;
 							height: 100%;
 							
 							margin: auto;
@@ -124,9 +122,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						}
 						
 						#upload_file2 .modal-dialog {
-							width: 70%;
-							height: 100%;
-							
+							width: 80%;
+							height: 100%;							
 							margin: auto;
 							position: absolute;
 							top: 0;

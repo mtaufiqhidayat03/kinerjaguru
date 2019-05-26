@@ -1493,13 +1493,13 @@ pre code {
     background-color: rgba(0,0,0,0)
 }
 .table th, .table td {
-    padding: .75rem;
+    padding: .5rem;
     vertical-align: top;
-    border-top: 1px solid #ebedf2
+    /* border-top: 1px solid #ebedf2*/
 }
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ebedf2
+    /* border-bottom: 2px solid #ebedf2 */
 }
 .table tbody+tbody {
     border-top: 2px solid #ebedf2

@@ -954,7 +954,7 @@ function maksimumbesarfilepdf() {
  				 "showMethod": "slideDown",
 				"hideMethod": "slideUp"
 				}
-				 toastr.error("Maaf, file yang dapat diunggah adalah <b>format PDF</b> dengan batasan besaran file adalah <b>1.5 MB</b>.", "Kesalahan")
+				 toastr.error("Maaf, file yang dapat diunggah adalah <b>format PDF</b> dengan batasan besaran file adalah <b>1 MB</b>.", "Kesalahan")
 }
 
 function hanyanomor() {

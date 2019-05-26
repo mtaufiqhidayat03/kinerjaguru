@@ -378,7 +378,7 @@ class Guru extends CI_Controller {
             {
             $npsn_nss = $row->npsn_nss;
            	}
-            $data = $this->m_guruuser->guru_list($npsn_nss);
+            $data = $this->m_guruuser->guru_list($npsn_nss, $nuptk);
                          
 			echo json_encode($data);
 			}

@@ -7,19 +7,19 @@ class M_hasilkuisioneradmin extends CI_Model {
 	}
 
 	function getdatahasilkuisioner($no_kuisioner) {
-		$sql="SELECT nama_kuisioner, no_kuisioner, nama_guru FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_guru_sd=c.nuptk where no_kuisioner=?";
+		$sql="SELECT nama_kuisioner, no_kuisioner, nama_guru FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_kuisioner_sd=c.nuptk where no_kuisioner=?";
 		$query=$this->db->query($sql,array($no_kuisioner));
 		return $query->result();
 	}
 
 	function getdatahasilkuisioner2($no_kuisioner) {
-		$sql="SELECT nama_kuisioner, no_kuisioner, id_kelompok_kuisioner_sd, kelompok_kompetensi, nilai_kuisioner, nama_guru, id_kuisioner, nuptk_guru_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kuisioner_sd=c.id_kelompok left join `".M_GURU_SD."` as d ON a.nuptk_guru_sd=d.nuptk where no_kuisioner=?";
+		$sql="SELECT  nuptk_kuisioner_sd, nama_kuisioner, no_kuisioner, id_kelompok_kuisioner_sd, kelompok_kompetensi, nilai_kuisioner, nama_guru, id_kuisioner FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kuisioner_sd=c.id_kelompok left join `".M_GURU_SD."` as d ON a.nuptk_kuisioner_sd=d.nuptk where no_kuisioner=?";
 		$query=$this->db->query($sql,array($no_kuisioner));
 		return $query->result();
 	}
 
 	function getdatahasilkuisioner3($no_kuisioner) {
-		$sql="SELECT nama_kuisioner, no_kuisioner, nilai_kuisioner, nama_guru, upload_file_kuisioner_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_guru_sd=c.nuptk where no_kuisioner=?";
+		$sql="SELECT nama_kuisioner, no_kuisioner, nilai_kuisioner, nama_guru, upload_file_kuisioner_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_kuisioner_sd=c.nuptk where no_kuisioner=?";
 		$query=$this->db->query($sql,array($no_kuisioner));
 		return $query->result();
 	}
@@ -27,14 +27,14 @@ class M_hasilkuisioneradmin extends CI_Model {
 	function editpenilaiankuisioner($data_kuisioner, $no_kuisioner, $id_kuisioner, $nuptk_guru_sd) {
 		$this->db->where('no_kuisioner', $no_kuisioner);
 		$this->db->where('id_kuisioner_sd', $id_kuisioner);
-		$this->db->where('nuptk_guru_sd', $nuptk_guru_sd);
+		$this->db->where('nuptk_kuisioner_sd', $nuptk_guru_sd);
         $this->db->update("`".D_KUISIONER_SD.$this->session->userdata('tahun')."`",$data_kuisioner);
 	}
 
 	function editpenilaiankuisioner2($data_kuisioner, $no_kuisioner, $id_kuisioner, $nuptk_guru_sd) {
 		$this->db->where('no_kuisioner', $no_kuisioner);
 		$this->db->where('id_kuisioner_sd', $id_kuisioner);
-		$this->db->where('nuptk_guru_sd', $nuptk_guru_sd);
+		$this->db->where('nuptk_kuisioner_sd', $nuptk_guru_sd);
         $this->db->update("`".D_KUISIONER_SD.$this->session->userdata('tahun')."`",$data_kuisioner);
 	}
 
@@ -43,7 +43,7 @@ class M_hasilkuisioneradmin extends CI_Model {
 		$params = $_REQUEST;
 		$aColumns = array('no_kuisioner','no_kuisioner',"nuptk","nama_guru","nama_kuisioner","nilai_kuisioner",'upload_file_kuisioner_sd');
 		$sIndexColumn = "a.no_kuisioner";
-		$sTable = "`".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_guru_sd=c.nuptk";
+		$sTable = "`".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_kuisioner_sd=c.nuptk";
 		$sLimit = "";
 		/*  Paging */
 		if ($this->input->post('start') !== "" && $this->input->post('length') != '-1' )

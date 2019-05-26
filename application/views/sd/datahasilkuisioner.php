@@ -71,8 +71,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					<style type="text/css">
 						#edit_data .modal-dialog {
 							width: 80%;
-							height: 80%;
-							
+							height: 100%;					
 							margin: auto;
 							position: absolute;
 							top: 0;

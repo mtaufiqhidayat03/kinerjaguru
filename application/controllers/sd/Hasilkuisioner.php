@@ -101,16 +101,16 @@ class Hasilkuisioner extends CI_Controller {
 			$no_kuisioner=$this->input->post('no_kuisioner');
 			$id_kuisioner=$this->input->post('editid_kuisioner');
 			$nuptk_guru_sd=$this->input->post('edit_guru');			
-			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_guru_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
+			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_kuisioner_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
 			if ($query->num_rows() == 1) {
-			$queryku = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_guru_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
+			$queryku = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_kuisioner_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
             $rowku = $queryku->row_array();
             $file = $rowku['upload_file_kuisioner_sd'];
             if (is_readable($file) && unlink($file)) {
-			$new_name ="kuisioner_tahun_".$this->session->userdata('tahun')."_id_".$id_kuisioner."_nuptk_".$nuptk_guru_sd;
+			$new_name ="kuisioner_tahun_".$this->session->userdata('tahun')."_id_".$id_kuisioner."_nuptk_".$nuptk_guru_sd."_tanggal_".date("d-m-Y")."_jam_".date("H-i-s");
 			$config['upload_path']          = './kuisioner/sd/'.$this->session->userdata('tahun').'/'.$nuptk_guru_sd.'/';
 			$config['allowed_types']        = 'pdf';
-			$config['max_size']             = 1572864;
+			$config['max_size']             = 1048576;
 			$config['file_name'] 			= $new_name;
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('pdf')){
@@ -159,7 +159,7 @@ class Hasilkuisioner extends CI_Controller {
 			$id_kuisioner=$this->input->post('editid_kuisioner');
 			$nuptk_guru_sd=$this->input->post('edit_guru');		
 			$nilai_kuisioner=$this->input->post('editnilai_kuisioner');		
-			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_guru_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
+			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_kuisioner_sd' => $nuptk_guru_sd,'no_kuisioner' => $no_kuisioner));
 			if ($query->num_rows() == 1) {
 			$data_kuisioner = array(
 				'nilai_kuisioner'=>$nilai_kuisioner

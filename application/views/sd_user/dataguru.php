@@ -24,6 +24,9 @@ table.dataTable tbody tr td {
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
   display: none;
 }
+.btnku {
+	text-align : left !important;
+}
 </style>
 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 	<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
@@ -53,18 +56,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 								</div>
 							</div>
 						</div>
-						<div class="kt-portlet__body">
-							<div class="form-group">
-							<?php // if ($this->session->userdata("level") =="Kepsek") {?>
-							<!-- <a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php //echo base_url().FOLDER_SD."guru/form_addguru";?>"
-										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
-										<i class="la la-plus"></i>
-										Tambah Data
-									</a> -->
-							<?php // } ?>
-							</div>
-							
+						<div class="kt-portlet__body">							
 							<div class="alert alert-warning data_guru" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_guru dataTables" id="data_guru" width=100%>
 								<thead>

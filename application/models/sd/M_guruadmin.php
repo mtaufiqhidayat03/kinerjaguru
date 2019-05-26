@@ -186,7 +186,7 @@ class M_guruadmin extends CI_Model {
 					if ($aRow[$aColumns[14]] == "") {
 						$row[] = 
 						"<div class='btn-group-vertical' role='group'>
-						<a data-toggle='modal' href='guru/form_gurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#guru_sekolahmapel' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Mapel/Kelas</a>
+						<a data-toggle='modal' href='guru/form_gurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#guru_sekolahmapel' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Menjadi Guru<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mata Pelajaran/Kelas</a>
 						<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 						<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>						
 						<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>
@@ -195,7 +195,7 @@ class M_guruadmin extends CI_Model {
 					} else {
 						$row[] = 
 						"<div class='btn-group-vertical' role='group'>
-						<a data-toggle='modal' href='guru/form_hapusgurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolahmapel' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus ".$aRow['jenis_guru']."</a>
+						<a data-toggle='modal' href='guru/form_hapusgurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolahmapel' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolahmapel' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sebagai&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$aRow['jenis_guru']."&nbsp;</a>
 						<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 						<a data-toggle='modal' href='guru/form_hapusgurusekolah?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sekolah</a>						
 						<a data-toggle='modal'  href='guru/form_hapusguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Data</a>

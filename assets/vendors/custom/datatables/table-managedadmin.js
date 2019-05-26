@@ -197,7 +197,7 @@ var DatatablesDataSourceAjaxServer = function() {
                 type: 'post',
 			},
 			"aoColumnDefs": [
-				{"bSortable":false, "className": "dt-center", "aTargets": [1] },
+				{"bSortable":false, "className": "dt-left", "aTargets": [1] },
 				// {"bSortable":false,"sWidth": "10%" , "aTargets": [0] },
 				//{ "sWidth": "10%", "aTargets": [1,2,3,4,5, 6, 7, 8, 9] },
 			], 

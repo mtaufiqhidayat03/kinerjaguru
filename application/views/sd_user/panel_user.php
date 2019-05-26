@@ -36,7 +36,7 @@
                         </li>
 				</ul>
 				<ul class="kt-menu__nav ">
-                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="kuisioner") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>kuisioner" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-thumbtack"></i></span><span class="kt-menu__link-text">Penilaian Kuisioner</span></a>
+                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="kuisioneruser") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>kuisioneruser" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-thumbtack"></i></span><span class="kt-menu__link-text">Penilaian Kuisioner</span></a>
                         </li>
 				</ul>
 				<?php 
@@ -51,11 +51,11 @@
 				</ul>
 				
 				<ul class="kt-menu__nav ">
-                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="penilaian") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>penilaian" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-tachometer-alt"></i></span><span class="kt-menu__link-text">Penilaian Kinerja Guru Yang Dinilai</span></a>
+                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="kinerjadinilai") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>kinerjadinilai" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-tachometer-alt"></i></span><span class="kt-menu__link-text">Penilaian Kinerja Guru Yang Dinilai</span></a>
                         </li>
 				</ul>
 				<ul class="kt-menu__nav ">
-                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="hasilkuisioner") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>hasilkuisioner" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-th-list"></i></span><span class="kt-menu__link-text">Penilaian Kuisioner Guru Yang Dinilai</span></a>
+                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="kuisionerdinilai") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>kuisionerdinilai" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-th-list"></i></span><span class="kt-menu__link-text">Penilaian Kuisioner Guru Yang Dinilai</span></a>
                         </li>
 				</ul>
 				<?php } ?>

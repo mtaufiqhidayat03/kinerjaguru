@@ -92,7 +92,7 @@ class M_guruuser extends CI_Model {
 		$this->db->update("`".D_GURU_SD.$this->session->userdata('tahun')."`");
 	}
 	
-    function guru_list($npsn_nss) {
+    function guru_list($npsn_nss, $nuptk) {
 	$db = get_instance()->db->conn_id;
 	$params = $_REQUEST;
     $aColumns = array('nuptk','nuptk','nama_sekolah','nuptk', 'nama_guru', 'nip', 'karpeg', 'tempat_lahir', 'DATE_FORMAT(tgl_lahir, CONCAT(\'%e \', ELT(MONTH(tgl_lahir),"Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"), \' %Y\'))','pangkat_jabatan', 
@@ -166,19 +166,20 @@ class M_guruuser extends CI_Model {
 		$row = array();
 		for ( $i=0 ; $i<count($aColumns); $i++ )
 		{
+			if ($this->session->userdata("level")=="Kepsek") {
 			if ( $i == 1)
 			{
 				if ($aRow[$aColumns[14]] == "") {
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_gurumapel?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Mapel/Kelas</a>
+				<a data-toggle='modal' href='guru/form_gurumapel?nuptk=".$aRow['nuptk']."' data-target='#guru_sekolah' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='guru-sekolah' data-id='".$aRow['nuptk']."'><i class='flaticon-interface-5'></i> Pilih Menjadi Guru<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mata Pelajaran/Kelas</a>
 				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
 				</div>";
 				} else {
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
-				<a data-toggle='modal' href='guru/form_hapusgurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus ".$aRow['jenis_guru']."</a>
+				<a data-toggle='modal' href='guru/form_hapusgurumapel?nuptk=".$aRow['nuptk']."&npsn_nss=".$aRow['npsn_nss']."' data-target='#hapusguru_sekolah' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapusguru-sekolah' data-id='".$aRow['nuptk']."'><i class='fa fa-eraser'></i> Hapus Sebagai&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$aRow['jenis_guru']."&nbsp;</a>
 				<a data-toggle='modal' href='guru/form_editguru?nuptk=".$aRow['nuptk']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['nuptk']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 				<a data-toggle='modal'  href='guru/form_gantipasswordguru?nuptk=".$aRow['nuptk']."' class='btn btn-sm btn-dark btnku btn-elevate btn-elevate-air' data-target='#ganti_password'  id='ganti-password' data-id='".$aRow['nuptk']."'><i class='fa fa-lock'></i> Ganti Password</a>
 				</div>";
@@ -192,6 +193,16 @@ class M_guruuser extends CI_Model {
 					$row[] = '<span style="font-size:14px; font-weight:400">'.$aRow[$aColumns[$i]].'</span>';
 				}
 			}
+		} else {
+			if ($aColumns[$i] != "")
+			{
+				if ($aRow[$aColumns[$i]] == "" ) {
+                    $row[] = '<span class="kt-badge kt-badge--inline kt-badge--danger" style="font-size:14px; font-weight:400">-</span>';
+                } else {
+					$row[] = '<span style="font-size:14px; font-weight:400">'.$aRow[$aColumns[$i]].'</span>';
+				}
+			}
+		}
 		}
 		$output['aaData'][] = $row;
 	}

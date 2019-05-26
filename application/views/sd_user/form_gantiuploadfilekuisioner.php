@@ -82,6 +82,17 @@
 	color: #999999;
 	font-size: 13px;
 }
+.pdfobject-container { 
+height: -moz-calc(100vh - 300px);
+height: -webkit-calc(100vh - 300px);
+height: -o-calc(100vh - 300px);
+height: calc(100vh - 300px);
+height: expression(100vh - 300px); 
+}
+table#sesuaikan tbody tr td {
+	white-space: nowrap; 
+	padding: 0.75rem .75rem 0.75rem .75rem !important;
+}
 </style>
 <div class="modal-content">
 <div class="modal-header">
@@ -90,20 +101,23 @@
 </div>
 <div class="modal-body">
 <div class="portlet-body">
-<form action="" method="" id="form_upload_file2" class="form_upload_file2" enctype="multipart/form-data" >
-<table width="100%" height="100%">
 <?php foreach($n2 as $baris) {  ?>
+<div class="row">
+<div class="col-md-12" id="aku">
+<div class="table-responsive">
+<form action="" method="" id="form_upload_file2" class="form_upload_file2" enctype="multipart/form-data" >
+<table width="100%" height="100%" id="sesuaikan" class="table">
 	<tr valign=top>
-    <td width="6" height="60"></td>
-    <td width="250"><label>Kelompok Kompetensi</label></td>
-    <td width="16">:</td>
-    <td width="378">
+    <td width="1%" height="60"></td>
+    <td width="25%"><label>Kelompok Kompetensi</label></td>
+    <td width="5%">:</td>
+    <td width="60%">
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
 	<input name="editnama_kelompok" type="text" readonly class="form-control"  id="editnama_kelompok"  placeholder="Silahkan masukkan nama kelompok kuisioner" value="<?php echo $baris->kelompok_kompetensi;?>"/></div></div> 
 	</td>
-	<td width="6"></td>
+	<td width="1%"></td>
   </tr>
 	<tr valign=top>
     <td height="60"></td>
@@ -133,11 +147,11 @@
 	</tr>
 	<tr valign="top">
     <td></td>
-	<td><label>Berkas File Yang Akan Diupload</label><div><div>*) Kosongkan jika hanya ingin mengganti nilai kuisioner</div></div></td>
+	<td><label>Berkas File Yang Akan Diganti</label></td>
 	<td>:</td>
 	<td>
 	<div id="preview-container">
-    <button id="upload-dialog" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-file-pdf"></i>Pilih Berkas File PDF Yang Akan Sebagai Pengganti</button>
+    <button id="upload-dialog" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-file-pdf"></i>Pilih Berkas PDF Yang Akan Diganti</button>
     <input type="file" id="pdf-file" name="pdf" accept="application/pdf" />
     <div id="pdf-loader">Memuat Tampilan ...</div>
 	<div id="pdf-contents">
@@ -162,19 +176,37 @@
 	<td></td>
 	<td style="display:none">
 	<input name="editid_kuisioner" id="editid_kuisioner" type="text" readonly value="<?php echo $baris->id_kuisioner; ?>" />
-    <input name="edit_guru" id="edit_guru" type="text" readonly value="<?php echo $baris->nuptk_guru_sd;?>" />
+    <input name="edit_guru" id="edit_guru" type="text" readonly value="<?php echo $baris->nuptk_kuisioner_sd;?>" />
 	<input name="no_kuisioner" id="no_kuisioner" type="text" readonly value="<?php echo $baris->no_kuisioner;?>" />
 	</td>
 	<td></td>
 </tr>
-  <?php } ?>
 </table>
 </form>
-
+</div>
+</div>
+<div class="col-md-12" id="aku">
+<table width="100%" border="0">
+<tr valign=top>
+	<td style="display:none">
+	<input name="lokasifile" id="lokasifile" type="text" readonly value="<?php echo $baris->upload_file_kuisioner_sd; ?>" />
+	</td>
+</tr>
+<tr valign=top>
+    <td>
+	<div id="lihatfile"></div>
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<?php } ?>
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="ganti_file"><i class="la la-plus"></i> Ganti Berkas Kuisioner</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="ganti_file"><i class="fa fa-pencil-alt"></i> Ganti Berkas Kuisioner</button>
+<button type="button" class="btn btn-warning btn-elevate2 btn-elevate-air2" id="tampilkan_file"><i class="fa fa-eye"></i> Tampilkan Berkas Kuisioner Saat Ini</button>
+<button type="button" class="btn btn-dark btn-elevate2 btn-elevate-air2" id="sembunyikan_file"><i class="fa fa-eye-slash"></i> Sembunyikan Berkas Kuisioner Saat Ini</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>
@@ -226,7 +258,7 @@
 			cache: false,
       		contentType: false,
       		processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>Hasilkuisioner/aksigantiuploadkuisioner",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kuisioneruser/aksigantiuploadkuisioner",
 			data: databaru,
 				beforeSend: function(){
 				},

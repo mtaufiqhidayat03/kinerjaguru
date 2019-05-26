@@ -157,12 +157,12 @@ class Kuisioner extends CI_Controller {
 			$id_kuisioner=$this->input->post('editid_kuisioner');
 			$nuptk_guru_sd=$this->input->post('edit_guru');
 			$nilai_kuisioner=$this->input->post('nilai_kuisioner');
-			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_guru_sd' => $nuptk_guru_sd));
+			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_kuisioner_sd' => $nuptk_guru_sd));
 			if ($query->num_rows() == 0) {
-			$new_name ="kuisioner_tahun_".$this->session->userdata('tahun')."_id_".$id_kuisioner."_nuptk_".$nuptk_guru_sd;
+			$new_name ="kuisioner_tahun_".$this->session->userdata('tahun')."_id_".$id_kuisioner."_nuptk_".$nuptk_guru_sd."_tanggal_".date("d-m-Y")."_jam_".date("H-i-s");
 			$config['upload_path']          = './kuisioner/sd/'.$this->session->userdata('tahun').'/'.$nuptk_guru_sd.'/';
 			$config['allowed_types']        = 'pdf';
-			$config['max_size']             = 1572864;
+			$config['max_size']             = 1048576;
 			$config['file_name'] 			= $new_name;
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('pdf')){
@@ -171,7 +171,7 @@ class Kuisioner extends CI_Controller {
 			} 
 			$data_kuisioner = array(
 				'id_kuisioner_sd'=>$id_kuisioner,
-				'nuptk_guru_sd'=>$nuptk_guru_sd,
+				'nuptk_kuisioner_sd'=>$nuptk_guru_sd,
 				'nilai_kuisioner'=>$nilai_kuisioner,
 				'upload_file_kuisioner_sd'=>$config['upload_path'].$this->upload->data('file_name'),
 			);

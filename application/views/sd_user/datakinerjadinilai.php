@@ -1,12 +1,12 @@
 <?php 
 $this->load->view("header.php" ); 
-$this->load->view(FOLDER_SD.'date.php');
-$this->load->view(FOLDER_SD.'panel_user.php');
+$this->load->view(FOLDER_SD_USER.'date.php');
+$this->load->view(FOLDER_SD_USER.'panel_user.php');
 ?>
 <style type="text/css">
 div.dataTables_wrapper div.dataTables_filter input {
 	 /* width:150px; */
-	 display: -moz-inline-stack;
+	 display:-moz-inline-stack;
 	 display:-moz-inline-box;
 	 display:-moz-inline-block;
 	 vertical-align:top;
@@ -17,12 +17,19 @@ table.dataTable thead tr th{
 	 white-space: nowrap; 
 }
 table.dataTable tbody tr td {
-  /* word-wrap: break-word;
-	word-break: break-all; */
-	white-space: nowrap;
+    word-wrap: break-word;
+	/* word-break: break-all;  /* break by word */
+	word-break: break-word; /* break by sentence */
+	/* white-space: nowrap; */
 }
-table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
-  display: none;
+.kt-badge.kt-badge--danger {
+	font-size : 1rem !important;
+}
+.kt-badge.kt-badge--success {
+	font-size : 1rem !important;
+}
+[class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
+	padding-right:0.5rem !important;
 }
 .btnku {
 	text-align : left !important;
@@ -40,14 +47,13 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 		<!-- begin:: Content -->
 		<div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 		<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-12 col-md-12 col-xl-12">
 					<!--begin::Portlet-->
 					<div class="kt-portlet kt-portlet--tab">
 						<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
-						<i class="flaticon-users-1" style="padding-right:5px"></i> Data Guru 
-						<?php foreach($n20 as $baris) { echo $baris->nama_sekolah; } ?>
+						<i class="fa fa-tachometer-alt" style="padding-right:5px"></i> Penilaian Kinerja Guru Yang Dinilai
 						</h3>
 						</div>
 							<div class="kt-portlet__head-toolbar">
@@ -56,53 +62,18 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 								</div>
 							</div>
 						</div>
-						<div class="kt-portlet__body">
-							<div class="form-group">
-							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."guru/form_addguru";?>"
-										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
-										<i class="la la-plus"></i>
-										Tambah Data
-									</a>
-							<?php 
-							$npsn_nss = $this->input->get('npsn_nss');
-            				if (isset($npsn_nss) and $npsn_nss !== "") { 
-							?>
-							<a class="btn btn-brand btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."guru";?>"
-										 id="guru_semua">
-										<i class="flaticon-users-1"></i>
-										Tampilkan Semua Guru SD
-									</a>
-							<?php } ?>
-							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
-										href="<?php echo base_url().FOLDER_SD."sekolah";?>"
-										 id="sekolah_semua">
-										<i class="flaticon-buildings"></i>
-										Kembali ke Data Sekolah
-									</a>	
-							</div>
-							
-							<div class="alert alert-warning data_guru" style="display:none"></div>
-							<table class="table table-striped table-bordered table-hover data_guru dataTables" id="data_guru" width=100%>
+						<div class="kt-portlet__body">						
+							<div class="alert alert-warning data_kinerjadinilai" style="display:none"></div>
+							<table class="table table-striped table-bordered table-hover data_kinerjadinilai dataTables" id="data_kinerjadinilai" width=100%>
 								<thead>
                         		<tr>
 									<th></th>
                             		<th>Tindakan</th>
-                            		<th>Sekolah</th>
-                            		<th>NUPTK</th>
-                            		<th>Nama</th>
-                            		<th>NIP</th>
-                            		<th>Karpeg</th>
-                            		<th>Tempat Lahir</th>
-                            		<th>Tanggal Lahir</th>
-                            		<th>Pangkat Jabatan</th>
-                            		<th>TMT</th>
-                            		<th>Jenis Kelamin</th>                     
-                            		<th>Pendidikan Terakhir</th>
-									<th>Program Keahlian</th>
-									<th>Jenis Guru</th>
-									<th>Mengajar</th>
+									<th>Sekolah</th>
+									<th>NUPTK Assesor</th>
+									<th>Nama Assesor</th>
+									<th>NUPTK Yang Dinilai</th>
+                            		<th>Nama Yang Dinilai</th>
                         		</tr>
 								</thead>
 							</table>
@@ -110,8 +81,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					</div>
 					<style type="text/css">
 						#tambah_data .modal-dialog {
-							width: 60%;
-							height: 100%;
+							width: 70%;
+							height: 80%;
 							
 							margin: auto;
 							position: absolute;
@@ -277,42 +248,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 
 						#tampilkan_foto2 .portlet-body {
 							min-width: 850px;
-						}
-
-						#hapusguru_sekolahmapel .portlet-body {
-							min-width: 400px;
-						}
-
-						#hapusguru_sekolahmapel .modal-dialog {
-							width: 70%;
-							height: 50%;
-							
-							margin: auto;
-							position: absolute;
-							top: 0;
-							left: 0;
-							bottom: 0;
-							right: 0;
-						}
-
-						#hapusguru_sekolahmapel .modal-body {
-							max-height: 520px;
-							/* Firefox */
-							max-height: -moz-calc(100vh - 120px);
-							/* WebKit */
-							max-height: -webkit-calc(100vh - 120px);
-							/* Opera */
-							max-height: -o-calc(100vh - 120px);
-							/* Standard */
-							max-height: calc(100vh - 120px);
-							/* IE-OLD */
-							max-height: expression(100vh - 120px);
-							overflow-y: auto;
-							overflow-x: auto;
-						}
-
-						#hapusguru_sekolahmapel .portlet-body {
-							min-width: 400px;
 						}
 
 						#aktifkan_data .modal-dialog {
@@ -514,41 +449,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						#ganti_password .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
-						#guru_sekolahmapel .modal-dialog {
-							width: 60%;
-							height: 100%;
-							
-							margin: auto;
-							position: absolute;
-							top: 0;
-							left: 0;
-							bottom: 0;
-							right: 0;
-							padding-top:10px;
-						}
-						#guru_sekolahmapel .modal-body {
-							max-height: 600px;
-							/* Firefox */
-							max-height: -moz-calc(100vh - 170px);
-							/* WebKit */
-							max-height: -webkit-calc(100vh - 170px);
-							/* Opera */
-							max-height: -o-calc(100vh - 170px);
-							/* Standard */
-							max-height: calc(100vh - 170px);
-							/* IE-OLD */
-							max-height: expression(100vh - 170px);
-							overflow-y: auto;
-							overflow-x: auto;
-						}
-
-						#guru_sekolahmapel .portlet-body {
-							min-width: 750px;
-						}
-
-						#guru_sekolahmapel .modal-footer {
-							border-bottom: 1px solid #e5e5e5;
-						}
 					</style>
 					<div class="modal fade" id="tambah_data2" tabindex="-1" role="dialog" style="display: none;"
 						aria-hidden="true">
@@ -603,19 +503,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					</div>
 					<!-- END MODAL -->
 					<div class="modal fade" id="hapusguru_sekolah" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-								</div>
-								<div class="modal-body form">
-								</div>
-								<div class="modal-footer">
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- END MODAL -->
-					<div class="modal fade" id="hapusguru_sekolahmapel" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -693,19 +580,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 					</div>
 					<!-- END MODAL -->
-					<div class="modal fade" id="guru_sekolahmapel" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-								</div>
-								<div class="modal-body form">
-								</div>
-								<div class="modal-footer">
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- END MODAL -->
 					<div class="modal fade" id="eksportdata" role="dialog" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -733,10 +607,34 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-12 col-md-12 col-xl-12">
+				<!--begin::Portlet-->
+				<div class="kt-portlet kt-portlet--tab">
+						<div class="kt-portlet__body">						
+							<div class="alert alert-warning data_evaluasi" style="display:none"></div>
+							<table class="table table-striped table-bordered table-hover data_evaluasi dataTables" id="data_evaluasi" width=100%>
+								<thead>
+                        		<tr>
+										<th></th>
+										<th>Tindakan</th>	
+										<th>Kelompok Kompetensi</th>
+										<th>No Urut<br/>Kompetensi</th>	
+										<th>Nama Kompetensi</th>
+										<th>No Urut<br/>Indikator</th>										
+										<th>Nama Indikator</th>										
+										<th>Status<br/>Unggah File</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- end:: Content -->
 </div>
+
 <?php $this->load->view("footer.php"); ?>

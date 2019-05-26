@@ -85,7 +85,7 @@
 </style>
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">Upload Berkas</h5>
+<h5 class="modal-title">Upload Bukti Penilaian Kuisioner</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -170,7 +170,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_file"><i class="la la-plus"></i> Tambah Nilai Kuisioner</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_file"><i class="la la-plus"></i> Tambah Data Kuisioner</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>

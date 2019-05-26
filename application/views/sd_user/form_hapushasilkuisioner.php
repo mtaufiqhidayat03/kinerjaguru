@@ -55,7 +55,7 @@
 			async:true,
     		type: "POST",
 			data: $('form.form_hapus_data').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>hasilkuisioner/aksihapushasilkuisioner",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kuisioneruser/aksihapushasilkuisioner",
 				beforeSend: function(){
 				},
         		success: function(data){

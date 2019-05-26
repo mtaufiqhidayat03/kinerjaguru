@@ -219,10 +219,10 @@ class Kinerja extends CI_Controller {
 			$nuptk_guru_sd= $this->session->userdata("username");
 			$query = $this->db->get_where(D_PENILAIAN_SD.$this->session->userdata('tahun'), array('id_indikator_penilaian_sd' => $id_indikator,'nuptk_penilaian_sd' => $nuptk_guru_sd));
 			if ($query->num_rows() == 0) {
-			$new_name ="penilaian_tahun_".$this->session->userdata('tahun')."_id_".$id_indikator."_nuptk_".$nuptk_guru_sd;
+			$new_name ="penilaian_tahun_".$this->session->userdata('tahun')."_id_".$id_indikator."_nuptk_".$nuptk_guru_sd."_tanggal_".date("d-m-Y")."_jam_".date("H-i-s");
 			$config['upload_path']          = './penilaian/sd/'.$this->session->userdata('tahun').'/'.$nuptk_guru_sd.'/';
 			$config['allowed_types']        = 'pdf';
-			$config['max_size']             = 1572864;
+			$config['max_size']             = 1048576;
 			$config['file_name'] 			= $new_name;
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('pdf')){
@@ -259,7 +259,7 @@ class Kinerja extends CI_Controller {
 			$id_kelompok=$this->input->get('id_kelompok');
 			$id_kompetensi=$this->input->get('id_kompetensi');
 			$nuptk= $this->session->userdata("username");
-			$data['n2'] = $this->m_kinerjauser->getdatakinerja($id_indikator, $id_kompetensi, $id_kelompok);
+			$data['n2'] = $this->m_kinerjauser->getdatakinerja2($id_indikator, $id_kompetensi, $id_kelompok, $nuptk);
 			$data['n1'] = $this->m_kinerjauser->getdataguru($nuptk);
             $this->load->view(FOLDER_SD_USER.'form_gantifilekinerja', $data);
         } else {
@@ -284,10 +284,10 @@ class Kinerja extends CI_Controller {
             $rowku = $queryku->row_array();
 			$file = $rowku['upload_file_penilaian_sd'];
 			if (is_readable($file) && unlink($file)) {
-			$new_name ="penilaian_tahun_".$this->session->userdata('tahun')."_id_".$id_indikator."_nuptk_".$nuptk_guru_sd;
+			$new_name ="penilaian_tahun_".$this->session->userdata('tahun')."_id_".$id_indikator."_nuptk_".$nuptk_guru_sd."_tanggal_".date("d-m-Y")."_jam_".date("H-i-s");
 			$config['upload_path']          = './penilaian/sd/'.$this->session->userdata('tahun').'/'.$nuptk_guru_sd.'/';
 			$config['allowed_types']        = 'pdf';
-			$config['max_size']             = 1572864;
+			$config['max_size']             = 1048576;
 			$config['file_name'] 			= $new_name;
 			$this->load->library('upload', $config);
 			if (!$this->upload->do_upload('pdf')){
@@ -297,7 +297,12 @@ class Kinerja extends CI_Controller {
 			$data_kinerja = array(
 				'upload_file_penilaian_sd'=>$config['upload_path'].$this->upload->data('file_name'),
 			);
-            $data = $this->m_kinerjauser->editpenilaiankinerja($data_kinerja, $id_indikator, $nuptk_guru_sd);
+			$data = $this->m_kinerjauser->editpenilaiankinerja($data_kinerja, $id_indikator, $nuptk_guru_sd);
+			if ($this->db->affected_rows() != 1) {
+				echo "Proses edit data gagal dilakukan";
+			} else {
+				echo $data;
+			}
 			}
 			} else {
 				echo "Proses edit data gagal dilakukan";

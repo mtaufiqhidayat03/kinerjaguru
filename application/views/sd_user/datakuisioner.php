@@ -24,6 +24,18 @@ table.dataTable tbody tr td {
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
   display: none;
 }
+.kt-badge.kt-badge--danger {
+	font-size : 1rem !important;
+}
+.kt-badge.kt-badge--success {
+	font-size : 1rem !important;
+}
+[class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
+	padding-right:0.5rem !important;
+}
+.btnku {
+	text-align : left !important;
+}
 </style>
 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 	<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
@@ -43,7 +55,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
-						<i class="fa fa-thumbtack" style="padding-right:5px"></i> Pengaturan Kuisioner
+						<i class="fa fa-thumbtack" style="padding-right:5px"></i> Penilaian Kuisioner
 						</h3>
 						</div>
 							<div class="kt-portlet__head-toolbar">
@@ -53,15 +65,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							</div>
 						</div>
 						<div class="kt-portlet__body">
-							<div class="form-group">
-							<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate btn-elevate-air"
-										href="<?php echo base_url().FOLDER_SD."kuisioner/form_addkuisioner";?>"
-										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
-										<i class="la la-plus"></i>
-										Tambah Data
-									</a>
-									&nbsp;
-							</div>
 							<div class="alert alert-warning data_kuisioner" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_kuisioner dataTables" id="data_kuisioner" width=100%>
 								<thead>
@@ -70,6 +73,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										<th>Tindakan</th>
 										<th>Nama Kelompok Kompetensi</th>
 										<th>Nama Kuisioner</th>
+										<th>Nilai Kuisioner</th>
+										<th>Status Unggah File</th>
 									</tr>
 								</thead>
 							</table>
@@ -111,20 +116,17 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						#tambah_data .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
-
 						#edit_data .modal-dialog {
-							width: 60%;
-							height: 60%;
-							
+							width: 80%;
+							height: 100%;							
 							margin: auto;
 							position: absolute;
 							top: 0;
 							left: 0;
 							bottom: 0;
 							right: 0;
-							padding-top: 10px;
+							padding-top:10px;
 						}
-
 						#edit_data .modal-body {
 							max-height: 600px;
 							/* Firefox */
@@ -148,7 +150,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						#edit_data .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
-
 						#hapus_data .modal-dialog {
 							width: 80%;
 							height: 50%;
@@ -408,8 +409,106 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						#upload_file .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
+						#lihat_pdf .modal-header {
+						padding: 0.25rem !important;
+						}
+						#lihat_pdf .modal-dialog {
+							width: 90%;
+							height: 100%;							
+							margin: auto;
+							position: absolute;
+							top: 0;
+							left: 0;
+							bottom: 0;
+							right: 0;
+						}
 
+						#lihat_pdf .modal-body {
+							max-height: 520px;
+							/* Firefox */
+							max-height: -moz-calc(100vh - 90px);
+							/* WebKit */
+							max-height: -webkit-calc(100vh - 90px);
+							/* Opera */
+							max-height: -o-calc(100vh - 90px);
+							/* Standard */
+							max-height: calc(100vh - 90px);
+							/* IE-OLD */
+							max-height: expression(100vh - 90px);
+							overflow-y: auto;
+							overflow-x: auto;
+						}
+
+						#lihat_pdf .portlet-body {
+							min-width: 850px;
+						}
+						#lihat_pdf .modal-footer {
+							border-bottom: 1px solid #e5e5e5;
+							padding: 0rem !important;
+						}
+						#edit_datanilai .modal-dialog {
+							width: 80%;
+							height: 80%;
+							
+							margin: auto;
+							position: absolute;
+							top: 0;
+							left: 0;
+							bottom: 0;
+							right: 0;
+							padding-top: 10px;
+						}
+
+						#edit_datanilai .modal-body {
+							max-height: 600px;
+							/* Firefox */
+							max-height: -moz-calc(100vh - 170px);
+							/* WebKit */
+							max-height: -webkit-calc(100vh - 170px);
+							/* Opera */
+							max-height: -o-calc(100vh - 170px);
+							/* Standard */
+							max-height: calc(100vh - 170px);
+							/* IE-OLD */
+							max-height: expression(100vh - 170px);
+							overflow-y: auto;
+							overflow-x: auto;
+						}
+
+						#edit_datanilai .portlet-body {
+							min-width: 750px;
+						}
+
+						#edit_datanilai .modal-footer {
+							border-bottom: 1px solid #e5e5e5;
+						}
 					</style>
+					<div class="modal fade" id="lihat_pdf" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"> 
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+								</div>
+								<div class="modal-body form">
+								</div>
+								<div class="modal-footer">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL -->
+					<div class="modal fade" id="edit_datanilai" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"> 
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+								</div>
+								<div class="modal-body form">
+								</div>
+								<div class="modal-footer">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END MODAL -->
 					<div class="modal fade" id="tambah_data2" tabindex="-1" role="dialog" style="display: none;"
 						aria-hidden="true">
 						<div class="modal-dialog" role="document">

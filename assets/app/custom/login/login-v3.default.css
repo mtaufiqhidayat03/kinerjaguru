@@ -3,7 +3,15 @@
     background-repeat: no-repeat
 }
 .kt-login.kt-login--v3 .kt-login__wrapper {
-    padding: 1.5rem 1rem 1rem 1rem;
+	/*padding-top: 1.5rem; */
+	padding-top: -moz-calc(0vh + 3rem);
+	padding-top: -webkit-calc(0vh + 3rem);
+	padding-top: -o-calc(0vh + 3rem);
+	padding-top: calc(0vh + 3rem);
+	padding-top: expression(0vh + 3rem);	
+	padding-right: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
     margin: 0 auto 2rem auto;
     overflow: hidden
 }

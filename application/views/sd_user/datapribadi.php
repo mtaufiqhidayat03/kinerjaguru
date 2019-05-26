@@ -24,6 +24,18 @@ table.dataTable tbody tr td {
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
   display: none;
 }
+label {
+	font-weight: 500 !important;
+}
+.kt-badge.kt-badge--danger {
+	font-size : 1rem !important;
+}
+.kt-badge.kt-badge--success {
+	font-size : 1rem !important;
+}
+[class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
+	padding-right:0.5rem !important;
+}
 </style>
 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 	<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
@@ -170,6 +182,54 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							<?php }?>	
 							<?php }?>					
 							<?php } ?>
+							</table>
+						</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-xl-12">
+					<!--begin::Portlet-->
+					<div class="kt-portlet kt-portlet--tab">
+						<div class="kt-portlet__head kt-portlet__head--lg">
+						<div class="kt-portlet__head-label">
+						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
+						<i class="fa fa-users-cog" style="padding-right:5px"></i> Data Assesor
+						</h3>
+						</div>
+							<div class="kt-portlet__head-toolbar">
+								<div class="kt-portlet__head-wrapper">
+									
+								</div>
+							</div>
+						</div>
+						<div class="kt-portlet__body">
+							<!-- isian -->
+							<table width="100%" height="100%">
+							<tr valign="top">
+								<td width="11" height="70"></td>
+								<td width="211"><label>NUPTK Assesor</label><br/></td>
+								<td width="20">:</td>
+								<td width="380">
+								<label>
+								<?php if (!empty($n5)) { foreach($n5 as $barisku) {
+                                    echo $barisku->nuptk_assesor;}
+                                	} else { 
+									echo '<span class="kt-badge kt-badge--inline kt-badge--danger"><i class="flaticon2-delete"></i>Anda belum memiliki assesor</span>'; } ?>
+								</label>
+								</td>
+								<td width="27"></td>
+								</tr>
+								<tr valign="top">
+								<td height="70"></td>
+								<td><label>Nama Assesor</label></td>
+								<td>:</td>
+								<td><label><?php if (!empty($n5)) {
+                                    foreach ($n5 as $barisku) {
+                                        echo $barisku->nama_guru;
+                                    }
+                                } else { 
+									echo '<span class="kt-badge kt-badge--inline kt-badge--danger">-</span>'; } ?></label></td>
+								<td></td>
+							</tr>						
 							</table>
 						</div>
 						</div>

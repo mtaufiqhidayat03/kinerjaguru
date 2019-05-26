@@ -129,7 +129,11 @@ function get_client_ip() {
 <?php if (($this->session->userdata('level') == "Administrator Kota") or ($this->session->userdata('level') == "Administrator Sekolah")) { ?>
 <script src="<?php echo base_url();?>assets/vendors/custom/datatables/table-managedadmin.js" type="text/javascript"></script>
 <?php } else {?>
+<?php	if ($this->session->userdata("level")=="Kepsek") { ?>
+<script src="<?php echo base_url();?>assets/vendors/custom/datatables/table-managedkepsek.js" type="text/javascript"></script>
+<?php } else {?>
 <script src="<?php echo base_url();?>assets/vendors/custom/datatables/table-managedguru.js" type="text/javascript"></script>
+<?php }?>
 <?php }?>
 <script src="<?php echo base_url();?>assets/vendors/custom/datatables/jquery.dataTables.columnFilter.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/app/custom/general/crud/forms/widgets/bootstrap-datepicker.id.js" type="text/javascript"></script>
@@ -1271,7 +1275,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 			$(function() {
 			$('#edit_guru').on("select2:select", function(e) { 
 			$('#upload_file tr:last').remove();
-			$('#upload_file tr:last').after('<tr valign="top"><td></td><td><label>Berkas File Yang Akan Diupload</label><div>Nama File Akan Otomatis Diganti</div></td><td>:</td><td><div id="preview-container"><button id="upload-dialog" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-file-pdf"></i>Pilih Berkas File PDF Yang Akan Di Upload</button><input type="file" id="pdf-file" name="pdf" accept="application/pdf" /><div id="pdf-loader">Memuat Tampilan ...</div><div id="pdf-contents"><div id="pdf-meta"><div id="pdf-buttons"><button id="pdf-prev" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-arrow-circle-left"></i> Sebelumnya</button><button id="pdf-next" class="btn btn-info btn-elevate2 btn-elevate-air2">Selanjutnya <i class="fa fa-arrow-circle-right"></i></button><button id="cancel-pdf" class="btn btn-dark btn-elevate2 btn-elevate-air2"><i class="fa fa-trash-alt"></i> Batalkan Berkas</button></div><div id="page-count-container">Halaman <div id="pdf-current-page"></div> dari <div id="pdf-total-pages"></div></div></div><canvas id="pdf-preview" width="300" height="350"></canvas><span id="pdf-name"></span> <div id="page-loader">Memuat Halaman ...</div></div></td><td></td></tr>');
+			$('#upload_file tr:last').after('<tr valign="top"><td></td><td><label>Berkas File Yang Akan Diupload</label></td><td>:</td><td><div id="preview-container"><button id="upload-dialog" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-file-pdf"></i>Pilih Berkas File PDF Yang Akan Di Upload</button><input type="file" id="pdf-file" name="pdf" accept="application/pdf" /><div id="pdf-loader">Memuat Tampilan ...</div><div id="pdf-contents"><div id="pdf-meta"><div id="pdf-buttons"><button id="pdf-prev" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-arrow-circle-left"></i> Sebelumnya</button><button id="pdf-next" class="btn btn-info btn-elevate2 btn-elevate-air2">Selanjutnya <i class="fa fa-arrow-circle-right"></i></button><button id="cancel-pdf" class="btn btn-dark btn-elevate2 btn-elevate-air2"><i class="fa fa-trash-alt"></i> Batalkan Berkas</button></div><div id="page-count-container">Halaman <div id="pdf-current-page"></div> dari <div id="pdf-total-pages"></div></div></div><canvas id="pdf-preview" width="300" height="350"></canvas><span id="pdf-name"></span> <div id="page-loader">Memuat Halaman ...</div></div></td><td></td></tr>');
 				var __PDF_DOC,
 					__CURRENT_PAGE,
 					__TOTAL_PAGES,
@@ -1347,7 +1351,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				}
 
 				// Previous page of the PDF
-				$("#pdf-prev").on('click', function(event, data) {
+				$("#pdf-prev").off('click').on('click', function(event, data) {
 					$('html, body, .modal-body').stop();
 					event.preventDefault();
 					if(__CURRENT_PAGE != 1)
@@ -1356,7 +1360,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				});
 
 				// Next page of the PDF
-				$("#pdf-next").on('click', function(event, data) {
+				$("#pdf-next").off('click').on('click', function(event, data) {
 					$('html, body, .modal-body').stop();
 					event.preventDefault();
 					if(__CURRENT_PAGE != __TOTAL_PAGES)
@@ -1365,12 +1369,12 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				});
 
 				/* Show Select File dialog */
-				document.querySelector("#upload-dialog").addEventListener('click', function(event) {
-					event.preventDefault();
-					document.querySelector("#pdf-file").click();	
+				$("#upload-dialog").off('click').on('click', function(event) {					
+					$("#pdf-file").click();
+					event.preventDefault();	
 				});
 				/* Selected File has changed */
-				document.querySelector("#pdf-file").addEventListener('change', function(event) {
+				$("#pdf-file").off('change').on('change', function(event) {
 					event.preventDefault();
 					// user selected file
 					var file = this.files[0];
@@ -1383,7 +1387,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 						return;
 					}
 					// validate file size
-					if(file.size > 1.5*1024*1024) {
+					if(file.size > 1*1024*1024) {
 						maksimumbesarfilepdf();
 						event.target.value = null;
 						return;
@@ -1408,7 +1412,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				});
 
 				/* Reset file input */
-				document.querySelector("#cancel-pdf").addEventListener('click', function(event) {
+				$("#cancel-pdf").off('click').on('click', function(event) {
 					event.preventDefault();
 					// show upload dialog button
 					document.querySelector("#upload-dialog").style.display = 'inline-block';
@@ -1569,7 +1573,7 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				return;
 			}
 			// validate file size
-			if(file.size > 1.5*1024*1024) {
+			if(file.size > 1*1024*1024) {
 				maksimumbesarfilepdf();
 				event.target.value = null;
 				return;
@@ -1647,7 +1651,7 @@ $('#lihat_pdf').on('shown.bs.modal', function(e) {
 		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
 		if (xhr.status == 200) {
 			var initial = $('#lokasifile').val();
-			var options = {pdfOpenParams: {zoom: '75',  page: '1' }};
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
 			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
 			unblockPageUI();
 		} else {
@@ -1734,9 +1738,268 @@ var Datepicker2 = function() {
             unblockPageUI();
         }		
 });
-// DATA KINERJA
-<?php } else if ($this->uri->segment(2)=="kinerja") { ?>
-$('#upload_file').on('show.bs.modal', function(e) {
+// DATA KUISIONER USER
+<?php } else if ($this->uri->segment(2)=="kuisioneruser") { ?>
+	$('#edit_datanilai').on('show.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();	
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#edit_datanilai').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});
+	$('#lihat_pdf').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			var initial = $('#lokasifile').val();
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
+			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#ihat_pdf').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
+$('#edit_data').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			$("#sembunyikan_file").css("display","none").attr('disabled','disabled');
+			unblockPageUI();
+			$('#tampilkan_file').on('click', function(e) {
+				$("#sembunyikan_file").css("display","block").removeAttr('disabled');
+				var initial = $('#lokasifile').val();
+				var options = {pdfOpenParams: {zoom: '45',  page: '1' }};
+				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
+				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
+				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');
+				$('#aku.col-md-6').last().css("display","block");
+			});
+			$('#sembunyikan_file').on('click', function(e) {
+				$("#tampilkan_file").css("display","block").removeAttr('disabled');
+				$('#aku.col-md-6').addClass('col-md-12').removeClass('col-md-6');
+				$('#aku.col-md-12').last().css("display","none");
+				$("#sembunyikan_file").css("display","none").attr('disabled', 'disabled');
+			});	
+			var __PDF_DOC,
+					__CURRENT_PAGE,
+					__TOTAL_PAGES,
+					__PAGE_RENDERING_IN_PROGRESS = 0,
+					__CANVAS = $('#pdf-preview').get(0),
+					__CANVAS_CTX = __CANVAS.getContext('2d'),
+					_OBJECT_URL;
+				function showPDF(pdf_url) {
+					$("#pdf-loader").show();
+
+					PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+						__PDF_DOC = pdf_doc;
+						__TOTAL_PAGES = __PDF_DOC.numPages;
+						
+						// Hide the pdf loader and show pdf container in HTML
+						$("#pdf-loader").hide();
+						$("#pdf-contents").show();
+						$("#pdf-total-pages").text(__TOTAL_PAGES);
+
+						// Show the first page
+						showPage(1);
+					}).catch(function(error) {
+						// If error re-show the upload button
+						$("#pdf-loader").hide();
+						$("#upload-button").show();
+						
+						alert(error.message);
+					});;
+				}
+
+				function showPage(page_no) {
+					__PAGE_RENDERING_IN_PROGRESS = 1;
+					__CURRENT_PAGE = page_no;
+
+					// Disable Prev & Next buttons while page is being loaded
+					$("#pdf-next, #pdf-prev").attr('disabled', 'disabled');
+
+					// While page is being rendered hide the canvas and show a loading message
+					$("#pdf-preview").hide();
+					$("#page-loader").show();
+
+					// Update current page in HTML
+					$("#pdf-current-page").text(page_no);
+					
+					// Fetch the page
+					__PDF_DOC.getPage(page_no).then(function(page) {
+						// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
+						var scale_required = __CANVAS.width / page.getViewport(1).width;
+
+						// Get viewport of the page at required scale
+						var viewport = page.getViewport(scale_required);
+
+						// Set canvas height
+						__CANVAS.height = viewport.height;
+
+						var renderContext = {
+							canvasContext: __CANVAS_CTX,
+							viewport: viewport
+						};
+						
+						// Render the page contents in the canvas
+						page.render(renderContext).then(function() {
+							__PAGE_RENDERING_IN_PROGRESS = 0;
+
+							// Re-enable Prev & Next buttons
+							$("#pdf-next, #pdf-prev").removeAttr('disabled');
+
+							// Show the canvas and hide the page loader
+							$("#pdf-preview").show();
+							$("#page-loader").hide();
+						});
+					});
+				}
+
+				// Previous page of the PDF
+				$("#pdf-prev").off('click').on('click', function(event, data) {
+					$('html, body, .modal-body').stop();
+					event.preventDefault();
+					if(__CURRENT_PAGE != 1)
+						showPage(--__CURRENT_PAGE);
+					return false;
+				});
+
+				// Next page of the PDF
+				$("#pdf-next").off('click').on('click', function(event, data) {
+					$('html, body, .modal-body').stop();
+					event.preventDefault();
+					if(__CURRENT_PAGE != __TOTAL_PAGES)
+						showPage(++__CURRENT_PAGE);
+						return false;
+				});
+
+				/* Show Select File dialog */
+				$("#upload-dialog").off('click').on('click', function(event) {					
+					$("#pdf-file").click();
+					event.preventDefault();	
+				});
+				/* Selected File has changed */
+				$("#pdf-file").off('change').on('change', function(event) {
+					event.preventDefault();
+					// user selected file
+					var file = this.files[0];
+					// allowed MIME types
+					var mime_types = [ 'application/pdf' ]; 
+					// Validate whether PDF
+					if(mime_types.indexOf(file.type) == -1) {
+						maksimumbesarfilepdf();
+						event.target.value = null;
+						return;
+					}
+					// validate file size
+					if(file.size > 1*1024*1024) {
+						maksimumbesarfilepdf();
+						event.target.value = null;
+						return;
+					}
+					// validation is successful
+					// hide upload dialog button
+					document.querySelector("#upload-dialog").style.display = 'none';
+					// set name of the file
+					document.querySelector("#pdf-name").innerText = "Nama File : "+file.name;
+					document.querySelector("#pdf-name").style.display = 'inline';
+					// show cancel and upload buttons now
+					document.querySelector("#cancel-pdf").style.display = 'inline';
+					//document.querySelector("#upload-button").style.display = 'inline-block';
+					// Show the PDF preview loader
+					document.querySelector("#pdf-loader").style.display = 'inline-block';
+					// object url of PDF 
+					_OBJECT_URL = URL.createObjectURL(file)
+
+					// send the object url of the pdf to the PDF preview function
+					showPDF(_OBJECT_URL);
+					//console.log(document.querySelector("#pdf-file").value);
+				});
+
+				/* Reset file input */
+				$("#cancel-pdf").off('click').on('click', function(event) {
+					event.preventDefault();
+					// show upload dialog button
+					document.querySelector("#upload-dialog").style.display = 'inline-block';
+					// reset to no selection
+					document.querySelector("#pdf-file").value = '';
+					// hide elements that are not required
+					document.querySelector("#pdf-name").style.display = 'none';
+					document.querySelector("#pdf-preview").style.display = 'none';
+					document.querySelector("#pdf-loader").style.display = 'none';
+					document.querySelector("#pdf-contents").style.display = 'none';
+					document.querySelector("#cancel-pdf").style.display = 'none';
+					//event.target.value = null;
+					//console.log(document.querySelector("#pdf-file").value);
+				});
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#edit_data').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
+$('#hapus_data').on('show.bs.modal', function(e) {
+	blockPageUI();
+	<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+	<?php  } ?>
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();		
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#hapus_data').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});
+
+$('#upload_file').on('shown.bs.modal', function(e) {
 		blockPageUI();
 		<?php  if ($this->session->userdata("username") !== "") {  ?>
 		$.post("<?php echo base_url();?>Login/checksession", function (data) {
@@ -1751,6 +2014,332 @@ $('#upload_file').on('show.bs.modal', function(e) {
 		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
 		if (xhr.status == 200) {
 			unblockPageUI();
+				var __PDF_DOC,
+					__CURRENT_PAGE,
+					__TOTAL_PAGES,
+					__PAGE_RENDERING_IN_PROGRESS = 0,
+					__CANVAS = $('#pdf-preview').get(0),
+					__CANVAS_CTX = __CANVAS.getContext('2d'),
+					_OBJECT_URL;
+				function showPDF(pdf_url) {
+					$("#pdf-loader").show();
+
+					PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+						__PDF_DOC = pdf_doc;
+						__TOTAL_PAGES = __PDF_DOC.numPages;
+						
+						// Hide the pdf loader and show pdf container in HTML
+						$("#pdf-loader").hide();
+						$("#pdf-contents").show();
+						$("#pdf-total-pages").text(__TOTAL_PAGES);
+
+						// Show the first page
+						showPage(1);
+					}).catch(function(error) {
+						// If error re-show the upload button
+						$("#pdf-loader").hide();
+						$("#upload-button").show();
+						
+						alert(error.message);
+					});;
+				}
+
+				function showPage(page_no) {
+					__PAGE_RENDERING_IN_PROGRESS = 1;
+					__CURRENT_PAGE = page_no;
+
+					// Disable Prev & Next buttons while page is being loaded
+					$("#pdf-next, #pdf-prev").attr('disabled', 'disabled');
+
+					// While page is being rendered hide the canvas and show a loading message
+					$("#pdf-preview").hide();
+					$("#page-loader").show();
+
+					// Update current page in HTML
+					$("#pdf-current-page").text(page_no);
+					
+					// Fetch the page
+					__PDF_DOC.getPage(page_no).then(function(page) {
+						// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
+						var scale_required = __CANVAS.width / page.getViewport(1).width;
+
+						// Get viewport of the page at required scale
+						var viewport = page.getViewport(scale_required);
+
+						// Set canvas height
+						__CANVAS.height = viewport.height;
+
+						var renderContext = {
+							canvasContext: __CANVAS_CTX,
+							viewport: viewport
+						};
+						
+						// Render the page contents in the canvas
+						page.render(renderContext).then(function() {
+							__PAGE_RENDERING_IN_PROGRESS = 0;
+
+							// Re-enable Prev & Next buttons
+							$("#pdf-next, #pdf-prev").removeAttr('disabled');
+
+							// Show the canvas and hide the page loader
+							$("#pdf-preview").show();
+							$("#page-loader").hide();
+						});
+					});
+				}
+
+				// Previous page of the PDF
+				$("#pdf-prev").off('click').on('click', function(event, data) {
+					$('html, body, .modal-body').stop();
+					event.preventDefault();
+					if(__CURRENT_PAGE != 1)
+						showPage(--__CURRENT_PAGE);
+					return false;
+				});
+
+				// Next page of the PDF
+				$("#pdf-next").off('click').on('click', function(event, data) {
+					$('html, body, .modal-body').stop();
+					event.preventDefault();
+					if(__CURRENT_PAGE != __TOTAL_PAGES)
+						showPage(++__CURRENT_PAGE);
+						return false;
+				});
+
+				/* Show Select File dialog */
+				$("#upload-dialog").off('click').on('click', function(event) {					
+					$("#pdf-file").click();
+					event.preventDefault();	
+				});
+				/* Selected File has changed */
+				$("#pdf-file").off('change').on('change', function(event) {
+					event.preventDefault();
+					// user selected file
+					var file = this.files[0];
+					// allowed MIME types
+					var mime_types = [ 'application/pdf' ]; 
+					// Validate whether PDF
+					if(mime_types.indexOf(file.type) == -1) {
+						maksimumbesarfilepdf();
+						event.target.value = null;
+						return;
+					}
+					// validate file size
+					if(file.size > 1*1024*1024) {
+						maksimumbesarfilepdf();
+						event.target.value = null;
+						return;
+					}
+					// validation is successful
+					// hide upload dialog button
+					document.querySelector("#upload-dialog").style.display = 'none';
+					// set name of the file
+					document.querySelector("#pdf-name").innerText = "Nama File : "+file.name;
+					document.querySelector("#pdf-name").style.display = 'inline';
+					// show cancel and upload buttons now
+					document.querySelector("#cancel-pdf").style.display = 'inline';
+					//document.querySelector("#upload-button").style.display = 'inline-block';
+					// Show the PDF preview loader
+					document.querySelector("#pdf-loader").style.display = 'inline-block';
+					// object url of PDF 
+					_OBJECT_URL = URL.createObjectURL(file)
+
+					// send the object url of the pdf to the PDF preview function
+					showPDF(_OBJECT_URL);
+					//console.log(document.querySelector("#pdf-file").value);
+				});
+
+				/* Reset file input */
+				$("#cancel-pdf").off('click').on('click', function(event) {
+					event.preventDefault();
+					// show upload dialog button
+					document.querySelector("#upload-dialog").style.display = 'inline-block';
+					// reset to no selection
+					document.querySelector("#pdf-file").value = '';
+					// hide elements that are not required
+					document.querySelector("#pdf-name").style.display = 'none';
+					document.querySelector("#pdf-preview").style.display = 'none';
+					document.querySelector("#pdf-loader").style.display = 'none';
+					document.querySelector("#pdf-contents").style.display = 'none';
+					document.querySelector("#cancel-pdf").style.display = 'none';
+					//event.target.value = null;
+					//console.log(document.querySelector("#pdf-file").value);
+				});
+				} else {
+					koneksierror();
+					setTimeout(function(){ $('#upload_file').modal('hide');}, 1000);
+					unblockPageUI();
+				}
+				});
+});	
+// DATA KINERJA YANG DINILAI
+<?php } else if ($this->uri->segment(2)=="kinerjadinilai") { ?>
+
+// DATA KINERJA
+<?php } else if ($this->uri->segment(2)=="kinerja") { ?>
+$('#upload_file').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();
+			var __PDF_DOC,
+				__CURRENT_PAGE,
+				__TOTAL_PAGES,
+				__PAGE_RENDERING_IN_PROGRESS = 0,
+				__CANVAS = $('#pdf-preview').get(0),
+				__CANVAS_CTX = __CANVAS.getContext('2d'),
+				_OBJECT_URL;
+
+				function showPage(page_no) {
+				__PAGE_RENDERING_IN_PROGRESS = 1;
+				__CURRENT_PAGE = page_no;
+
+				// Disable Prev & Next buttons while page is being loaded
+				$("#pdf-next, #pdf-prev").attr('disabled', 'disabled');
+
+				// While page is being rendered hide the canvas and show a loading message
+				$("#pdf-preview").hide();
+				$("#page-loader").show();
+
+				// Update current page in HTML
+				$("#pdf-current-page").text(page_no);
+				
+				// Fetch the page
+				__PDF_DOC.getPage(page_no).then(function(page) {
+					// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
+					var scale_required = __CANVAS.width / page.getViewport(1).width;
+
+					// Get viewport of the page at required scale
+					var viewport = page.getViewport(scale_required);
+
+					// Set canvas height
+					__CANVAS.height = viewport.height;
+
+					var renderContext = {
+						canvasContext: __CANVAS_CTX,
+						viewport: viewport
+					};
+					
+					// Render the page contents in the canvas
+					page.render(renderContext).then(function() {
+						__PAGE_RENDERING_IN_PROGRESS = 0;
+
+						// Re-enable Prev & Next buttons
+						$("#pdf-next, #pdf-prev").removeAttr('disabled');
+
+						// Show the canvas and hide the page loader
+						$("#pdf-preview").show();
+						$("#page-loader").hide();
+					});
+				});
+			}
+					
+			function showPDF(pdf_url) {
+				$("#pdf-loader").show();
+
+				PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+					__PDF_DOC = pdf_doc;
+					__TOTAL_PAGES = __PDF_DOC.numPages;
+					
+					// Hide the pdf loader and show pdf container in HTML
+					$("#pdf-loader").hide();
+					$("#pdf-contents").show();
+					$("#pdf-total-pages").text(__TOTAL_PAGES);
+
+					// Show the first page
+					showPage(1);
+				}).catch(function(error) {
+					// If error re-show the upload button
+					$("#pdf-loader").hide();
+					$("#upload-button").show();
+					
+					alert(error.message);
+				});;
+			}
+			// Previous page of the PDF
+			$("#pdf-prev").off('click').on('click', function(event, data) {
+				$('html, body, .modal-body').stop();
+				event.preventDefault();
+				if(__CURRENT_PAGE != 1)
+					showPage(--__CURRENT_PAGE);
+				return false;
+			});
+
+			// Next page of the PDF
+			$("#pdf-next").off('click').on('click', function(event, data) {
+				$('html, body, .modal-body').stop();
+				event.preventDefault();
+				if(__CURRENT_PAGE != __TOTAL_PAGES)
+					showPage(++__CURRENT_PAGE);
+					return false;
+			});
+
+			/* Show Select File dialog */
+			$("#upload-dialog").off("click").on("click",function(event) {
+				//alert("A");
+				$("#pdf-file").click();
+				event.preventDefault();
+			}); 
+
+			/* Selected File has changed */
+			$("#pdf-file").off("change").on("change",function(event) {
+				event.preventDefault();
+				// user selected file
+				var file = this.files[0];
+				// allowed MIME types
+				var mime_types = [ 'application/pdf' ]; 
+				// Validate whether PDF
+				if(mime_types.indexOf(file.type) == -1) {
+					maksimumbesarfilepdf();
+					event.target.value = null;
+					return;
+				}
+				// validate file size
+				if(file.size > 1*1024*1024) {
+					maksimumbesarfilepdf();
+					event.target.value = null;
+					return;
+				}
+				// validation is successful
+				// hide upload dialog button
+				document.querySelector("#upload-dialog").style.display = 'none';
+				// set name of the file
+				document.querySelector("#pdf-name").innerText = "Nama File : "+file.name;
+				document.querySelector("#pdf-name").style.display = 'inline';
+				// show cancel and upload buttons now
+				document.querySelector("#cancel-pdf").style.display = 'inline';
+				//document.querySelector("#upload-button").style.display = 'inline-block';
+				// Show the PDF preview loader
+				document.querySelector("#pdf-loader").style.display = 'inline-block';
+				// object url of PDF 
+				_OBJECT_URL = URL.createObjectURL(file)
+
+				// send the object url of the pdf to the PDF preview function
+				showPDF(_OBJECT_URL);
+				//console.log(document.querySelector("#pdf-file").value);
+			});
+
+			/* Reset file input */
+			$("#cancel-pdf").off("click").on("click", function(event) {
+				event.preventDefault();
+				document.querySelector("#upload-dialog").style.display = 'inline-block';
+				document.querySelector("#pdf-file").value = '';
+				document.querySelector("#pdf-name").style.display = 'none';
+				document.querySelector("#pdf-preview").style.display = 'none';
+				document.querySelector("#pdf-loader").style.display = 'none';
+				document.querySelector("#pdf-contents").style.display = 'none';
+				document.querySelector("#cancel-pdf").style.display = 'none';
+			});	
 		} else {
 			koneksierror();
 			setTimeout(function(){ $('#upload_file').modal('hide');}, 1000);
@@ -1758,162 +2347,8 @@ $('#upload_file').on('show.bs.modal', function(e) {
 		}
 		});
 });	
-$('#upload_file').on('shown.bs.modal', function(e) {
-	var __PDF_DOC,
-	__CURRENT_PAGE,
-	__TOTAL_PAGES,
-	__PAGE_RENDERING_IN_PROGRESS = 0,
-	__CANVAS = $('#pdf-preview').get(0),
-	__CANVAS_CTX = __CANVAS.getContext('2d'),
-	_OBJECT_URL;
 
-function showPDF(pdf_url) {
-	$("#pdf-loader").show();
-
-	PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
-		__PDF_DOC = pdf_doc;
-		__TOTAL_PAGES = __PDF_DOC.numPages;
-		
-		// Hide the pdf loader and show pdf container in HTML
-		$("#pdf-loader").hide();
-		$("#pdf-contents").show();
-		$("#pdf-total-pages").text(__TOTAL_PAGES);
-
-		// Show the first page
-		showPage(1);
-	}).catch(function(error) {
-		// If error re-show the upload button
-		$("#pdf-loader").hide();
-		$("#upload-button").show();
-		
-		alert(error.message);
-	});;
-}
-
-function showPage(page_no) {
-	__PAGE_RENDERING_IN_PROGRESS = 1;
-	__CURRENT_PAGE = page_no;
-
-	// Disable Prev & Next buttons while page is being loaded
-	$("#pdf-next, #pdf-prev").attr('disabled', 'disabled');
-
-	// While page is being rendered hide the canvas and show a loading message
-	$("#pdf-preview").hide();
-	$("#page-loader").show();
-
-	// Update current page in HTML
-	$("#pdf-current-page").text(page_no);
-	
-	// Fetch the page
-	__PDF_DOC.getPage(page_no).then(function(page) {
-		// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
-		var scale_required = __CANVAS.width / page.getViewport(1).width;
-
-		// Get viewport of the page at required scale
-		var viewport = page.getViewport(scale_required);
-
-		// Set canvas height
-		__CANVAS.height = viewport.height;
-
-		var renderContext = {
-			canvasContext: __CANVAS_CTX,
-			viewport: viewport
-		};
-		
-		// Render the page contents in the canvas
-		page.render(renderContext).then(function() {
-			__PAGE_RENDERING_IN_PROGRESS = 0;
-
-			// Re-enable Prev & Next buttons
-			$("#pdf-next, #pdf-prev").removeAttr('disabled');
-
-			// Show the canvas and hide the page loader
-			$("#pdf-preview").show();
-			$("#page-loader").hide();
-		});
-	});
-}
-
-// Previous page of the PDF
-$("#pdf-prev").on('click', function(event, data) {
-	$('html, body, .modal-body').stop();
-	event.preventDefault();
-	if(__CURRENT_PAGE != 1)
-		showPage(--__CURRENT_PAGE);
-	return false;
-});
-
-// Next page of the PDF
-$("#pdf-next").on('click', function(event, data) {
-	$('html, body, .modal-body').stop();
-	event.preventDefault();
-	if(__CURRENT_PAGE != __TOTAL_PAGES)
-		showPage(++__CURRENT_PAGE);
-		return false;
-});
-
-/* Show Select File dialog */
-document.querySelector("#upload-dialog").addEventListener('click', function(event) {
-    document.querySelector("#pdf-file").click();
-	event.preventDefault();
-});
-/* Selected File has changed */
-document.querySelector("#pdf-file").addEventListener('change', function(event) {
-	event.preventDefault();
-    // user selected file
-    var file = this.files[0];
-    // allowed MIME types
-    var mime_types = [ 'application/pdf' ]; 
-    // Validate whether PDF
-    if(mime_types.indexOf(file.type) == -1) {
-        maksimumbesarfilepdf();
-		event.target.value = null;
-        return;
-    }
-    // validate file size
-    if(file.size > 1.5*1024*1024) {
-		maksimumbesarfilepdf();
-		event.target.value = null;
-        return;
-    }
-    // validation is successful
-    // hide upload dialog button
-    document.querySelector("#upload-dialog").style.display = 'none';
-    // set name of the file
-    document.querySelector("#pdf-name").innerText = "Nama File : "+file.name;
-    document.querySelector("#pdf-name").style.display = 'inline';
-    // show cancel and upload buttons now
-    document.querySelector("#cancel-pdf").style.display = 'inline';
-    //document.querySelector("#upload-button").style.display = 'inline-block';
-    // Show the PDF preview loader
-    document.querySelector("#pdf-loader").style.display = 'inline-block';
-    // object url of PDF 
-    _OBJECT_URL = URL.createObjectURL(file)
-
-    // send the object url of the pdf to the PDF preview function
-	showPDF(_OBJECT_URL);
-	//console.log(document.querySelector("#pdf-file").value);
-});
-
-/* Reset file input */
-document.querySelector("#cancel-pdf").addEventListener('click', function(event) {
-	event.preventDefault();
-    // show upload dialog button
-    document.querySelector("#upload-dialog").style.display = 'inline-block';
-    // reset to no selection
-    document.querySelector("#pdf-file").value = '';
-    // hide elements that are not required
-    document.querySelector("#pdf-name").style.display = 'none';
-    document.querySelector("#pdf-preview").style.display = 'none';
-    document.querySelector("#pdf-loader").style.display = 'none';
-	document.querySelector("#pdf-contents").style.display = 'none';
-    document.querySelector("#cancel-pdf").style.display = 'none';
-	//event.target.value = null;
-	//console.log(document.querySelector("#pdf-file").value);
-});	
-});
-
-$('#upload_file2').on('show.bs.modal', function(e) {
+$('#upload_file2').on('shown.bs.modal', function(e) {
 		blockPageUI();
 		<?php  if ($this->session->userdata("username") !== "") {  ?>
 		$.post("<?php echo base_url();?>Login/checksession", function (data) {
@@ -1927,7 +2362,147 @@ $('#upload_file2').on('show.bs.modal', function(e) {
 		<?php  } ?>			
 		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
 		if (xhr.status == 200) {
+			$("#sembunyikan_file").css("display","none").attr('disabled','disabled');
 			unblockPageUI();
+			$('#tampilkan_file').on('click', function(e) {
+			$("#sembunyikan_file").css("display","block").removeAttr('disabled');
+				var initial = $('#lokasifile').val();
+				var options = {pdfOpenParams: {zoom: '45',  page: '1' }};
+				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
+				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
+				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');
+				$('#aku.col-md-6').last().css("display","block");
+			});
+			$('#sembunyikan_file').on('click', function(e) {
+				$("#tampilkan_file").css("display","block").removeAttr('disabled');
+				$('#aku.col-md-6').addClass('col-md-12').removeClass('col-md-6');
+				$('#aku.col-md-12').last().css("display","none");
+				$("#sembunyikan_file").css("display","none").attr('disabled', 'disabled');
+			});	
+			var __PDF_DOC,
+				__CURRENT_PAGE,
+				__TOTAL_PAGES,
+				__PAGE_RENDERING_IN_PROGRESS = 0,
+				__CANVAS = $('#pdf-preview2').get(0),
+				__CANVAS_CTX = __CANVAS.getContext('2d'),
+				_OBJECT_URL;
+
+			function showPDF(pdf_url) {
+				$("#pdf-loader2").show();
+
+				PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+					__PDF_DOC = pdf_doc;
+					__TOTAL_PAGES = __PDF_DOC.numPages;
+
+					$("#pdf-loader2").hide();
+					$("#pdf-contents2").show();
+					$("#pdf-total-pages2").text(__TOTAL_PAGES);
+					showPage(1);
+				}).catch(function(error) {
+					$("#pdf-loader2").hide();
+					$("#upload-button2").show();
+					
+					alert(error.message);
+				});;
+			}
+
+			function showPage(page_no) {
+				__PAGE_RENDERING_IN_PROGRESS = 1;
+				__CURRENT_PAGE = page_no;
+				$("#pdf-next2, #pdf-prev2").attr('disabled', 'disabled');
+				$("#pdf-preview2").hide();
+				$("#page-loader2").show();
+				$("#pdf-current-page2").text(page_no);
+				
+				// Fetch the page
+				__PDF_DOC.getPage(page_no).then(function(page) {
+					// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
+					var scale_required = __CANVAS.width / page.getViewport(1).width;
+
+					// Get viewport of the page at required scale
+					var viewport = page.getViewport(scale_required);
+
+					// Set canvas height
+					__CANVAS.height = viewport.height;
+
+					var renderContext = {
+						canvasContext: __CANVAS_CTX,
+						viewport: viewport
+					};
+					
+					// Render the page contents in the canvas
+					page.render(renderContext).then(function() {
+						__PAGE_RENDERING_IN_PROGRESS = 0;
+
+						// Re-enable Prev & Next buttons
+						$("#pdf-next2, #pdf-prev2").removeAttr('disabled');
+
+						// Show the canvas and hide the page loader
+						$("#pdf-preview2").show();
+						$("#page-loader2").hide();
+					});
+				});
+			}
+
+			$("#pdf-prev2").off("click").on('click', function(event, data) {
+				$('html, body, .modal-body').stop();
+				event.preventDefault();
+				if(__CURRENT_PAGE != 1)
+					showPage(--__CURRENT_PAGE);
+				return false;
+			});
+
+			$("#pdf-next2").off("click").on('click', function(event, data) {
+				$('html, body, .modal-body').stop();
+				event.preventDefault();
+				if(__CURRENT_PAGE != __TOTAL_PAGES)
+					showPage(++__CURRENT_PAGE);
+					return false;
+			});
+
+			$("#upload-dialog2").off("click").on('click', function(event) {
+				$("#pdf-file2").click();
+				event.preventDefault();
+			});
+			/* Selected File has changed */
+			$("#pdf-file2").off("change").on('change', function(event) {
+				event.preventDefault();
+				// user selected file
+				var file = this.files[0];
+				// allowed MIME types
+				var mime_types = [ 'application/pdf' ]; 
+				// Validate whether PDF
+				if(mime_types.indexOf(file.type) == -1) {
+					maksimumbesarfilepdf();
+					event.target.value = null;
+					return;
+				}
+				// validate file size
+				if(file.size > 1*1024*1024) {
+					maksimumbesarfilepdf();
+					event.target.value = null;
+					return;
+				}
+				document.querySelector("#upload-dialog2").style.display = 'none';
+				document.querySelector("#pdf-name2").innerText = "Nama File : "+file.name;
+				document.querySelector("#pdf-name2").style.display = 'inline';
+				document.querySelector("#cancel-pdf2").style.display = 'inline';
+				document.querySelector("#pdf-loader2").style.display = 'inline-block';
+				_OBJECT_URL = URL.createObjectURL(file)
+				showPDF(_OBJECT_URL);
+			});
+
+			/* Reset file input */
+			$("#cancel-pdf2").off("click").on('click', function(event) {
+				event.preventDefault();
+				document.querySelector("#upload-dialog2").style.display = 'inline-block';
+				document.querySelector("#pdf-file2").value = '';
+				document.querySelector("#pdf-name2").style.display = 'none';
+				document.querySelector("#pdf-preview2").style.display = 'none';
+				document.querySelector("#pdf-loader2").style.display = 'none';
+				document.querySelector("#pdf-contents2").style.display = 'none';
+				document.querySelector("#cancel-pdf2").style.display = 'none';
+			});			
 		} else {
 			koneksierror();
 			setTimeout(function(){ $('#upload_file2').modal('hide');}, 1000);
@@ -1935,160 +2510,7 @@ $('#upload_file2').on('show.bs.modal', function(e) {
 		}
 		});
 });	
-$('#upload_file2').on('shown.bs.modal', function(e) {
-	var __PDF_DOC,
-	__CURRENT_PAGE,
-	__TOTAL_PAGES,
-	__PAGE_RENDERING_IN_PROGRESS = 0,
-	__CANVAS = $('#pdf-preview').get(0),
-	__CANVAS_CTX = __CANVAS.getContext('2d'),
-	_OBJECT_URL;
 
-function showPDF(pdf_url) {
-	$("#pdf-loader").show();
-
-	PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
-		__PDF_DOC = pdf_doc;
-		__TOTAL_PAGES = __PDF_DOC.numPages;
-		
-		// Hide the pdf loader and show pdf container in HTML
-		$("#pdf-loader").hide();
-		$("#pdf-contents").show();
-		$("#pdf-total-pages").text(__TOTAL_PAGES);
-
-		// Show the first page
-		showPage(1);
-	}).catch(function(error) {
-		// If error re-show the upload button
-		$("#pdf-loader").hide();
-		$("#upload-button").show();
-		
-		alert(error.message);
-	});;
-}
-
-function showPage(page_no) {
-	__PAGE_RENDERING_IN_PROGRESS = 1;
-	__CURRENT_PAGE = page_no;
-
-	// Disable Prev & Next buttons while page is being loaded
-	$("#pdf-next, #pdf-prev").attr('disabled', 'disabled');
-
-	// While page is being rendered hide the canvas and show a loading message
-	$("#pdf-preview").hide();
-	$("#page-loader").show();
-
-	// Update current page in HTML
-	$("#pdf-current-page").text(page_no);
-	
-	// Fetch the page
-	__PDF_DOC.getPage(page_no).then(function(page) {
-		// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
-		var scale_required = __CANVAS.width / page.getViewport(1).width;
-
-		// Get viewport of the page at required scale
-		var viewport = page.getViewport(scale_required);
-
-		// Set canvas height
-		__CANVAS.height = viewport.height;
-
-		var renderContext = {
-			canvasContext: __CANVAS_CTX,
-			viewport: viewport
-		};
-		
-		// Render the page contents in the canvas
-		page.render(renderContext).then(function() {
-			__PAGE_RENDERING_IN_PROGRESS = 0;
-
-			// Re-enable Prev & Next buttons
-			$("#pdf-next, #pdf-prev").removeAttr('disabled');
-
-			// Show the canvas and hide the page loader
-			$("#pdf-preview").show();
-			$("#page-loader").hide();
-		});
-	});
-}
-
-// Previous page of the PDF
-$("#pdf-prev").on('click', function(event, data) {
-	$('html, body, .modal-body').stop();
-	event.preventDefault();
-	if(__CURRENT_PAGE != 1)
-		showPage(--__CURRENT_PAGE);
-	return false;
-});
-
-// Next page of the PDF
-$("#pdf-next").on('click', function(event, data) {
-	$('html, body, .modal-body').stop();
-	event.preventDefault();
-	if(__CURRENT_PAGE != __TOTAL_PAGES)
-		showPage(++__CURRENT_PAGE);
-		return false;
-});
-
-/* Show Select File dialog */
-document.querySelector("#upload-dialog").addEventListener('click', function(event) {
-    document.querySelector("#pdf-file").click();
-	event.preventDefault();
-});
-/* Selected File has changed */
-document.querySelector("#pdf-file").addEventListener('change', function(event) {
-	event.preventDefault();
-    // user selected file
-    var file = this.files[0];
-    // allowed MIME types
-    var mime_types = [ 'application/pdf' ]; 
-    // Validate whether PDF
-    if(mime_types.indexOf(file.type) == -1) {
-        maksimumbesarfilepdf();
-		event.target.value = null;
-        return;
-    }
-    // validate file size
-    if(file.size > 1.5*1024*1024) {
-		maksimumbesarfilepdf();
-		event.target.value = null;
-        return;
-    }
-    // validation is successful
-    // hide upload dialog button
-    document.querySelector("#upload-dialog").style.display = 'none';
-    // set name of the file
-    document.querySelector("#pdf-name").innerText = "Nama File : "+file.name;
-    document.querySelector("#pdf-name").style.display = 'inline';
-    // show cancel and upload buttons now
-    document.querySelector("#cancel-pdf").style.display = 'inline';
-    //document.querySelector("#upload-button").style.display = 'inline-block';
-    // Show the PDF preview loader
-    document.querySelector("#pdf-loader").style.display = 'inline-block';
-    // object url of PDF 
-    _OBJECT_URL = URL.createObjectURL(file)
-
-    // send the object url of the pdf to the PDF preview function
-	showPDF(_OBJECT_URL);
-	//console.log(document.querySelector("#pdf-file").value);
-});
-
-/* Reset file input */
-document.querySelector("#cancel-pdf").addEventListener('click', function(event) {
-	event.preventDefault();
-    // show upload dialog button
-    document.querySelector("#upload-dialog").style.display = 'inline-block';
-    // reset to no selection
-    document.querySelector("#pdf-file").value = '';
-    // hide elements that are not required
-    document.querySelector("#pdf-name").style.display = 'none';
-    document.querySelector("#pdf-preview").style.display = 'none';
-    document.querySelector("#pdf-loader").style.display = 'none';
-	document.querySelector("#pdf-contents").style.display = 'none';
-    document.querySelector("#cancel-pdf").style.display = 'none';
-	//event.target.value = null;
-	//console.log(document.querySelector("#pdf-file").value);
-});	
-});
 $('#lihat_pdf').on('shown.bs.modal', function(e) {
 		blockPageUI();
 		<?php  if ($this->session->userdata("username") !== "") {  ?>
@@ -2104,15 +2526,9 @@ $('#lihat_pdf').on('shown.bs.modal', function(e) {
 		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
 		if (xhr.status == 200) {
 			var initial = $('#lokasifile').val();
-			var options = {pdfOpenParams: {zoom: '75',  page: '1' }};
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
 			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
 			unblockPageUI();
-			$('#dismiss').on('click', function(e) {
-				$('#lihat_pdf').modal('hide');
-				$('#lihat_pdf').on('hidden.bs.modal', function(){
-					$('#upload_file2').modal('show');
-				});
-			});
 		} else {
 			koneksierror();
 			setTimeout(function(){ $('#ihat_pdf').modal('hide');}, 1000);

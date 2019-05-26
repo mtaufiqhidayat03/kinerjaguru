@@ -43,7 +43,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
-						<i class="flaticon-users-1" style="padding-right:5px"></i> Pengaturan Assesor
+						<i class="fa fa-users-cog" style="padding-right:5px"></i> Pengaturan Assesor
 						<?php foreach($n20 as $baris) { echo $baris->nama_sekolah; } ?>
 						</h3>
 						</div>
@@ -80,7 +80,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 									</a>	
 							</div>
 							
-							<div class="alert alert-warning data_guru" style="display:none"></div>
+							<div class="alert alert-warning data_assesor" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_assesor dataTables" id="data_assesor" width=100%>
 								<thead>
                         		<tr>

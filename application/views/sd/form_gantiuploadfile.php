@@ -133,7 +133,7 @@
 	</tr>
 	<tr valign="top">
     <td></td>
-	<td><label>Berkas File Yang Akan Diupload</label><div><div>*) Kosongkan jika hanya ingin mengganti nilai kuisioner</div></div></td>
+	<td><label>Berkas File Yang Akan Diupload</label></td>
 	<td>:</td>
 	<td>
 	<div id="preview-container">
@@ -162,7 +162,7 @@
 	<td></td>
 	<td style="display:none">
 	<input name="editid_kuisioner" id="editid_kuisioner" type="text" readonly value="<?php echo $baris->id_kuisioner; ?>" />
-    <input name="edit_guru" id="edit_guru" type="text" readonly value="<?php echo $baris->nuptk_guru_sd;?>" />
+    <input name="edit_guru" id="edit_guru" type="text" readonly value="<?php echo $baris->nuptk_kuisioner_sd;?>" />
 	<input name="no_kuisioner" id="no_kuisioner" type="text" readonly value="<?php echo $baris->no_kuisioner;?>" />
 	</td>
 	<td></td>
@@ -174,7 +174,7 @@
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="ganti_file"><i class="la la-plus"></i> Ganti Berkas Kuisioner</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="ganti_file"><i class="fa fa-pencil-alt"></i> Edit Berkas Kuisioner</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>
