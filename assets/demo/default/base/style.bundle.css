@@ -2209,7 +2209,7 @@ box-shadow:0 0 0 .2rem rgba(253,57,122,0.25)
     box-shadow: 0 0 0 .2rem rgba(88,103,221,0.25)
 }
 .btn.disabled, .btn:disabled {
-    opacity: .65
+    opacity: .4
 }
 a.btn.disabled, fieldset:disabled a.btn {
     pointer-events: none
@@ -29888,7 +29888,8 @@ body {
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+	justify-content: space-between;
+	min-height: 65px;
     height: 65px;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;

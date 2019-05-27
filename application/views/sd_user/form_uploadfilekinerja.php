@@ -94,16 +94,16 @@
 <table width="100%" height="100%">
 <?php foreach($n2 as $baris) {  ?>
 	<tr valign=top>
-    <td width="6" height="60"></td>
-    <td width="175"><label>Kelompok Kompetensi</label></td>
-    <td width="16">:</td>
-    <td width="378">
+    <td width="1%" height="60"></td>
+    <td width="15%"><label>Kelompok Kompetensi</label></td>
+    <td width="2%">:</td>
+    <td width="60%">
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
 	<input name="editnama_kelompok" type="text" readonly class="form-control"  id="editnama_kelompok"  placeholder="Silahkan masukkan nama kelompok kuisioner" value="<?php echo $baris->kelompok_kompetensi;?>"/></div></div> 
 	</td>
-	<td width="6"></td>
+	<td width="1%"></td>
   </tr>
 	<tr valign=top>
     <td height="60"></td>

@@ -1,5 +1,5 @@
 <?php
-class M_kinerjadinilai extends CI_Model {
+class M_kuisionerdinilai extends CI_Model {
     
     function getdataassesor($id_assesor){
         $sql="SELECT id_assesor, (b.nama_guru) as g1, (c.nama_guru) as g2 FROM `".D_ASSESOR_SD.$this->session->userdata("tahun")."` as a left join `".M_GURU_SD."` as b ON a.nuptk_assesor=b.nuptk left join `".M_GURU_SD."` as c ON a.tugas_assesor=c.nuptk where id_assesor=?";
@@ -40,46 +40,23 @@ class M_kinerjadinilai extends CI_Model {
         $this->db->update("`".D_PENILAIAN_SD.$this->session->userdata('tahun')."`",$data_persetujuan);
 	}
 
-	function dataassesor($search, $page, $npsn_nss_assesor){
-		$this->db->select('nuptk,nama_guru');
-		$this->db->from(D_GURU_SD.$this->session->userdata('tahun'));
-		//$this->db->where('nama_guru',$search);	
-		$this->db->where('npsn_nss_guru_sd', $npsn_nss_assesor);
-		$this->db->where("(nama_guru like '%".$search."%' ESCAPE '!' OR nuptk like '%".$search."%' ESCAPE '!')");		
-		//$array = array('nama_guru' => $search, 'nuptk' => $search);
-		//$this->db->or_like($array);		 
-		$this->db->join(M_GURU_SD, M_GURU_SD.'.nuptk='.D_GURU_SD.$this->session->userdata('tahun').'.nuptk_guru_sd', 'left');
-		if ($page == 1) {
-			$pageku = $page - 1;
-            $this->db->limit($page*10, $pageku);
-        } else if ($page > 1) {
-			$pageku = ($page - 1) * 10;
-			$this->db->limit($page*10, $pageku);
-		} 
-		$query2=$this->db->get();
-        return $query2->result();
+	function getdatahasilkuisioner2($no_kuisioner, $nuptk) {
+		$sql="SELECT nama_kuisioner, no_kuisioner, id_kelompok_kuisioner_sd, kelompok_kompetensi, nilai_kuisioner, nama_guru, id_kuisioner, nuptk_kuisioner_sd, upload_file_kuisioner_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kuisioner_sd=c.id_kelompok left join `".M_GURU_SD."` as d ON a.nuptk_kuisioner_sd=d.nuptk where no_kuisioner=? and nuptk=?";
+		$query=$this->db->query($sql,array($no_kuisioner, $nuptk));
+		return $query->result();
 	}
-	function datagurudinilai($search, $page, $assesor, $npsn_nss_assesor){
-		$this->db->select('nuptk,nama_guru');
-		$this->db->from(D_GURU_SD.$this->session->userdata('tahun'));	
-		$this->db->where('nuptk_guru_sd !=', $assesor);
-		$this->db->where('npsn_nss_guru_sd', $npsn_nss_assesor);	
-		$this->db->where("(nama_guru like '%".$search."%' ESCAPE '!' OR nuptk like '%".$search."%' ESCAPE '!')");	 
-		$this->db->join(M_GURU_SD, M_GURU_SD.'.nuptk='.D_GURU_SD.$this->session->userdata('tahun').'.nuptk_guru_sd', 'left');
-		if ($page == 1) {
-			$pageku = $page - 1;
-            $this->db->limit($page*10, $pageku);
-        } else if ($page > 1) {
-			$pageku = ($page - 1) * 10;
-			$this->db->limit($page*10, $pageku);
-		} 
-		$query2=$this->db->get();
-        return $query2->result();
+
+	function getdatahasilkuisioner3($no_kuisioner, $nuptk) {
+		$sql="SELECT nama_kuisioner, no_kuisioner, nilai_kuisioner, nama_guru, upload_file_kuisioner_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_kuisioner_sd=c.nuptk where no_kuisioner=? and nuptk=?";
+		$query=$this->db->query($sql,array($no_kuisioner, $nuptk));
+		return $query->result();
 	}
 	
-	function deleteassesor($id_assesor){
-        $this->db->where('id_assesor', $id_assesor);
-        $this->db->delete("`".D_ASSESOR_SD.$this->session->userdata('tahun')."`");
+	function editpenilaiankuisioner2($data_kuisioner, $no_kuisioner, $id_kuisioner, $nuptk_guru_sd) {
+		$this->db->where('no_kuisioner', $no_kuisioner);
+		$this->db->where('id_kuisioner_sd', $id_kuisioner);
+		$this->db->where('nuptk_kuisioner_sd', $nuptk_guru_sd);
+        $this->db->update("`".D_KUISIONER_SD.$this->session->userdata('tahun')."`",$data_kuisioner);
 	}
 	
     function dinilai_list($nuptk) {
@@ -159,7 +136,7 @@ class M_kinerjadinilai extends CI_Model {
 			{
 				$row[] = "
 				<div class='btn-group-vertical' role='group'>
-				<button type='button' class='btn btn-warning btn-elevate btn-elevate-air btn-sm pilih_guru' id='pilih_guru' value='".$aRow->tugas_assesor."'><i class='fa fa-file-signature'></i> Pilih Guru</button>
+				<button type='button' class='btn btn-warning btn-elevate btn-elevate-air btn-sm pilih_guru2' id='pilih_guru2' value='".$aRow->tugas_assesor."'><i class='fa fa-file-signature'></i> Pilih Guru</button>
 				</div>";
 			}
 			else if ( $i == 4) {
@@ -190,12 +167,12 @@ class M_kinerjadinilai extends CI_Model {
 		$detail_guru = $rowku['detail_guru'];
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('id_indikator','id_indikator','kelompok_kompetensi','nama_kompetensi','nama_indikator', 'if(id_penilaian IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','skor','if(skor IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','id_kelompok','id_indikator_penilaian_sd','id_kompetensi','no_urut_kompetensi','no_urut_indikator');
-		$sIndexColumn = "a.id_indikator";
+		$aColumns = array('id_kuisioner','id_kuisioner','kelompok_kompetensi','nama_kuisioner', 'if(no_kuisioner IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','nilai_kuisioner','if(nilai_kuisioner IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','id_kelompok','id_kuisioner_sd','no_kuisioner');
+		$sIndexColumn = "a.id_kuisioner";
 		if ($jenis_guru === "Guru Kelas") {
-			$sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as e ON a.id_indikator=e.id_indikator_penilaian_sd and nuptk_penilaian_sd='".$nuptk."'";
+			$sTable = "`".M_KUISIONER_SD."` as a left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON a.id_kelompok_kuisioner_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) left join `".D_KUISIONER_SD.$this->session->userdata("tahun")."` as e ON a.id_kuisioner=e.id_kuisioner_sd and nuptk_kuisioner_sd='".$nuptk."'";
 		} else  {
-            $sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as e ON a.id_indikator=e.id_indikator_penilaian_sd and nuptk_penilaian_sd='".$nuptk."'";
+            $sTable = "`".M_KUISIONER_SD."` as a left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON a.id_kelompok_kuisioner_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru left join `".D_KUISIONER_SD.$this->session->userdata("tahun")."` as e ON a.id_kuisioner=e.id_kuisioner_sd and nuptk_kuisioner_sd='".$nuptk."'";
         }
 		$sLimit = "";
 		/*  Paging */
@@ -264,14 +241,14 @@ class M_kinerjadinilai extends CI_Model {
 			{
 				if ( $i == 1)
 				{
-					if ($aRow["id_indikator_penilaian_sd"] == "") {
+					if ($aRow["id_kuisioner_sd"] == "") {
 					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
-					<a data-toggle='modal' href='' data-target='' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air disabled' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-exclamation'></i> Belum Ada Bukti&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kinerja</a>
+					<a data-toggle='modal' href='' data-target='' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air disabled' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-exclamation'></i> Belum Ada Bukti&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kuisioner</a>
 					</div>";
 					} else {
 					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
-					<a data-toggle='modal' href='kinerjadinilai/form_lihatpdfkinerjadinilai?id_indikator=".$aRow['id_indikator']."&id_kelompok=".$aRow['id_kelompok']."&id_kompetensi=".$aRow['id_kompetensi']."&nuptk=".$nuptk."'   data-target='#lihat_pdf' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='lihat-pdf' data-id='".$aRow['id_indikator']."'><i class='fa fa-file-pdf'></i> Lihat Bukti&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kinerja</a>
-					<a data-toggle='modal' href='kinerjadinilai/form_persetujuankinerja?id_indikator=".$aRow['id_indikator']."&id_kelompok=".$aRow['id_kelompok']."&id_kompetensi=".$aRow['id_kompetensi']."&nuptk=".$nuptk."'  data-target='#persetujuan_kinerja' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='persetujuan-kinerja' data-id='".$aRow['id_indikator']."'><i class='fa fa-thumbs-up'></i> Persetujuan&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kinerja</a>
+					<a data-toggle='modal' href='kuisionerdinilai/form_lihatpdfkuisionerdinilai?id_kuisioner=".$aRow['id_kuisioner_sd']."&id_kelompok=".$aRow['id_kelompok']."&nuptk=".$nuptk."&no_kuisioner=".$aRow['no_kuisioner']."'   data-target='#lihat_pdf' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='lihat-pdf' data-id='".$aRow['id_indikator']."'><i class='fa fa-file-pdf'></i> Lihat Bukti&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kuisioner</a>
+					<a data-toggle='modal' href='kuisionerdinilai/form_persetujuankuisioner?id_kuisioner=".$aRow['id_kuisioner_sd']."&id_kelompok=".$aRow['id_kelompok']."&nuptk=".$nuptk."&no_kuisioner=".$aRow['no_kuisioner']."'  data-target='#persetujuan_kuisioner' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='persetujuan-kuisioner' data-id='".$aRow['id_indikator']."'><i class='fa fa-thumbs-up'></i> Persetujuan&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Kuisioner</a>
 					</div>";
 					}
 				}

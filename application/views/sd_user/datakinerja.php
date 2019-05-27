@@ -74,11 +74,13 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										<th></th>
 										<th>Tindakan</th>	
 										<th>Kelompok Kompetensi</th>
-										<th>No Urut<br/>Kompetensi</th>	
+										<!-- <th>No Urut<br/>Kompetensi</th> -->	
 										<th>Nama Kompetensi</th>
-										<th>No Urut<br/>Indikator</th>										
+										<!-- <th>No Urut<br/>Indikator</th>	-->									
 										<th>Nama Indikator</th>										
-										<th>Status<br/>Unggah File</th>
+										<th>Status<br/>Upload File</th>
+										<th>Skor</th>
+										<th>Penilaian<br/>Assesor</th>
 									</tr>
 								</thead>
 							</table>

@@ -24,6 +24,15 @@ table.dataTable tbody tr td {
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
   display: none;
 }
+.kt-badge.kt-badge--danger {
+	font-size : 1rem !important;
+}
+.kt-badge.kt-badge--success {
+	font-size : 1rem !important;
+}
+[class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
+	padding-right:0.5rem !important;
+}
 </style>
 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
 	<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
@@ -62,7 +71,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										<th>NUPTK</th>
 										<th>Nama Guru</th>
 										<th>Nama Kuisioner</th>
-										<th>Nilai Kuisioner</th>
+										<th>Status<br/>Upload File</th>
+										<th>Skor</th>										
+										<th>Penilaian<br/>Assesor</th>
 									</tr>
 								</thead>
 							</table>

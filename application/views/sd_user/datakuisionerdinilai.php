@@ -53,7 +53,7 @@ table.dataTable tbody tr td {
 						<div class="kt-portlet__head kt-portlet__head--lg">
 						<div class="kt-portlet__head-label">
 						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
-						<i class="fa fa-tachometer-alt" style="padding-right:5px"></i> Persetujuan Penilaian Kinerja Guru
+						<i class="fa fa-th-list" style="padding-right:5px"></i> Persetujuan Penilaian Kuisioner Guru
 						</h3>
 						</div>
 							<div class="kt-portlet__head-toolbar">
@@ -63,8 +63,8 @@ table.dataTable tbody tr td {
 							</div>
 						</div>
 						<div class="kt-portlet__body">						
-							<div class="alert alert-warning data_kinerjadinilai" style="display:none"></div>
-							<table class="table table-striped table-bordered table-hover data_kinerjadinilai dataTables" id="data_kinerjadinilai" width=100%>
+							<div class="alert alert-warning data_kuisionerdinilai" style="display:none"></div>
+							<table class="table table-striped table-bordered table-hover data_kuisionerdinilai dataTables" id="data_kuisionerdinilai" width=100%>
 								<thead>
                         		<tr>
 									<th></th>
@@ -486,8 +486,8 @@ table.dataTable tbody tr td {
 							border-bottom: 1px solid #e5e5e5;
 							padding: 0rem !important;
 						}
-						#persetujuan_kinerja .modal-dialog {
-							width: 80%;
+						#persetujuan_kuisioner .modal-dialog {
+							width: 70%;
 							height: 100%;							
 							margin: auto;
 							position: absolute;
@@ -497,7 +497,7 @@ table.dataTable tbody tr td {
 							right: 0;
 							padding-top:10px;
 						}
-						#persetujuan_kinerja .modal-body {
+						#persetujuan_kuisioner .modal-body {
 							max-height: 600px;
 							/* Firefox */
 							max-height: -moz-calc(100vh - 170px);
@@ -513,15 +513,15 @@ table.dataTable tbody tr td {
 							overflow-x: auto;
 						}
 
-						#persetujuan_kinerja .portlet-body {
+						#persetujuan_kuisioner .portlet-body {
 							min-width: 750px;
 						}
 
-						#persetujuan_kinerja .modal-footer {
+						#persetujuan_kuisioner .modal-footer {
 							border-bottom: 1px solid #e5e5e5;
 						}
 					</style>
-					<div class="modal fade" id="persetujuan_kinerja" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+					<div class="modal fade" id="persetujuan_kuisioner" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -708,17 +708,14 @@ table.dataTable tbody tr td {
 				<!--begin::Portlet-->
 				<div class="kt-portlet kt-portlet--tab">
 						<div class="kt-portlet__body">						
-							<div class="alert alert-warning data_evaluasi" style="display:none"></div>
-							<table class="table table-striped table-bordered table-hover data_evaluasi dataTables" id="data_evaluasi" width=100%>
+							<div class="alert alert-warning data_evaluasikuisioner" style="display:none"></div>
+							<table class="table table-striped table-bordered table-hover data_evaluasikuisioner dataTables" id="data_evaluasikuisioner" width=100%>
 								<thead>
                         		<tr>
 										<th></th>
 										<th>Tindakan</th>	
-										<th>Kelompok Kompetensi</th>
-										<!-- <th>No Urut<br/>Kompetensi</th> -->	
-										<th>Nama Kompetensi</th>
-										<!-- <th>No Urut<br/>Indikator</th>	-->									
-										<th>Nama Indikator</th>										
+										<th>Kelompok Kompetensi</th>								
+										<th>Nama Kuisioner</th>										
 										<th>Status<br/>Upload File</th>
 										<th>Skor</th>
 										<th>Penilaian<br/>Assesor</th>

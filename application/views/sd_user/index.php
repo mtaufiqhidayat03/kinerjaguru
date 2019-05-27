@@ -35,6 +35,9 @@ $this->load->view(FOLDER_SD_USER.'panel_user.php');
 							<div class="col-sm">
 							<a href="<?php echo base_url();?>sd_user/assesor" class="btn btn-info btn-lg btn-elevate btn-elevate-air"><i class="fa fa-users-cog"></i>Pengaturan Assesor</a>
 							</div>
+							<?php } else { ?>	
+							<div class="col-sm">
+							</div>
 							<?php } ?>							
 							</div>
 							<div class="row" style="min-height:150px;">

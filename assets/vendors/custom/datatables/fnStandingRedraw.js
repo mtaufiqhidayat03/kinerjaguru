@@ -1,4 +1,6 @@
+$('.dataTables').each(function() {
 $.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+	//console.log(oSettings);
     if(oSettings.oFeatures.bServerSide === false){
         var before = oSettings._iDisplayStart;
         oSettings.oApi._fnReDraw(oSettings);
@@ -7,3 +9,4 @@ $.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
     }
     oSettings.oApi._fnDraw(oSettings);
 };
+});

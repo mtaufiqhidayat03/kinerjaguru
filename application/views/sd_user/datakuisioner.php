@@ -73,8 +73,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										<th>Tindakan</th>
 										<th>Nama Kelompok Kompetensi</th>
 										<th>Nama Kuisioner</th>
-										<th>Nilai Kuisioner</th>
-										<th>Status Unggah File</th>
+										<th>Status<br/>Upload File</th>
+										<th>Skor</th>										
+										<th>Penilaian<br/>Assesor</th>
 									</tr>
 								</thead>
 							</table>

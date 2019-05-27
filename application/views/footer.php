@@ -1806,7 +1806,7 @@ $('#edit_data').on('shown.bs.modal', function(e) {
 			$('#tampilkan_file').on('click', function(e) {
 				$("#sembunyikan_file").css("display","block").removeAttr('disabled');
 				var initial = $('#lokasifile').val();
-				var options = {pdfOpenParams: {zoom: '45',  page: '1' }};
+				var options = {pdfOpenParams: {zoom: '60',  page: '1' }};
 				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
 				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
 				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');
@@ -2172,9 +2172,136 @@ $('#upload_file').on('shown.bs.modal', function(e) {
 				}
 				});
 });	
+// DATA KUISIONER YANG DINILAI
+<?php } else if ($this->uri->segment(2)=="kuisionerdinilai") { ?>
+$('#persetujuan_kuisioner').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			$("#sembunyikan_file").css("display","none").attr('disabled','disabled');
+			unblockPageUI();
+			$('#tampilkan_file').on('click', function(e) {
+			$("#sembunyikan_file").css("display","block").removeAttr('disabled');
+				var initial = $('#lokasifile').val();
+				var options = {pdfOpenParams: {zoom: '60',  page: '1' }};
+				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
+				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
+				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');
+				$('#aku.col-md-6').last().css("display","block");
+			});
+			$('#sembunyikan_file').on('click', function(e) {
+				$("#tampilkan_file").css("display","block").removeAttr('disabled');
+				$('#aku.col-md-6').addClass('col-md-12').removeClass('col-md-6');
+				$('#aku.col-md-12').last().css("display","none");
+				$("#sembunyikan_file").css("display","none").attr('disabled', 'disabled');
+			});			
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#persetujuan_kuisioner').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
+	$('#lihat_pdf').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			var initial = $('#lokasifile').val();
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
+			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#ihat_pdf').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
 // DATA KINERJA YANG DINILAI
 <?php } else if ($this->uri->segment(2)=="kinerjadinilai") { ?>
-
+$('#persetujuan_kinerja').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			$("#sembunyikan_file").css("display","none").attr('disabled','disabled');
+			unblockPageUI();
+			$('#tampilkan_file').on('click', function(e) {
+			$("#sembunyikan_file").css("display","block").removeAttr('disabled');
+				var initial = $('#lokasifile').val();
+				var options = {pdfOpenParams: {zoom: '60',  page: '1' }};
+				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
+				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
+				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');
+				$('#aku.col-md-6').last().css("display","block");
+			});
+			$('#sembunyikan_file').on('click', function(e) {
+				$("#tampilkan_file").css("display","block").removeAttr('disabled');
+				$('#aku.col-md-6').addClass('col-md-12').removeClass('col-md-6');
+				$('#aku.col-md-12').last().css("display","none");
+				$("#sembunyikan_file").css("display","none").attr('disabled', 'disabled');
+			});			
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#persetujuan_kinerja').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
+	$('#lihat_pdf').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			var initial = $('#lokasifile').val();
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
+			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#ihat_pdf').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
 // DATA KINERJA
 <?php } else if ($this->uri->segment(2)=="kinerja") { ?>
 $('#upload_file').on('shown.bs.modal', function(e) {
@@ -2367,7 +2494,7 @@ $('#upload_file2').on('shown.bs.modal', function(e) {
 			$('#tampilkan_file').on('click', function(e) {
 			$("#sembunyikan_file").css("display","block").removeAttr('disabled');
 				var initial = $('#lokasifile').val();
-				var options = {pdfOpenParams: {zoom: '45',  page: '1' }};
+				var options = {pdfOpenParams: {zoom: '60',  page: '1' }};
 				PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options); 
 				$('#aku.col-md-12').addClass('col-md-6').removeClass('col-md-12');
 				$("#tampilkan_file").css("display","none").attr('disabled', 'disabled');

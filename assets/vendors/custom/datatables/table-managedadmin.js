@@ -186,7 +186,7 @@ var DatatablesDataSourceAjaxServer = function() {
 		table2.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'asc'],[4,'asc']],
+			order: [[2, 'desc'],[4,'asc']],
 			pageLength: 10,
 			autoWidth: false,
 			responsive: true,
@@ -590,7 +590,7 @@ var DatatablesDataSourceAjaxServer = function() {
 		table7.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'desc'],[4,'asc']],
+			order: [[5, 'asc'],[7,'asc'],[3, 'asc'],[2, 'desc'],[4,'asc']],
 			pageLength: 5,
 			autoWidth: false,
 			responsive: true,
@@ -611,7 +611,7 @@ var DatatablesDataSourceAjaxServer = function() {
 						className: 'control',
 						orderable: false
 				},
-				null,null,null,null,null
+				null,null,null,null,null,null,null
 			],			
 			"language": {
 				"sUrl" :"../assets/vendors/custom/datatables/datatables.id.json"

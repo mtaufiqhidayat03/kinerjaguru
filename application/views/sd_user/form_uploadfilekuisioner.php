@@ -130,18 +130,6 @@
     <td></td>
 	</tr>
 	<tr valign="top">
-   <td height="50"></td>
-    <td valign="top"><label>Nilai Kuisioner</label></td>
-    <td valign="top">:</td>
-    <td valign="top">
-    <div class="form-group row">
-	<div class="kt-input-icon kt-input-icon--left">
-	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-	<input name="nilai_kuisioner" type="text" class="form-control"  id="nilai_kuisioner"  placeholder="Silahkan masukkan nilai kuisioner" required autofocus onkeypress="return hanyaangka(event)"/></div></div>  
-    </td>
-    <td></td>
-	</tr>
-	<tr valign="top">
     <td></td>
 	<td><label>Berkas File Yang Akan Diupload</label></td>
 	<td>:</td>

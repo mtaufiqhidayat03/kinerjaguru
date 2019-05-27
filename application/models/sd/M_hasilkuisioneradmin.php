@@ -41,7 +41,7 @@ class M_hasilkuisioneradmin extends CI_Model {
 	function hasilkuisioner_list() {
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('no_kuisioner','no_kuisioner',"nuptk","nama_guru","nama_kuisioner","nilai_kuisioner",'upload_file_kuisioner_sd');
+		$aColumns = array('no_kuisioner','no_kuisioner',"nuptk","nama_guru","nama_kuisioner", 'if(no_kuisioner IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','nilai_kuisioner','if(nilai_kuisioner IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','upload_file_kuisioner_sd');
 		$sIndexColumn = "a.no_kuisioner";
 		$sTable = "`".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_GURU_SD."` as c ON a.nuptk_kuisioner_sd=c.nuptk";
 		$sLimit = "";

@@ -64,11 +64,19 @@ class M_kinerjauser extends CI_Model {
 	}
 
 	function kinerja_list($nuptk) {
+		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
+        $rowku = $queryku->row_array();
+		$jenis_guru = $rowku['jenis_guru'];
+		$detail_guru = $rowku['detail_guru'];
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('id_indikator','id_indikator','kelompok_kompetensi','no_urut_kompetensi','nama_kompetensi','no_urut_indikator','nama_indikator', 'if(id_penilaian IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','id_kelompok','id_indikator_penilaian_sd','id_kompetensi');
+		$aColumns = array('id_indikator','id_indikator','kelompok_kompetensi','nama_kompetensi','nama_indikator', 'if(id_penilaian IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','skor','if(skor IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Sudah</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Belum</span>")','id_kelompok','id_indikator_penilaian_sd','id_kompetensi','no_urut_kompetensi','no_urut_indikator');
 		$sIndexColumn = "a.id_indikator";
-		$sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as e ON a.id_indikator=e.id_indikator_penilaian_sd and nuptk_penilaian_sd='".$nuptk."'";
+		if ($jenis_guru === "Guru Kelas") {
+			$sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as e ON a.id_indikator=e.id_indikator_penilaian_sd and nuptk_penilaian_sd='".$nuptk."'";
+		} else {
+            $sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as e ON a.id_indikator=e.id_indikator_penilaian_sd and nuptk_penilaian_sd='".$nuptk."'";
+        }
 		$sLimit = "";
 		/*  Paging */
 		if ($this->input->post('start') !== "" && $this->input->post('length') != '-1' )

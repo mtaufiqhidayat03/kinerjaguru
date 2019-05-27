@@ -61,7 +61,7 @@ $('.modal').on('shown.bs.modal', function() {
 			async:true,
     		type: "POST",
 			data: $('form.form_hapus_data').serialize(),
-			url: "<?php echo base_url().FOLDER_SD;?>kuisioner/aksihapuskuisioner",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kuisioner/aksihapuskuisioner",
 				beforeSend: function(){
 				},
         		success: function(data){

@@ -169,7 +169,6 @@ class Kuisioneruser extends CI_Controller {
         {
 			$id_kuisioner=$this->input->post('editid_kuisioner');
 			$nuptk_guru_sd=$this->input->post('editid_guru');
-			$nilai_kuisioner=$this->input->post('nilai_kuisioner');
 			$query = $this->db->get_where(D_KUISIONER_SD.$this->session->userdata('tahun'), array('id_kuisioner_sd' => $id_kuisioner,'nuptk_kuisioner_sd' => $nuptk_guru_sd));
 			if ($query->num_rows() == 0) {
 			$new_name ="kuisioner_tahun_".$this->session->userdata('tahun')."_id_".$id_kuisioner."_nuptk_".$nuptk_guru_sd."_tanggal_".date("d-m-Y")."_jam_".date("H-i-s");
@@ -185,7 +184,6 @@ class Kuisioneruser extends CI_Controller {
 			$data_kuisioner = array(
 				'id_kuisioner_sd'=>$id_kuisioner,
 				'nuptk_kuisioner_sd'=>$nuptk_guru_sd,
-				'nilai_kuisioner'=>$nilai_kuisioner,
 				'upload_file_kuisioner_sd'=>$config['upload_path'].$this->upload->data('file_name'),
 			);
             $data = $this->m_kuisioneruser->addpenilaiankuisioner($data_kuisioner);

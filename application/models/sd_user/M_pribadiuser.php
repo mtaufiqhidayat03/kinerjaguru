@@ -13,6 +13,12 @@ class M_pribadiuser extends CI_Model {
         return $query->result();
 	}
 
+	function getdatapelajaran($nuptk){
+        $sql="SELECT detail_guru, jenis_guru FROM `".D_GURU_SD.$this->session->userdata("tahun")."` as a left join `".M_GURU_SD."` as b ON a.nuptk_guru_sd=b.nuptk where nuptk_guru_sd=?";
+        $query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
+
 	function getdatasekolah($nuptk) {
 		$sql= "SELECT * FROM `".D_GURU_SD.$_SESSION["tahun"]."` as a left join `".M_SD."` as b ON b.npsn_nss=a.npsn_nss_guru_sd left join master_daerah as c on b.no_daerah=c.no_daerah where nuptk_guru_sd=?";
 		$query=$this->db->query($sql,array($nuptk));

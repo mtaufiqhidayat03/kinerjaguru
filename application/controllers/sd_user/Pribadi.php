@@ -21,6 +21,7 @@ class Pribadi extends CI_Controller {
             }
 			$data['n4'] = $this->m_pribadiuser->getdatakepalasekolah($npsn_nss);
 			$data['n5'] = $this->m_pribadiuser->getdataassesor($nuptk);
+			$data['n6'] = $this->m_pribadiuser->getdatapelajaran($nuptk);
             $this->load->view(FOLDER_SD_USER.'datapribadi',$data);
         }
 	}

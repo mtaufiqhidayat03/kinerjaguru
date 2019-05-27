@@ -1,105 +1,23 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user") ) { ?>
-	<style type="text/css">
-
-#preview-container2 {
-    width: 600px;
-}
-
-#pdf-file2 {
-    display: none;
-}
-
-#pdf-loader2 {
-	display: none;
-	vertical-align: middle;
-	color: #cccccc;
-    font-size: 12px;
-}
-
-#pdf-preview2 {
-    display: none;
-    vertical-align: middle;
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 2px;
-}
-
-#pdf-name2 {
-    display: none;
-    vertical-align: middle;
-    color: #000000;
-	font-size:1.2rem;
-    max-width: 200px;
-    overflow: hidden;
-   /* white-space: nowrap; */
-	text-overflow: ellipsis;
-	word-wrap: break-word;
-	/* word-break: break-all;  /* break by word */
-	word-break: break-word; /* break by sentence */
-}
-
-#pdf-loader2 {
-	display: none;
-	text-align: center;
-	color: #999999;
-	font-size: 13px;
-	line-height: 100px;
-	height: 100px;
-}
-
-#pdf-contents2 {
-	display: none;
-}
-
-#pdf-meta2 {
-	overflow: hidden;
-	margin: 0 0 20px 0;
-}
-
-#pdf-buttons2 {
-	float: left;
-}
-
-#page-count-container2 {
-	float: right;
-	font-size:1.2rem;
-}
-
-#pdf-current-page2 {
-	display: inline;
-}
-
-#pdf-total-pages2 {
-	display: inline;
-}
-
-#pdf-canvas2 {
-	border: 1px solid rgba(0,0,0,0.2);
-	box-sizing: border-box;
-}
-
-#page-loader2 {
-	height: 100px;
-	line-height: 100px;
-	text-align: center;
-	display: none;
-	color: #999999;
-	font-size: 13px;
-}
+<style type="text/css">
 .pdfobject-container { 
-height: -moz-calc(100vh - 300px);
-height: -webkit-calc(100vh - 300px);
-height: -o-calc(100vh - 300px);
-height: calc(100vh - 300px);
-height: expression(100vh - 300px); 
+	height: -moz-calc(100vh - 280px);
+	height: -webkit-calc(100vh - 280px);
+	height: -o-calc(100vh - 280px);
+	height: calc(100vh - 280px);
+	height: expression(100vh - 280px); 
 }
 table#sesuaikan tbody tr td {
 	white-space: nowrap; 
-	padding: 0.3rem .75rem 0.3rem .75rem !important;
+	padding: 0.2rem .75rem 0.2rem .75rem !important;
+}
+.form-group label {
+	font-weight: 800 !important;
 }
 </style>
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">Ganti Berkas Bukti Penilaian Kinerja</h5>
+<h5 class="modal-title">Persetujuan Penilaian Kinerja</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -108,13 +26,13 @@ table#sesuaikan tbody tr td {
 <div class="row">
 <div class="col-md-12" id="aku">
 <div class="table-responsive fixed-table-body">
-<form action="" method="" id="form_upload_file2" class="form_upload_file2" enctype="multipart/form-data" >
+<form action="" method="" id="form_persetujuan_kinerja" class="form_persetujuan_kinerja" enctype="multipart/form-data" >
 <table width="100%" height="100%" id="sesuaikan" class="table">
 	<tr valign=top>
     <td width="1%" height="60"></td>
-    <td width="25%"><label>Kelompok Kompetensi</label></td>
-    <td width="5%">:</td>
-    <td width="65%">
+    <td width="15%"><label>Kelompok Kompetensi</label></td>
+    <td width="2%">:</td>
+    <td width="60%">
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
@@ -158,31 +76,6 @@ table#sesuaikan tbody tr td {
     </td>
     <td></td>
 	</tr>
-	<tr valign="top">
-    <td></td>
-	<td><label>Berkas File Yang Akan Diganti</label></td>
-	<td>:</td>
-	<td>
-	<div id="preview-container">
-    <button id="upload-dialog2" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-file-pdf"></i>Pilih Berkas PDF Yang Akan Di Ganti</button>
-    <input type="file" id="pdf-file2" name="pdf" accept="application/pdf" />
-    <div id="pdf-loader2">Memuat Tampilan ...</div>
-	<div id="pdf-contents2">
-		<div id="pdf-meta2">
-			<div id="pdf-buttons2">
-				<button id="pdf-prev2" class="btn btn-info btn-elevate2 btn-elevate-air2"><i class="fa fa-arrow-circle-left"></i> Sebelumnya</button>
-				<button id="pdf-next2" class="btn btn-info btn-elevate2 btn-elevate-air2">Selanjutnya <i class="fa fa-arrow-circle-right"></i></button>
-				<button id="cancel-pdf2" class="btn btn-dark btn-elevate2 btn-elevate-air2"><i class="fa fa-trash-alt"></i> Batalkan Berkas</button>
-			</div>
-			<div id="page-count-container2">Halaman <div id="pdf-current-page2"></div> dari <div id="pdf-total-pages2"></div></div>
-		</div>
-    <canvas id="pdf-preview2" width="300" height="350"></canvas>
-    <span id="pdf-name2"></span> 
-	<div id="page-loader2">Memuat Halaman ...</div>
-</div>
-	</td>
-	<td></td>
-</tr>
 	<tr>
     <td></td>
 	<td></td>
@@ -191,9 +84,24 @@ table#sesuaikan tbody tr td {
 	<input name="id_kompetensi" id="id_kompetensi" type="text" required readonly value="<?php echo $baris->id_kompetensi; ?>" />
 	<input name="id_kelompok" id="id_kelompok" type="text" required readonly value="<?php echo $baris->id_kelompok;?>" />
 	<input name="id_indikator" id="id_indikator" type="text" required readonly value="<?php echo $baris->id_indikator;?>" />
+	<input name="nuptk" id="nuptk" type="text" required readonly value="<?php foreach($n1 as $baris2) { echo $baris2->nuptk; } ?>" />
 	</td>
 	<td></td>
 </tr>
+<tr valign=top>
+    <td height="60"></td>
+    <td valign="top"><label>Skor Indikator Kinerja</label></td>
+    <td valign="top">:</td>
+    <td>
+    <div class="form-group row">
+	<div class="kt-radio-list">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="skor" value="0" class="skor" required <?php if($baris->skor =="0") {echo "checked=''";} ?>>0<span></span></label>
+	<label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="skor" value="1" class="skor" required <?php if($baris->skor =="1") {echo "checked=''";} ?>>1<span></span></label>
+	<label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="skor" value="2" class="skor" required <?php if($baris->skor =="2") {echo "checked=''";} ?>>2<span></span></label>
+    </div>
+    </div>
+    </td>
+  </tr>
 </table>
 </form>
 </div>
@@ -217,15 +125,15 @@ table#sesuaikan tbody tr td {
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_file2"><i class="fa fa-pencil-alt"></i> Ganti Berkas Bukti Kinerja</button>
-<button type="button" class="btn btn-warning btn-elevate2 btn-elevate-air2" id="tampilkan_file"><i class="fa fa-eye"></i> Tampilkan Bukti Kinerja Saat Ini</button>
-<button type="button" class="btn btn-dark btn-elevate2 btn-elevate-air2" id="sembunyikan_file"><i class="fa fa-eye-slash"></i> Sembunyikan Bukti Kinerja Saat Ini</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_persetujuan"><i class="fa fa-thumbs-up"></i> Persetujuan Penilaian Kinerja</button>
+<button type="button" class="btn btn-warning btn-elevate2 btn-elevate-air2" id="tampilkan_file"><i class="fa fa-eye"></i> Tampilkan Bukti Kinerja</button>
+<button type="button" class="btn btn-dark btn-elevate2 btn-elevate-air2" id="sembunyikan_file"><i class="fa fa-eye-slash"></i> Sembunyikan Bukti Kinerja</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>
   $(function() {
-	$(document).on('click', "button#submit_file2", function(){
-		$('#form_upload_file2').validate({
+	$(document).on('click', "button#submit_persetujuan", function(){
+		$('#form_persetujuan_kinerja').validate({
 		errorElement: 'span',
 	    errorClass: 'help-block',
 	    focusInvalid: false,
@@ -239,11 +147,8 @@ table#sesuaikan tbody tr td {
 	            }
 		}
 		);
-		if (document.querySelector("#pdf-file2").value === "") {
-			pilihsalahsatufilepdf();
-		} else {
-		if ($('form.form_upload_file2').valid() && document.querySelector("#pdf-file2").value !== "") {
-			var databaru = new FormData($('#form_upload_file2')[0]); 
+		if ($('form.form_persetujuan_kinerja').valid()) {
+			var databaru = new FormData($('#form_persetujuan_kinerja')[0]); 
 		   	$.ajax({
 			xhr: function() {
         		var browser = navigator.appName;
@@ -271,7 +176,7 @@ table#sesuaikan tbody tr td {
 			cache: false,
       		contentType: false,
       		processData: false,
-			url: "<?php echo base_url().FOLDER_SD_USER;?>kinerja/aksigantifilekinerja",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>kinerjadinilai/aksipersetujuankinerja",
 			data: databaru,
 				beforeSend: function(){
 				},
@@ -303,11 +208,11 @@ table#sesuaikan tbody tr td {
 				 unblockPageUI();
 			   }
 				 else {
-					berhasiledit();
-					$(".dataTables").dataTable().fnClearTable(false); 
-					$(".dataTables").dataTable().fnStandingRedraw(); 
-					$('#upload_file2').modal('hide');
-					$('#upload_file2').on('hidden.bs.modal', function(){
+					berhasildisetujui();
+					$("#data_evaluasi").dataTable().fnClearTable(false); 
+					$("#data_evaluasi").dataTable().fnStandingRedraw(); 
+					$('#persetujuan_kinerja').modal('hide');
+					$('#persetujuan_kinerja').on('hidden.bs.modal', function(){
 					$("input:checked").parent().removeClass("checked").find("span").html("");
 					$(this).find('form')[0].reset();
 					unblockPageUI();
@@ -318,13 +223,13 @@ table#sesuaikan tbody tr td {
 					unblockPageUI();
 				},
 			   error: function(){ 
-   				gagaledit();
+   				gagaldisetujui();
 				}				
       			});
 		} else {
 			kurangisian();
 		}
-		}
+		
 	});
 });
 </script>

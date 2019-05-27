@@ -736,6 +736,86 @@ function berhasiltambah() {
 					}
  				 toastr.success("Sukses, data telah berhasil dimasukkan. ", "Informasi")
 }
+function berhasildisetujui() {
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "1000",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showEasing" : 'swing',
+  "hideEasing" : 'linear',
+  "showMethod": "slideDown",
+  "hideMethod": "slideUp"
+	}
+  toastr.success("Sukses, penilaian indikator kinerja berhasil dilakukan. ", "Informasi")
+}
+function gagaldisetujui() {
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "1000",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showEasing" : 'swing',
+  "hideEasing" : 'linear',
+  "showMethod": "slideDown",
+  "hideMethod": "slideUp"
+	}
+  toastr.error("Maaf, terjadi kesalahan proses koneksi dengan server dalam proses penilaian indikator kinerja. <br><br><b>Silahkan refresh browser atau hubungi administrator</b>  ", "Informasi")
+}
+function berhasildisetujuikuisioner() {
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "1000",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showEasing" : 'swing',
+  "hideEasing" : 'linear',
+  "showMethod": "slideDown",
+  "hideMethod": "slideUp"
+	}
+  toastr.success("Sukses, penilaian kuisioner berhasil dilakukan. ", "Informasi")
+}
+function gagaldisetujuikuisioner() {
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "1000",
+  "hideDuration": "1000",
+  "timeOut": "3000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showEasing" : 'swing',
+  "hideEasing" : 'linear',
+  "showMethod": "slideDown",
+  "hideMethod": "slideUp"
+	}
+  toastr.error("Maaf, terjadi kesalahan proses koneksi dengan server dalam proses penilaian kuisioner. <br><br><b>Silahkan refresh browser atau hubungi administrator</b>  ", "Informasi")
+}
 function gagaltambah() {
 				 toastr.options = {
   				"closeButton": true,
