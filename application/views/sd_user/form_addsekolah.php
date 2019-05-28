@@ -110,7 +110,7 @@ xmlhttp4.send(null);
 		<td width="380">
 		<div class="form-group row">
 		<div class="kt-input-icon kt-input-icon--left">
-		<input name="npsn_nss" class="form-control" type="text" required autofocus placeholder="Masukkan NPSN/NSS"/>
+		<input name="npsn_nss" class="form-control" type="text" required autofocus placeholder="Masukkan NPSN/NSS" onkeypress="return hanyaangka(event)" />
 		<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
 	 </div>
    </div>

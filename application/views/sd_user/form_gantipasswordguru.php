@@ -96,7 +96,7 @@ $(function() {
 			cache: false,
             contentType: false,
             processData: false,
-			url: "<?php echo base_url().FOLDER_SD;?>guru/aksigantipasswordguru",
+			url: "<?php echo base_url().FOLDER_SD_USER;?>guru/aksigantipasswordguru",
 			data: databaru,
 				beforeSend: function(){
 				},

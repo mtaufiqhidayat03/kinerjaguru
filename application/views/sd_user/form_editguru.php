@@ -37,7 +37,7 @@
     <td><div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-	<input name="nip" type="text"  required class="form-control"  id="nip"  placeholder="Silahkan masukkan NIP" value="<?php echo $baris->nip;?>" /></div></div>
+	<input name="nip" type="text"  required class="form-control"  id="nip"  placeholder="Silahkan masukkan NIP" value="<?php echo $baris->nip;?>" onkeypress="return hanyaangka(event)" /></div></div>
     </td>
   </tr>
   <tr valign="top">
