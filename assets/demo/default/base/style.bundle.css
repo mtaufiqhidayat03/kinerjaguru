@@ -29566,8 +29566,11 @@ body.swal2-height-auto {
     border-spacing: 0 !important;
     margin: 1rem 0 !important
 }
-.dataTables_wrapper .dataTable th, .dataTables_wrapper .dataTable td {
+.dataTables_wrapper .dataTable th {
     vertical-align: middle
+}
+.dataTables_wrapper .dataTable td {
+    vertical-align: top
 }
 .dataTables_wrapper .dataTable th .kt-checkbox, .dataTables_wrapper .dataTable td .kt-checkbox {
     margin-top: 0.3rem;

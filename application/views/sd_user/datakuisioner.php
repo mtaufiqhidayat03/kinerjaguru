@@ -25,13 +25,13 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
   display: none;
 }
 .kt-badge.kt-badge--danger {
-	font-size : 1rem !important;
+	font-size : 13px !important;
 }
 .kt-badge.kt-badge--success {
-	font-size : 1rem !important;
+	font-size : 13px !important;
 }
 [class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
-	padding-right:0.5rem !important;
+	padding-right:10px !important;
 }
 .btnku {
 	text-align : left !important;

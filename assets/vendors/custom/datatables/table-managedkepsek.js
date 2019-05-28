@@ -800,6 +800,7 @@ var DatatablesDataSourceAjaxServer = function() {
 		
 		
 		$(document).on("click",'.pilih_guru', function(e) {	
+		blockPageUI();
 		var nuptk = $(this).attr('value'); 
 		//alert(nuptk);
 		$('#data_evaluasi').DataTable().destroy();
@@ -844,6 +845,7 @@ var DatatablesDataSourceAjaxServer = function() {
 			},
 			initComplete: function()
       		{
+			unblockPageUI();
 			 var dtable2 = $('#data_evaluasi').dataTable().api();
 			 var searchWait = 0;
 			 var searchWaitInterval;
@@ -971,6 +973,7 @@ var DatatablesDataSourceAjaxServer = function() {
 		
 		
 		$(document).on("click",'.pilih_guru2', function(e) {	
+		blockPageUI();
 		var nuptk2 = $(this).attr('value'); 
 		$('#data_evaluasikuisioner').DataTable().destroy();
 		var table12 = $('#data_evaluasikuisioner');
@@ -1012,6 +1015,7 @@ var DatatablesDataSourceAjaxServer = function() {
 			},
 			initComplete: function()
       		{
+			unblockPageUI();
 			 var dtable2 = $('#data_evaluasikuisioner').dataTable().api();
 			 var searchWait = 0;
 			 var searchWaitInterval;

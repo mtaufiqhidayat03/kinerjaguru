@@ -23,13 +23,13 @@ table.dataTable tbody tr td {
 	/* white-space: nowrap; */
 }
 .kt-badge.kt-badge--danger {
-	font-size : 1rem !important;
+	font-size : 13px !important;
 }
 .kt-badge.kt-badge--success {
-	font-size : 1rem !important;
+	font-size : 13px !important;
 }
 [class^="flaticon2-"]:before, [class*=" flaticon2-"]:before {
-	padding-right:0.5rem !important;
+	padding-right:10px !important;
 }
 .btnku {
 	text-align : left !important;
@@ -714,7 +714,7 @@ table.dataTable tbody tr td {
                         		<tr>
 										<th></th>
 										<th>Tindakan</th>	
-										<th>Kelompok Kompetensi</th>
+										<th>Kelompok<br/>Kompetensi</th>
 										<!-- <th>No Urut<br/>Kompetensi</th> -->	
 										<th>Nama Kompetensi</th>
 										<!-- <th>No Urut<br/>Indikator</th>	-->									
