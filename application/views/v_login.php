@@ -3,7 +3,7 @@
 <!-- begin::Head -->
 <head>
 	<meta charset="utf-8" />
-	<title>Login Page</title>
+	<title>Penilaian Kinerja Guru v.1 - Halaman Login</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 	<script src="<?php echo base_url();?>assets/demo/base/webfont.js"></script>
