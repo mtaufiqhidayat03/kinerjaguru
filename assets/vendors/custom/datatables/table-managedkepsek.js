@@ -1060,6 +1060,82 @@ var DatatablesDataSourceAjaxServer = function() {
 			}); 
 			//window.scrollTo(0, $("#data_evaluasi").offset().top);
 			});
+		var table13 = $('#data_cetak_kinerja');
+		table13.DataTable({
+			lengthMenu: [5, 10, 25, 50,100],
+			// Order settings
+			order: [[2, 'asc']],
+			pageLength: 10,
+			autoWidth: false,
+			responsive: true,
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url : "cetakkinerja/ajax_data_cetak_kinerja",	
+                type: 'post',
+			},
+			"aoColumnDefs": [
+				{"bSortable":false,"sWidth": "15%", "className": "dt-center", "aTargets": [1] },
+				{"iDataSort": 0, "aTargets": [2] } ,
+			], 
+			columns: [
+				{   // Responsive control column
+						data: null,
+						defaultContent: '',
+						className: 'control',
+						orderable: false
+				},
+				null,null,null,null
+			],			
+			"language": {
+				"sUrl" :"../assets/vendors/custom/datatables/datatables.id.json"
+			},
+			initComplete: function()
+      		{
+			 var dtable = $(".dataTables").dataTable().api();
+			 var searchWait = 0;
+			 var searchWaitInterval;
+			 dtable.columns([1]).header().to$().removeClass("dt-center");
+        	$('.dataTables_filter input').unbind('.DT').bind('keyup.DT', function(e)
+        	{
+					var item = $(this);
+					searchWait = 0;
+					if(!searchWaitInterval) searchWaitInterval = setInterval(function(){
+							if(searchWait>=3){
+								clearInterval(searchWaitInterval);
+								searchWaitInterval = '';
+								searchTerm = $(item).val();
+								dtable.search(searchTerm).draw();								
+								searchWait = 0;
+							}
+							searchWait++;
+					},300);
+				});
+				$('input[type=search]').on('search', function () {
+					var tbl = $(".dataTables").dataTable().api();
+					tbl.search('').columns().search('').draw();
+			});
+			jQuery(".details-control").each(function() {
+				jQuery(this).click(function(){
+					table.rows('.parent').nodes().to$().find('.details-control').not(this).trigger('click');
+				});
+			});
+     		 },
+			"fnDrawCallback": function () {
+				if((this.fnPagingInfo().iFilteredTotal) == 0) {
+					if($('#data_cetak_kinerja_filter input').val() != '') {
+					$("div.alert.alert-warning.data_kelompok").empty().append('Kata kunci <strong>'+$('#data_cetak_kinerja_filter input').val()+'</strong> tidak menampilkan data hasil pencarian');
+					$("div.alert.alert-warning.data_cetak_kinerja").css("display","block");
+					} else {
+					$("div.alert.alert-warning.data_cetak_kinerja").empty().append('Tidak ada data yang sesuai dengan kriteria yang diinginkan');
+					$("div.alert.alert-warning.data_cetak_kinerja").css("display","block");
+					}
+					} else {
+					$("div.alert.alert-warning.data_cetak_kinerja").empty().append('');
+					$("div.alert.alert-warning.data_cetak_kinerja").css("display","none");
+					}
+			  },           
+		});
 	}; 
 	return {
 		//         function to initiate the module

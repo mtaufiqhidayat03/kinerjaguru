@@ -60,6 +60,15 @@
 				</ul>
 				<?php } ?>
 				<ul class="kt-menu__nav ">
+				<li class="kt-menu__section ">
+					<h4 class="kt-menu__section-text">Halaman Print</h4>
+				</li>
+				</ul>
+				<ul class="kt-menu__nav ">
+                        <li class="kt-menu__item <?php if ($this->uri->segment(2)=="cetakkinerja") { echo 'kt-menu__item--active'; }?>" aria-haspopup="true"><a href="<?php echo base_url().FOLDER_SD_USER;?>cetakkinerja" class="kt-menu__link "><span class="kt-menu__link-icon"><i class="fa fa-file-pdf"></i></span><span class="kt-menu__link-text">Cetak Penilaian Kinerja</span></a>
+                        </li>
+				</ul>
+				<ul class="kt-menu__nav ">
                         <li class="kt-menu__item" aria-haspopup="true"><a href="<?php echo base_url();?>Login/form_logout" class="kt-menu__link" id="sample_logout" data-target='#mdl_logout' data-toggle="modal"><span class="kt-menu__link-icon"><i class="flaticon-lock"></i></span><span class="kt-menu__link-text">Keluar Sistem</span></a>
                         </li>
 		    	</ul>

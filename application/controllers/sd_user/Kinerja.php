@@ -13,8 +13,6 @@ class Kinerja extends CI_Controller {
         } else {
 			$id_kompetensi = $this->input->get('id_kompetensi');
             if (isset($id_kompetensi) and $id_kompetensi !== "") { 
-			  $data['n20'] = $this->m_kinerjauser->namaindikator($id_kompetensi);  
-			  $data['n20'] = 
 			  $this->load->view(FOLDER_SD_USER.'datakinerja', $data); 
             } else {
               $data['n20'] = ""; 
@@ -385,6 +383,25 @@ class Kinerja extends CI_Controller {
         } else {
             show_404();
         }
+	}
+	
+	function cetakpenilaian(){
+		$success = require_once "dompdf/autoload.inc.php";
+		if (!$success) {
+			echo "Error. Cannot include and initialize dompdf";
+		} else {		
+
+		$dompdf =  new Dompdf\Dompdf();		
+		$dompdf->loadHtml('hello world');
+		// (Optional) Setup the paper size and orientation
+		$dompdf->setPaper('A4', 'portrait');
+		// Render the HTML as PDF
+		$dompdf->render();
+		// Get the generated PDF file contents
+		$pdf = $dompdf->output();
+		// Output the generated PDF to Browser
+		 $dompdf->stream();
+		}
 	}
 
 	function ajax_data_kinerja() {
