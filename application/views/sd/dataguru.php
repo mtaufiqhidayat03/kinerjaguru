@@ -80,7 +80,22 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										 id="sekolah_semua">
 										<i class="flaticon-buildings"></i>
 										Kembali ke Data Sekolah
-									</a>	
+									</a>
+							<?php if (!isset($npsn_nss)) { ?>
+									<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+										href="<?php echo base_url().FOLDER_SD."guru/exportguru";?>"
+										data-target="#" id="sample_export_excel">
+										<i class="fa fa-file-excel"></i>
+										Simpan Semua Data Guru (Excel)
+									</a>
+							<?php } else { ?>
+								<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+										href="<?php echo base_url().FOLDER_SD."guru/exportguru?npsn_nss=".$npsn_nss;?>"
+										data-target="#" id="sample_export_excel">
+										<i class="fa fa-file-excel"></i>
+										Simpan Data Guru Untuk Sekolah Ini (Excel)
+								</a>	
+							<?php } ?>	
 							</div>
 							
 							<div class="alert alert-warning data_guru" style="display:none"></div>

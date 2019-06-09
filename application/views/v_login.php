@@ -30,6 +30,19 @@
 	<link href="<?php echo base_url();?>assets/demo/default/skins/brand/dark.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo base_url();?>assets/demo/default/skins/aside/dark.css" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="<?php echo base_url();?>assets/media/img/tutwuri.png" />
+	<style>
+.baru {
+position: relative ;
+margin-left: 40%;
+padding: 20px 0px 10px 0px;
+}
+.teksku {
+position: absolute;
+top: 0%;
+left: 90px;
+padding: 20px 0px 10px 0px;
+}
+</style>
 </head>
 <!-- end::Head -->
 <!-- begin::Body -->
@@ -52,14 +65,13 @@
 		<div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
 			<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
 				style="background-image: url(<?php echo base_url();?>assets/media/bg/bg-3.jpg);">
+				<div class="baru">
+				<img src="<?php echo base_url();?>assets/media/img/logo_surakarta.png" width=70 height=90 >
+				<div class="teksku"><h3>Dinas Pendidikan</h3>
+				<h4>Kota Surakarta</h4></div></div>
 				<div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
 					<div class="kt-login__container">
-						<div class="kt-login__logo">
-							<a href="#">
-								<img src="<?php echo base_url();?>assets/media/img/disdiksolo.jpg" width=200 height=120>
-							</a>
-
-						</div>
+						<div class="kt-login__logo"></div>
 						<div class="kt-login__signin">
 							<div class="kt-login__head">
 								<h3 class="kt-login__title">Penilaian Kinerja Guru <small>v.1</small></h3>

@@ -30,6 +30,7 @@ class M_kinerjadinilai extends CI_Model {
         $query=$this->db->query($sql,array($nuptk));
         return $query->result();
 	}
+
     function addassesor($data_assesor) {
         $this->db->insert("`".D_ASSESOR_SD.$this->session->userdata('tahun')."`",$data_assesor);
 	}

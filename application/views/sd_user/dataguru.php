@@ -56,7 +56,15 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 								</div>
 							</div>
 						</div>
-						<div class="kt-portlet__body">							
+						<div class="kt-portlet__body">		
+						<div class="form-group">
+						<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+										href="<?php echo base_url().FOLDER_SD_USER."guru/exportguru";?>"
+										data-target="#" id="sample_export_excel">
+										<i class="fa fa-file-excel"></i>
+										Simpan Data Guru Untuk Sekolah Ini (Excel)
+								</a>
+						</div>					
 							<div class="alert alert-warning data_guru" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_guru dataTables" id="data_guru" width=100%>
 								<thead>

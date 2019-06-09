@@ -1,11 +1,30 @@
 <?php
 class M_sekolahadmin extends CI_Model {
-    
-    function getdatasekolah($npsn_nss){
-        $sql="SELECT * FROM `".M_SD."` as a left join master_daerah as b on a.no_daerah=b.no_daerah where npsn_nss=?";
-        $query=$this->db->query($sql,array($npsn_nss));
+		
+	function viewguru() {
+        $sql="SELECT * FROM `".M_GURU_SD."`";
+        $query=$this->db->query($sql);
         return $query->result();
-    }
+	}
+
+	function viewguru2($npsn_nss) {
+        $sql="SELECT * FROM `".M_GURU_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b  ON a.nuptk=b.nuptk_guru_sd where npsn_nss_guru_sd=?";
+        $query=$this->db->query($sql, array($npsn_nss));
+        return $query->result();
+	}
+
+	function nama_sekolah($npsn_nss) {
+        $sql="SELECT npsn_nss,nama_sekolah FROM `".M_SD."` where npsn_nss=?";
+		$query=$this->db->query($sql, array($npsn_nss));
+        return $query->result();
+	}
+
+	function viewtahun() {
+		$tahun = $this->session->userdata('tahun');
+		$sql="SELECT * FROM `master_tahun` where id_tahun=?";
+        $query=$this->db->query($sql, array($tahun));
+        return $query->result();
+	}
     
     function prov(){
         $query=$this->db->query("SELECT nama_provinsi FROM master_daerah group by nama_provinsi");
@@ -220,7 +239,10 @@ class M_sekolahadmin extends CI_Model {
 					<a data-toggle='modal'  href='sekolah/form_hapussekolah?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-eraser'></i> Hapus Data</a>	
 					<a data-toggle='modal' href='sekolah/form_kepalasekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#kepala_sekolah' class='btn btn-brand btn-sm btnku btn-elevate btn-elevate-air'  id='kepala-sekolah' data-id='".$aRow['npsn_nss']."'><i class='fa fa-binoculars'></i> Pilih Kepala Sekolah </a>					
 					<a href='guru?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Guru</a>
-					<a href='assesor?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-warning btn-sm btnku btn-elevate btn-elevate-air' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Assesor</a></div>
+					<a href='assesor?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-warning btn-sm btnku btn-elevate btn-elevate-air' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Assesor</a>
+					<a class='btn btn-success btn-elevate btn-sm btn-elevate btn-elevate-air'
+					href='sekolah/exportguru?npsn_nss=".$aRow['npsn_nss']."' data-target='#' id='sample_export_excel'><i class='fa fa-file-excel'></i>Simpan Data Guru</a>
+					</div>
 					";
                 } else {
 					$row[] = "<div class='btn-group-vertical' role='group'>
@@ -229,6 +251,8 @@ class M_sekolahadmin extends CI_Model {
 					<a data-toggle='modal' href='sekolah/form_hapuskepalasekolah?npsn_nss=".$aRow['npsn_nss']."' data-target='#hapus_datakepala' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air' id='hapuskepala-sekolah' data-id='".$aRow['npsn_nss']."'><i class='fa fa-eraser'></i> Hapus Kepala Sekolah</a>
 					<a href='guru?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Guru</a>
 					<a href='assesor?npsn_nss=".$aRow['npsn_nss']."' class='btn btn-warning btn-sm btnku btn-elevate btn-elevate-air' data-id='".$aRow['npsn_nss']."'><i class='fa fa-search-plus'></i> Tampilkan Assesor</a>
+					<a class='btn btn-success btn-elevate btn-sm btn-elevate btn-elevate-air'
+					href='sekolah/exportguru?npsn_nss=".$aRow['npsn_nss']."' data-target='#' id='sample_export_excel'><i class='fa fa-file-excel'></i>Simpan Data Guru</a>
 					</div>
 					";
 				}

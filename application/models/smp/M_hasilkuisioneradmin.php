@@ -108,12 +108,15 @@ class M_hasilkuisioneradmin extends CI_Model {
 			{
 				if ( $i == 1)
 				{
+					/* hidden menu 
 					$row[] = "<div class='btn-group-vertical center' role='group'>
 					<a data-toggle='modal'  href='hasilkuisioner/form_hapushasilkuisioner?no_kuisioner=".$aRow['no_kuisioner']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['no_kuisioner']."'><i class='fa fa-eraser'></i> Hapus Data</a>
 					<a data-toggle='modal' href='hasilkuisioner/form_gantiuploadfile?no_kuisioner=".$aRow['no_kuisioner']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['no_kuisioner']."'><i class='fa fa-pencil-alt'></i> Edit Berkas Kuisioner</a>
 					<div class='btn-group-vertical center' role='group'>
 					<a data-toggle='modal' href='hasilkuisioner/form_gantinilai?no_kuisioner=".$aRow['no_kuisioner']."' data-target='#edit_datanilai' class='btn btn-success btn-sm btnku btn-elevate btn-elevate-air' id='edit-datanilai' data-id='".$aRow['no_kuisioner']."'><i class='fa fa-pencil-alt'></i> Edit Nilai Kuisioner</a>
-					<div class='btn-group-vertical center' role='group'>
+					<a data-toggle='modal' href='hasilkuisioner/form_lihatpdfkuisioner?no_kuisioner=".$aRow['no_kuisioner']."' data-target='#lihat_pdf' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='lihat-pdf' data-id='".$aRow['no_kuisioner']."'><i class='fa fa-file-pdf'></i> Lihat Berkas File PDF</a>
+					</div>"; */
+					$row[] = "<div class='btn-group-vertical center' role='group'>
 					<a data-toggle='modal' href='hasilkuisioner/form_lihatpdfkuisioner?no_kuisioner=".$aRow['no_kuisioner']."' data-target='#lihat_pdf' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' id='lihat-pdf' data-id='".$aRow['no_kuisioner']."'><i class='fa fa-file-pdf'></i> Lihat Berkas File PDF</a>
 					</div>";
 				}

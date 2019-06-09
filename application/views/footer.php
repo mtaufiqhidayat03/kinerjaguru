@@ -2302,6 +2302,55 @@ $('#persetujuan_kinerja').on('shown.bs.modal', function(e) {
 		}
 		});
 });	
+// DATA PENILAIAN
+<?php } else if ($this->uri->segment(2)=="penilaian") { ?>
+	$('#lihat_pdf').on('shown.bs.modal', function(e) {
+		blockPageUI();
+		<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+		<?php  } ?>			
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			var initial = $('#lokasifile').val();
+			var options = {pdfOpenParams: {zoom: '50',  page: '1' }};
+			PDFObject.embed("<?php echo base_url(); ?>"+initial, "#lihatfile", options);
+			unblockPageUI();
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#ihat_pdf').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});	
+$('#hapus_data').on('show.bs.modal', function(e) {
+	blockPageUI();
+	<?php  if ($this->session->userdata("username") !== "") {  ?>
+		$.post("<?php echo base_url();?>Login/checksession", function (data) {
+			if (data == "-1") {
+				sessionexpired();
+				setTimeout(function () {
+					window.location.href = "<?php echo base_url();?>Login"
+				}, 3000);
+			}
+		});
+	<?php  } ?>
+		$(this).find('.modal-content').load(e.relatedTarget.href, function(response, status, xhr) {
+		if (xhr.status == 200) {
+			unblockPageUI();		
+		} else {
+			koneksierror();
+			setTimeout(function(){ $('#hapus_data').modal('hide');}, 1000);
+			unblockPageUI();
+		}
+		});
+});		
 // DATA KINERJA
 <?php } else if ($this->uri->segment(2)=="kinerja") { ?>
 $('#upload_file').on('shown.bs.modal', function(e) {

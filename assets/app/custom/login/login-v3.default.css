@@ -4,11 +4,11 @@
 }
 .kt-login.kt-login--v3 .kt-login__wrapper {
 	/*padding-top: 1.5rem; */
-	padding-top: -moz-calc(0vh + 3rem);
+	/*padding-top: -moz-calc(0vh + 3rem);
 	padding-top: -webkit-calc(0vh + 3rem);
 	padding-top: -o-calc(0vh + 3rem);
 	padding-top: calc(0vh + 3rem);
-	padding-top: expression(0vh + 3rem);	
+	padding-top: expression(0vh + 3rem);	*/
 	padding-right: 1rem;
 	padding-bottom: 1rem;
 	padding-left: 1rem;
@@ -20,8 +20,8 @@
     margin: 0 auto
 }
 .kt-login.kt-login--v3 .kt-login__wrapper .kt-login__container .kt-login__logo {
-    text-align: center;
-    margin: 0 auto 2rem auto
+    /*text-align: center;
+    margin: 0 auto 2rem auto */
 }
 .kt-login.kt-login--v3 .kt-login__wrapper .kt-login__container .kt-login__head {
     margin-top: 1rem;

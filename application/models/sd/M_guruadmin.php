@@ -1,6 +1,31 @@
 <?php
 class M_guruadmin extends CI_Model {
-    
+	
+	function viewguru() {
+        $sql="SELECT * FROM `".M_GURU_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b  ON a.nuptk=b.nuptk_guru_sd left join `".M_SD."` as c ON c.npsn_nss=b.npsn_nss_guru_sd";
+        $query=$this->db->query($sql);
+        return $query->result();
+	}
+
+	function viewguru2($npsn_nss) {
+        $sql="SELECT * FROM `".M_GURU_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b  ON a.nuptk=b.nuptk_guru_sd left join `".M_SD."` as c ON c.npsn_nss=b.npsn_nss_guru_sd where npsn_nss_guru_sd=?";
+        $query=$this->db->query($sql, array($npsn_nss));
+        return $query->result();
+	}
+
+	function nama_sekolah($npsn_nss) {
+        $sql="SELECT npsn_nss,nama_sekolah FROM `".M_SD."` where npsn_nss=?";
+		$query=$this->db->query($sql, array($npsn_nss));
+        return $query->result();
+	}
+
+	function viewtahun() {
+		$tahun = $this->session->userdata('tahun');
+		$sql="SELECT * FROM `master_tahun` where id_tahun=?";
+        $query=$this->db->query($sql, array($tahun));
+        return $query->result();
+	}
+
     function getdataguru($nuptk){
         $sql="SELECT * FROM `".M_GURU_SD."` where nuptk=?";
         $query=$this->db->query($sql,array($nuptk));
@@ -8,7 +33,7 @@ class M_guruadmin extends CI_Model {
 	}
 
 	function getdataguru2($nuptk){
-        $sql="SELECT * FROM `".M_SD."` as a left join `".D_GURU_SD.$_SESSION["tahun"]."` as b  ON a.npsn_nss=b.npsn_nss_guru_sd left join `".M_GURU_SD."` as c ON b.nuptk_guru_sd=c.nuptk where nuptk_guru_sd=?";
+        $sql="SELECT * FROM `".M_SD."` as a left join `".D_GURU_SD.$this->session->userdata('tahun')."` as b  ON a.npsn_nss=b.npsn_nss_guru_sd left join `".M_GURU_SD."` as c ON b.nuptk_guru_sd=c.nuptk where nuptk_guru_sd=?";
         $query=$this->db->query($sql,array($nuptk));
         return $query->result();
 	}

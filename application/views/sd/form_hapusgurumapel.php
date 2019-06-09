@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
 <div class="portlet-body">
- <form action="" method="post" class="form_hapus_dataguru" id="form_hapus_dataguru">
+ <form action="" method="post" class="form_hapus_datagurumapel" id="form_hapus_datagurumapel">
  <table width="100%" border="0">
 <?php foreach ($n1 as $row) { ?>
 <tr>
@@ -24,12 +24,12 @@
 </form>
 </div></div>
 <div class="modal-footer">
-<button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" id="hapus_dataguru"><i class="fa fa-eraser"></i> Hapus Data </button>
+<button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" id="hapus_datagurumapel"><i class="fa fa-eraser"></i> Hapus Data </button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i>  Tutup</button>
 </div>
 <script>
  $(function() {
-	$(document).on('click',"button#hapus_dataguru",function(){
+	$(document).on('click',"button#hapus_datagurumapel",function(){
 		   	$.ajax({
 			xhr: function() {
         		var browser = navigator.appName;
@@ -54,7 +54,7 @@
    			 },
 				async:true,
 				type: "POST",
-				data: $('form.form_hapus_dataguru').serialize(),
+				data: $('form.form_hapus_datagurumapel').serialize(),
 				url: "<?php echo base_url().FOLDER_SD;?>guru/aksihapusgurusekolahmapel",
 				beforeSend: function(){
 				},

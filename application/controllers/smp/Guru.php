@@ -419,7 +419,6 @@ class Guru extends CI_Controller {
 				$jenis_guru=$this->input->post('jenis_guru');
 				$detail_guru=$this->input->post('detail_guru');
 				$query = $this->db->get_where("`".D_GURU_SMP.$this->session->userdata('tahun')."`", array('nuptk_guru_smp' => $nuptk, 'npsn_nss_guru_smp' => $edit_gurusekolah));
-				if ($jenis_guru === "Guru Kelas") {
 					$query2 = $this->db->get_where("`".D_GURU_SMP.$this->session->userdata('tahun')."`", array('jenis_guru' => $jenis_guru, 'detail_guru' => $detail_guru,'npsn_nss_guru_smp' => $edit_gurusekolah));
 					if ($query->num_rows() == 1 && $query2->num_rows() == 0) {	
 						$data_guru = array(  
@@ -435,23 +434,7 @@ class Guru extends CI_Controller {
 					}
 					else {
 						echo "Guru wali kelas sudah pada sekolah ini sudah digunakan";   
-					}
-				} else {
-					if ($query->num_rows() == 1) {
-						$data_guru = array(  
-								'jenis_guru' => $jenis_guru,
-								'detail_guru' => $detail_guru
-						);
-						$data = $this->m_guruadmin->updategurusekolahmapel($data_guru, $nuptk);
-						if ($this->db->affected_rows() != 1) {
-						echo "Tidak ada data yang berhasil diubah";
-						} else {
-						echo $data;
-						}
-					} else {
-						echo "Guru ini sudah mengajar di sekolah ini";   
-					}
-				}		
+					}		
 				}else{
 					echo "session_expired";
 				}
@@ -459,6 +442,214 @@ class Guru extends CI_Controller {
 					show_404();
 				}
 	}
+	
+	
+	function exportguru(){
+		$npsn_nss = $this->input->get('npsn_nss');
+		// Load plugin PHPExcel nya
+		$success = include APPPATH.'third_party/phpexcel/PHPExcel.php';
+		if (!$success) {
+			echo "error";
+		} else {		
+		// Panggil class PHPExcel nya
+		$objPHPExcel = new PHPExcel();
+		// Settingan awal fil excel
+		$objPHPExcel->getProperties()->setCreator('Aplikasi PKG')
+					 ->setLastModifiedBy('Aplikasi PKG')
+					 ->setTitle("Data Guru")
+					 ->setSubject("Guru")
+					 ->setDescription("Laporan Data Guru")
+					 ->setKeywords("Data Guru");
+		$default_border = array(
+						'style' => PHPExcel_Style_Border::BORDER_THIN,
+						'color' => array('rgb'=>'000000')
+					);
+		$style_header = array(
+						'borders' => array(
+							'bottom' => $default_border,
+							'left' => $default_border,
+							'top' => $default_border,
+							'right' => $default_border,
+							'vertical' => $default_border,
+							'horizontal' => $default_border,
+						),
+						'font' => array(
+							'bold' => true,
+						)
+					);
+		$style_header2 = array(
+						'borders' => array(
+							'bottom' => $default_border,
+							'left' => $default_border,
+							'top' => $default_border,
+							'right' => $default_border,
+							'vertical' => $default_border,
+							'horizontal' => $default_border,
+						),
+						'font' => array(
+							'bold' => false,
+						)
+		); 
+		$style_header3 = array(
+						'font' => array(
+							'bold' => true,
+						)
+		); 
+		$tahun = $this->m_guruadmin->viewtahun();
+        foreach ($tahun as $rowthn) {
+			$tahun2 = $rowthn->tahun;
+		}
+		if (isset($npsn_nss) and $npsn_nss !== "") {
+			$namaku = $this->m_guruadmin->nama_sekolah($npsn_nss);
+			foreach ($namaku as $rownama) {
+				$namasekolah = $rownama->nama_sekolah;
+			}
+		}
+		if (isset($npsn_nss) and $npsn_nss !== "") {
+			$objPHPExcel->setActiveSheetIndex(0)
+			->mergeCells('A1:L1')
+			->setCellValue('A1', 'Data Guru '.$namasekolah)
+			->mergeCells('A2:L2')
+			->setCellValue('A2', 'Tahun '.$tahun2)
+			->setCellValue('A4', 'No')
+			->setCellValue('B4', 'NUPTK')
+			->setCellValue('C4', 'Nama Guru')
+			->setCellValue('D4', 'NIP')
+			->setCellValue('E4', 'No Karpeg')
+			->setCellValue('F4', 'Tempat Lahir')
+			->setCellValue('G4', 'Tanggal Lahir')
+			->setCellValue('H4', 'Pangkat Jabatan')
+			->setCellValue('I4', 'TMT Guru')
+			->setCellValue('J4', 'Jenis Kelamin')
+			->setCellValue('K4', 'Pendidikan Terakhir')
+			->setCellValue('L4', 'Program Keahlian')
+			->getStyle('A1:A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A1')->applyFromArray( $style_header3 );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A2')->applyFromArray( $style_header3 );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A4:L4')->applyFromArray( $style_header );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A4:L4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); 
+			$rowNya = 5;
+			$no = 0;
+			$guruku = $this->m_guruadmin->viewguru2($npsn_nss);
+			foreach ($guruku as $row) {
+			$no++;
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue("A".$rowNya, $no)
+			->setCellValue("B".$rowNya, $row->nuptk)
+			->setCellValue("C".$rowNya, $row->nama_guru)
+			->setCellValue("D".$rowNya, $row->nip)
+			->setCellValue("E".$rowNya, $row->karpeg)
+			->setCellValue("F".$rowNya, $row->tempat_lahir)
+			->setCellValue("G".$rowNya, $row->tgl_lahir)
+			->setCellValue("H".$rowNya, $row->pangkat_jabatan)
+			->setCellValue("I".$rowNya, $row->tmt_guru)
+			->setCellValue("J".$rowNya, $row->jenis_kelamin)
+			->setCellValue("K".$rowNya, $row->pendidikan_terakhir)
+			->setCellValue("L".$rowNya, $row->program_keahlian);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A'.$rowNya.':L'.$rowNya.'')->applyFromArray( $style_header2);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A'.$rowNya.':A'.$rowNya.'')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('B'.$rowNya.':L'.$rowNya.'')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$rowNya++;
+			}					
+	
+			$sheet = $objPHPExcel->getActiveSheet();
+			$sheet->getColumnDimension('A')->setWidth(10);
+			$sheet->getColumnDimension('B')->setWidth(20);
+			$sheet->getColumnDimension('C')->setWidth(40);
+			$sheet->getColumnDimension('D')->setWidth(20);
+			$sheet->getColumnDimension('E')->setWidth(20);
+			$sheet->getColumnDimension('F')->setWidth(30);
+			$sheet->getColumnDimension('G')->setWidth(30);
+			$sheet->getColumnDimension('H')->setWidth(30);
+			$sheet->getColumnDimension('I')->setWidth(30);
+			$sheet->getColumnDimension('J')->setWidth(30);
+			$sheet->getColumnDimension('K')->setWidth(30);
+			$sheet->getColumnDimension('L')->setWidth(30);
+		} else {
+            $objPHPExcel->setActiveSheetIndex(0)
+                     ->mergeCells('A1:M1')
+                     ->setCellValue('A1', 'Data Guru Sekolah Menengah Pertama (SMP)')
+                     ->mergeCells('A2:M2')
+                     ->setCellValue('A2', 'Tahun '.$tahun2)
+                     ->setCellValue('A4', 'No')
+                     ->setCellValue('B4', 'NUPTK')
+                     ->setCellValue('C4', 'Nama Guru')
+                     ->setCellValue('D4', 'NIP')
+                     ->setCellValue('E4', 'No Karpeg')
+                     ->setCellValue('F4', 'Tempat Lahir')
+                     ->setCellValue('G4', 'Tanggal Lahir')
+                     ->setCellValue('H4', 'Pangkat Jabatan')
+                     ->setCellValue('I4', 'TMT Guru')
+                     ->setCellValue('J4', 'Jenis Kelamin')
+                     ->setCellValue('K4', 'Pendidikan Terakhir')
+					 ->setCellValue('L4', 'Program Keahlian')
+					 ->setCellValue('M4', 'Sekolah')
+					 ->getStyle('A1:A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->setActiveSheetIndex(0)->getStyle('A1')->applyFromArray( $style_header3 );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A2')->applyFromArray( $style_header3 );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A4:M4')->applyFromArray( $style_header );
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A4:M4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER); 
+			$rowNya = 5;
+			$no = 0;
+			$guruku = $this->m_guruadmin->viewguru();
+			foreach ($guruku as $row) {
+			$no++;
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue("A".$rowNya, $no)
+			->setCellValue("B".$rowNya, $row->nuptk)
+			->setCellValue("C".$rowNya, $row->nama_guru)
+			->setCellValue("D".$rowNya, $row->nip)
+			->setCellValue("E".$rowNya, $row->karpeg)
+			->setCellValue("F".$rowNya, $row->tempat_lahir)
+			->setCellValue("G".$rowNya, $row->tgl_lahir)
+			->setCellValue("H".$rowNya, $row->pangkat_jabatan)
+			->setCellValue("I".$rowNya, $row->tmt_guru)
+			->setCellValue("J".$rowNya, $row->jenis_kelamin)
+			->setCellValue("K".$rowNya, $row->pendidikan_terakhir)
+			->setCellValue("L".$rowNya, $row->program_keahlian)
+			->setCellValue("M".$rowNya, $row->nama_sekolah);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A'.$rowNya.':M'.$rowNya.'')->applyFromArray( $style_header2);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('A'.$rowNya.':A'.$rowNya.'')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$objPHPExcel->setActiveSheetIndex(0)->getStyle('B'.$rowNya.':M'.$rowNya.'')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT)->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$rowNya++;
+			}					
+	
+			$sheet = $objPHPExcel->getActiveSheet();
+			$sheet->getColumnDimension('A')->setWidth(10);
+			$sheet->getColumnDimension('B')->setWidth(20);
+			$sheet->getColumnDimension('C')->setWidth(40);
+			$sheet->getColumnDimension('D')->setWidth(20);
+			$sheet->getColumnDimension('E')->setWidth(20);
+			$sheet->getColumnDimension('F')->setWidth(30);
+			$sheet->getColumnDimension('G')->setWidth(30);
+			$sheet->getColumnDimension('H')->setWidth(30);
+			$sheet->getColumnDimension('I')->setWidth(30);
+			$sheet->getColumnDimension('J')->setWidth(30);
+			$sheet->getColumnDimension('K')->setWidth(30);
+			$sheet->getColumnDimension('L')->setWidth(30);	
+			$sheet->getColumnDimension('M')->setWidth(30);
+        }
+		
+		// Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
+		$objPHPExcel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
+
+		// Set judul file excel nya
+		$objPHPExcel->getActiveSheet(0)->setTitle("Laporan Data Guru ".$tahun2);
+		$objPHPExcel->setActiveSheetIndex(0);
+        if (isset($npsn_nss) and $npsn_nss !== "") {
+            $judul = "Data Guru ".$namasekolah." Tahun ".$tahun2;
+        } else {
+			$judul = "Data Guru SMP Tahun ".$tahun2;
+		}
+		//office 2007	
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="'.$judul.'.xlsx'); // Set nama file excel nya
+		header('Cache-Control: max-age=0');
+		$write = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$write->save('php://output');					 
+		}
+	}
+
     function ajax_data_guru() {
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 			if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))

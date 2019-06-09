@@ -22,7 +22,7 @@ if (jenisguru === "Guru Kelas") {
 </div>
 <div class="modal-body">
 <div class="portlet-body">
-<form action="" method="" id="form_guru_sekolah" class="form_guru_sekolah" enctype="multipart/form-data" >
+<form action="" method="" id="form_jenis_guru_sekolah" class="form_jenis_guru_sekolah" enctype="multipart/form-data" >
 <table width="100%" height="100%" id="guru_sekolah">
 <?php foreach($n1 as $baris) {  ?>
 	<tr valign="top">
@@ -95,13 +95,13 @@ if (jenisguru === "Guru Kelas") {
 </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_guru"><i class="fa fa-pen"></i> Pilih Sekolah</button>
+<button type="button" class="btn btn-info btn-elevate2 btn-elevate-air2" id="submit_jenis_guru"><i class="fa fa-pen"></i> Pilih Sekolah</button>
 <button type="button" class="btn btn-danger btn-elevate2 btn-elevate-air2" data-dismiss="modal"><i class="fa fa-power-off"></i> Tutup</button>
 </div>
 <script>
 $(function() {
-	$(document).on('click', "button#submit_guru", function(){
-		$('#form_guru_sekolah').validate({
+	$(document).on('click', "button#submit_jenis_guru", function(){
+		$('#form_jenis_guru_sekolah').validate({
 		errorElement: 'span',
 	    errorClass: 'help-block',
 	    focusInvalid: false,
@@ -115,8 +115,8 @@ $(function() {
 	            }
 		}
 		);
-		if ($('form.form_guru_sekolah').valid()) {
-			var databaru = new FormData($('#form_guru_sekolah')[0]); 
+		if ($('form.form_jenis_guru_sekolah').valid()) {
+			var databaru = new FormData($('#form_jenis_guru_sekolah')[0]); 
 		   	$.ajax({
 			xhr: function() {
         		var browser = navigator.appName;
