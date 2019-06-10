@@ -66,6 +66,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 						<div class="kt-portlet__body">
 						<div class="form-group">
+							<b>*) Cetak PDF Lampiran 1C dan 1D akan tampil jika semua kompetensi sudah dinilai oleh assesor</b><br/>
 							<?php 
 							$nuptk = $this->session->userdata("username");
 							$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
@@ -82,15 +83,15 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							<a class="btn btn-warning btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 								href="<?php echo base_url().FOLDER_SD_USER."cetakkinerja/lampiransatub";?>"
 								data-target="#" id="sample_tambah_data">
-								<i class="fa fa-file-pdf"></i>Cetak Lampiran 1B</a>
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 1B</a>
 							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 								href="<?php echo base_url().FOLDER_SD_USER."cetakkinerja/lampiransatuc";?>"
 								data-target="#" id="sample_tambah_data">
-								<i class="fa fa-file-pdf"></i>Cetak Lampiran 1C</a>
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 1C</a>
 							<a class="btn btn-info btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 								href="<?php echo base_url().FOLDER_SD_USER."cetakkinerja/lampiransatud";?>"
 								data-target="#" id="sample_tambah_data">
-								<i class="fa fa-file-pdf"></i>Cetak Lampiran 1D</a>
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 1D</a>
 							<?php } ?>	
 							</div>
 							<div class="alert alert-warning data_cetak_kinerja" style="display:none"></div>

@@ -6,7 +6,7 @@ class M_cetakkinerja extends CI_Model {
 		$query=$this->db->query($sql,array($tahun));
 		return $query->result();
 	}
-	
+
 	function tanggal_showdetail($tanggal)
 	{
 		$tgl1=explode("-",$tanggal);
@@ -181,7 +181,7 @@ class M_cetakkinerja extends CI_Model {
 				if ( $i == 1)
 				{
 					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
-					<a href='cetakkinerja/cetakpenilaian?id_kelompok=".$aRow['id_kelompok']."&id_kompetensi=".$aRow['id_kompetensi']."' data-target='#' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-file-pdf'></i> Cetak Penilaian&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Komptensi</a>
+					<a href='cetakkinerja/cetakpenilaian?id_kelompok=".$aRow['id_kelompok']."&id_kompetensi=".$aRow['id_kompetensi']."' data-target='#' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-file-pdf'></i> Cetak PDF Penilaian&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Komptensi</a>
 					</div>";
 				}
 				else if ($aColumns[$i] != "")
