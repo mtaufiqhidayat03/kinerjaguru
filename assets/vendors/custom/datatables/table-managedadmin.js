@@ -370,7 +370,7 @@ var DatatablesDataSourceAjaxServer = function() {
 						className: 'control',
 						orderable: false
 				},
-				null,null,null,null,null
+				null,null,null,null,null,null,null,null,null
 			],			
 			"language": {
 				"sUrl" :"../assets/vendors/custom/datatables/datatables.id.json"

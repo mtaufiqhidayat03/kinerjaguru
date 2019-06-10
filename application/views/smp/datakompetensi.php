@@ -88,6 +88,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 										<th>No Urut<br/>Kompetensi</th>										
 										<th>Nama Kompetensi</th>										
 										<th>Status<br/>Keaktifan</th>
+										<th>Sebelum<br/>Pengamatan</th>
+										<th>Selama<br/>Pengamatan</th>
+										<th>Setelah<br/>Pengamatan</th>
+										<th>Pemantauan</th>
 									</tr>
 								</thead>
 							</table>
@@ -96,7 +100,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 					<style type="text/css">
 						#tambah_data .modal-dialog {
 							width: 60%;
-							height: 90%;
+							height: 100%;
 							
 							margin: auto;
 							position: absolute;
@@ -133,7 +137,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 
 						#edit_data .modal-dialog {
 							width: 60%;
-							height: 90%;
+							height: 100%;
 							
 							margin: auto;
 							position: absolute;

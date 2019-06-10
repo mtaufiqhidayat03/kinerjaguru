@@ -44,7 +44,7 @@ class M_kompetensiadmin extends CI_Model {
 	function kompetensi_list($id_kelompok) {
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('id_kompetensi','id_kompetensi','kelompok_kompetensi','no_urut_kompetensi','nama_kompetensi', 'keaktifan');
+		$aColumns = array('id_kompetensi','id_kompetensi','kelompok_kompetensi','no_urut_kompetensi','nama_kompetensi', 'keaktifan','sebelum_pengamatan','selama_pengamatan','setelah_pengamatan','pemantauan');
 		$sIndexColumn = "a.id_kompetensi";
 		$sTable = "`".M_KOMPETENSI_SD."` as a left join `".M_KELOMPOK_KOMPETENSI_SD."` as b ON a.id_kelompok_kompetensi_sd=b.id_kelompok" ;
 		$sLimit = "";

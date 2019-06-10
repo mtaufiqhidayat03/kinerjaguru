@@ -1058,13 +1058,15 @@ var DatatablesDataSourceAjaxServer = function() {
 				}); 
 				//window.scrollTo(0, $("#data_evaluasi").offset().top);
 				});
-				var table13 = $('#data_cetak_kinerja');
+
+		var table13 = $('#data_cetak_kinerja');
 		table13.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'asc']],
-			pageLength: 10,
+			order: [[2, 'asc'],[0, 'asc']],
+			pageLength: 25,
 			autoWidth: false,
+			searching: false,
 			responsive: true,
 			processing: true,
 			serverSide: true,

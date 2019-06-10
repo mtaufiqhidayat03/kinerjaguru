@@ -94,7 +94,8 @@ class M_sekolahadmin extends CI_Model {
         $sql="SELECT no_daerah FROM master_daerah where nama_provinsi=? and nama_kota_kab=? and nama_kec=? and nama_desa_kel=?";
         $query=$this->db->query($sql,array($nama_provinsi, $nama_kotakab, $nama_kec,$nama_desa_kel));
         return $query->result();
-    }
+	}
+	
     function getdaerah($no_daerah) {
         $sql="SELECT * FROM master_daerah where no_daerah=?";
         $query=$this->db->query($sql,array($no_daerah));

@@ -67,6 +67,62 @@
 	  </div></div></td>
 	  <td></td>
   </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Sebelum Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="sebelum_pengamatan" value="Ya" class="sebelum_pengamatan" required="">Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="sebelum_pengamatan" value="Tidak" class="sebelum_pengamatan" required="">Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Selama Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="selama_pengamatan" value="Ya" class="selama_pengamatan" required="">Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="selama_pengamatan" value="Tidak" class="selama_pengamatan" required="">Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Setelah Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="setelah_pengamatan" value="Ya" class="setelah_pengamatan" required="">Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="setelah_pengamatan" value="Tidak" class="setelah_pengamatan" required="">Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Pemantauan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="pemantauan" value="Ya" class="pemantauan" required="">Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="pemantauan" value="Tidak" class="pemantauan" required="">Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
 </tbody>
 </table>
 </form>

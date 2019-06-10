@@ -1064,8 +1064,9 @@ var DatatablesDataSourceAjaxServer = function() {
 		table13.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'asc']],
-			pageLength: 10,
+			order: [[2, 'asc'],[0, 'asc']],
+			pageLength: 25,
+			searching: false,
 			autoWidth: false,
 			responsive: true,
 			processing: true,

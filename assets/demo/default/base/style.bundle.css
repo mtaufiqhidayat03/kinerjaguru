@@ -25782,7 +25782,7 @@ th>.kt-radio.kt-radio--single, td>.kt-radio.kt-radio--single {
     margin-right: 0
 }
 .form-group.row .kt-radio-inline {
-    margin-top: 0.75rem
+    /* margin-top: 0.75rem */
 }
 .form-group.row .kt-radio-list {
     margin-top: 2px

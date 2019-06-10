@@ -99,6 +99,10 @@ class Kompetensi extends CI_Controller {
 				'id_kelompok_kompetensi_smp'=>$this->input->post('kelompok_kompetensi'),
 				'no_urut_kompetensi'=>$this->input->post('no_urut_kompetensi'),
 				'keaktifan'=>$this->input->post('keaktifan'),
+				'sebelum_pengamatan'=>$this->input->post('sebelum_pengamatan'),
+				'selama_pengamatan'=>$this->input->post('selama_pengamatan'),
+				'setelah_pengamatan'=>$this->input->post('setelah_pengamatan'),
+				'pemantauan'=>$this->input->post('pemantauan'),
             );
             $data = $this->m_kompetensiadmin->addkompetensi($data_kompetensi);
                 if ($this->db->affected_rows() != 1) {
@@ -149,6 +153,10 @@ class Kompetensi extends CI_Controller {
 				$data_kompetensi = array(
 						'nama_kompetensi'=>$this->input->post('editnama_kompetensi'),
 						'keaktifan'=>$this->input->post('editkeaktifan'),
+						'sebelum_pengamatan'=>$this->input->post('editsebelum_pengamatan'),
+						'selama_pengamatan'=>$this->input->post('editselama_pengamatan'),
+						'setelah_pengamatan'=>$this->input->post('editsetelah_pengamatan'),
+						'pemantauan'=>$this->input->post('editpemantauan'),
 				);
 				$data = $this->m_kompetensiadmin->updatekompetensi($data_kompetensi,$id_kompetensi);
 				if ($this->db->affected_rows() != 1) {
@@ -163,6 +171,10 @@ class Kompetensi extends CI_Controller {
 					'id_kelompok_kompetensi_smp'=>$this->input->post('editkelompok_kompetensi'),
 					'no_urut_kompetensi'=>$this->input->post('editno_urut_kompetensi'),
 					'keaktifan'=>$this->input->post('editkeaktifan'),
+					'sebelum_pengamatan'=>$this->input->post('editsebelum_pengamatan'),
+					'selama_pengamatan'=>$this->input->post('editselama_pengamatan'),
+					'setelah_pengamatan'=>$this->input->post('editsetelah_pengamatan'),
+					'pemantauan'=>$this->input->post('editpemantauan'),
 				);
 				$data = $this->m_kompetensiadmin->updatekompetensi($data_kompetensi,$id_kompetensi);
 				if ($this->db->affected_rows() != 1) {

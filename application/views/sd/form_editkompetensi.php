@@ -77,6 +77,62 @@
 	</td>
 	<td></td>
 </tr>
+<tr valign=top>
+    <td height="60"></td>
+    <td><label>Sebelum Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editsebelum_pengamatan" value="Ya" class="editsebelum_pengamatan" required="" <?php if($baris->sebelum_pengamatan =="Ya") {echo "checked=''";} ?>>Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editsebelum_pengamatan" value="Tidak" class="editsebelum_pengamatan" required="" <?php if($baris->sebelum_pengamatan =="Tidak") {echo "checked=''";} ?>>Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Selama Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editselama_pengamatan" value="Ya" class="editselama_pengamatan" required="" <?php if($baris->selama_pengamatan =="Ya") {echo "checked=''";} ?>>Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editselama_pengamatan" value="Tidak" class="editselama_pengamatan" required="" <?php if($baris->selama_pengamatan =="Tidak") {echo "checked=''";} ?>>Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Setelah Pengamatan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editsetelah_pengamatan" value="Ya" class="editsetelah_pengamatan" required="" <?php if($baris->setelah_pengamatan =="Ya") {echo "checked=''";} ?>>Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editsetelah_pengamatan" value="Tidak" class="editsetelah_pengamatan" required="" <?php if($baris->setelah_pengamatan =="Tidak") {echo "checked=''";} ?>>Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
+  <tr valign=top>
+    <td height="60"></td>
+    <td><label>Pemantauan</label></td>
+    <td>:</td>
+    <td>
+	<div class="form-group row">
+	<div class="kt-radio-inline">    
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editpemantauan" value="Ya" class="editpemantauan" required="" <?php if($baris->pemantauan =="Ya") {echo "checked=''";} ?>>Ya<span></span></label>
+    <label class="kt-radio kt-radio--bold kt-radio--dark"><input type="radio" name="editpemantauan" value="Tidak" class="editpemantauan" required="" <?php if($baris->pemantauan =="Tidak") {echo "checked=''";} ?>>Tidak<span></span></label>
+    </div>
+    </div>
+	</td>
+	<td></td>
+  </tr>
 <?php } ?>
 </tbody>
 </table>
