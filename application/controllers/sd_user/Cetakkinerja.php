@@ -59,17 +59,7 @@ class Cetakkinerja extends CI_Controller {
 		$nama_guru = $row2->nama_guru;
 		$tanggal = $row2->tmt_guru;
 		$tmt_guru = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
-		$cetak .="<style>table, th, td {border: 0px solid black;border-collapse: collapse;} table{page-break-inside: auto;}.page_break { page-break-before: always; }#right{float:right;width:100px;border:1px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center {
-			margin-left:auto; 
-			margin-right:auto;
-		  }
-			.hangingindent {
-				padding-left: 24px ;
-				text-indent: -20px ;
-			  } table tbody tr td {
-				word-wrap: break-word;
-				word-break: break-word; 
-			}</style>";
+		$cetak .="<style>table, th, td {border: 0px solid black;border-collapse: collapse;} table{page-break-inside: auto;}.page_break { page-break-before: always; }#right{float:right;width:100px;border:1px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center{margin-left:auto;margin-right:auto;}.hangingindent{padding-left: 24px ;text-indent: -20px ;} table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";
 		$cetak .= "<div id='right'><center><b>Lampiran 1B</b></center></div>";
 		$cetak .= "<br/><br/><br/><br/>";
 		$cetak .= "<div id='judul'><center><b>LAPORANAN EVALUASI<br/>PENILAIAN KINERJA GURU KELAS/GURU MATA PELAJARAN</center></b></div>";
@@ -161,6 +151,198 @@ class Cetakkinerja extends CI_Controller {
 		$pdf = $dompdf->output();
 		// Output the generated PDF to Browser
 		$namefile = "Lampiran 1B (".$nama_guru.")";
+		$dompdf->stream($namefile.".pdf");
+		}	
+	}
+
+	function lampiransatuc(){
+		$success = require_once "dompdf/autoload.inc.php";
+		if (!$success) {
+			echo "Error. Cannot include and initialize dompdf";
+		} else {	
+		$nuptk = $this->session->userdata("username");
+		$tahun = $this->session->userdata("tahun");
+		$data2= $this->m_cetakkinerja->getdataguru($nuptk);
+		$data3= $this->m_cetakkinerja->getdataassesor($nuptk);
+		$data5= $this->m_cetakkinerja->getdatasekolah($nuptk);
+		$cetak = "";
+		foreach ($data3 as $row3) { $nama_assesor= $row3->nama_guru;};	
+		foreach ($data5 as $row5) { $nama_sekolah= $row5->nama_sekolah; $telp_fax= $row5->telp_fax; $no_daerah = $row5->no_daerah;};
+		$data6= $this->m_cetakkinerja->getdaerah($no_daerah);
+		foreach ($data6 as $row6) { $prov=$row6->nama_provinsi; $kabkota= $row6->kota_kab." ".$row6->nama_kota_kab;$kec=$row6->nama_kec; $desakel=$row6->nama_desa_kel; $kodepos=$row6->kode_pos;};	
+		$data7= $this->m_cetakkinerja->cek_tahun($tahun);
+		foreach ($data7 as $row7) { $tahunku= $row7->tahun;};
+		foreach ($data2 as $row2) { 
+		$tanggal = $row2->tgl_lahir;
+		$tgl_lahir = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
+		$nama_guru = $row2->nama_guru;
+		$tanggal = $row2->tmt_guru;
+		$tmt_guru = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
+		$cetak .="<style>table.periode, th, td {border: 1px solid black;border-collapse: collapse;} table.dataguru, th, td {border: 0px solid black;border-collapse: collapse;} table{page-break-inside: auto;}.page_break { page-break-before: always; } #right{float:right;width:100px;border:1px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center {margin-left:auto;margin-right:auto;}.hangingindent {padding-left: 24px ; text-indent: -20px ;} table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";
+		$cetak .= "<div id='right'><center><b>Lampiran 1C</b></center></div>";
+		$cetak .= "<br/><br/><br/><br/>";
+		$cetak .= "<div id='judul'><center><b>REKAP HASIL PENILAIAN KINERJA GURU KELAS/MATA PELAJARAN</b></center></div>";
+		$cetak .= "<br/><br/>";
+		$cetak .= "<table width=100% class='center dataguru'>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'>a.</td>
+				   <td width='40%'>Nama</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->nama_guru."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>NIP</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->nip." / ".$row2->karpeg."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Tempat/Tanggal Lahir</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->tempat_lahir.", ".$tgl_lahir."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>NUPTK</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->nuptk."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Pangkat/Jabatan/Golongan</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->pangkat_jabatan."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>TMT Sebagai Guru</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$tmt_guru."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Masa Kerja</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>"."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Jenis Kelamin</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->jenis_kelamin."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Pendidikan Terakhir/Spesialisasi</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->pendidikan_terakhir."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Keahlian yang diampu</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$row2->program_keahlian."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'>b.</td>
+				   <td width='40%'>Nama Instansi/Sekolah</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$nama_sekolah."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Telp/Fax</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$telp_fax."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Kelurahan</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$desakel."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Kecamatan</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$kec."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%'>Kabupaten/Kota</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$kabkota."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='5%' height='20px'></td>
+				   <td width='40%' height='60px'>Provinsi</td>
+				   <td width='2%'>:</td>
+				   <td width='63%' class='underline'>".$prov."</td>
+				   </tr>";
+		$cetak .= "</table>";
+		$cetak .= "<br/>";
+		$cetak .= "<table width=100% class='center periode'>";
+		$cetak .= "<tr valign='top'>
+				   <td width='45%' height='40px' rowspan=3>Periode Penilaian<br/>1 Januari ".$tahunku." sampai 31 Desember ".$tahunku."</td>
+				   <td width='35%'>Formatif</td>
+				   <td width='10%'></td>
+				   <td width='30%' class='underline' rowspan=3>Tahun <br/>".$tahunku."</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='35%'>Sumatif</td>
+				   <td width='10%'></td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='35%'>Kemajuan</td>
+				   <td width='10%'></td>
+				   </tr>";
+		$cetak .= "</table>";
+		$cetak .= "<br/><br/>";
+		$cetak .= "<table width=90% class='center' style='padding:20px; outline-style: solid;outline-width: 1px;'>";
+		$cetak .= "<tr valign='top'>
+				   <td colspan=4 height='40px'><div id='judul2'><center><b>PERSETUJUAN</b><br/><i>(Persetujuan ini harus ditandatangi oleh penilai dan guru yang dinilai)</i></center></div></td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td colspan=4 height='40px'>
+				   Penilai dan guru yang dinilai menyatakan telah membaca dan memahami semua aspek yang ditulis/dilaporkan dalam format ini dan menyatakan setuju.<br/><br/><br/>
+				   </td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='15%' height='50px'>Nama Guru</td>
+				   <td width='35%'>$row2->nama_guru</td>
+				   <td width='15%'>Nama Penilai</td>
+				   <td width='35%'>$nama_assesor</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td width='15%' height='40px'>Tandatangan</td>
+				   <td width='35%' style='border-bottom: 1px solid black;'></td>
+				   <td width='15%'>Tandatangan</td>
+				   <td width='35%' style='border-bottom: 1px solid black;'></td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+				   <td colspan=4 height='30px'>&nbsp;</td>
+				   </tr>";
+		$cetak .= "<tr valign='top'>
+					<td width='15%' height='60px'>Tanggal</td>
+				   <td colspan=3><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+				    bulan
+				    <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+				    tahun
+				    <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></td>
+				   </tr>";
+		$cetak .= "</table>";
+		};
+		$dompdf =  new Dompdf\Dompdf();		
+		$dompdf->loadHtml('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><a style="display: inline-block; font-size:13px; text-align: left; width: 100%;font-family:\'times new roman\';">'.$cetak.'</a>');
+		// (Optional) Setup the paper size and orientation
+		$dompdf->setPaper('A4', 'portrait');
+		// Render the HTML as PDF
+		$dompdf->render();
+		// Get the generated PDF file contents
+		$pdf = $dompdf->output();
+		// Output the generated PDF to Browser
+		$namefile = "Lampiran 1C (".$nama_guru.")";
 		$dompdf->stream($namefile.".pdf");
 		}	
 	}

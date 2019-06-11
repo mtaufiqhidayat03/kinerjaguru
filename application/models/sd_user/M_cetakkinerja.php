@@ -7,6 +7,7 @@ class M_cetakkinerja extends CI_Model {
 		return $query->result();
 	}
 
+
 	function tanggal_showdetail($tanggal)
 	{
 		$tgl1=explode("-",$tanggal);
