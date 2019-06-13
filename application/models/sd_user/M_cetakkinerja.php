@@ -87,6 +87,12 @@ class M_cetakkinerja extends CI_Model {
         return $query->result();
 	}
 
+	function getdatakepalasekolah($npsn_nss) {
+		$sql= "SELECT * FROM `".D_SD.$_SESSION["tahun"]."` as a left join `".M_GURU_SD."` as b ON b.nip=a.nip_kepala where npsn_nss_sd=?";
+		$query=$this->db->query($sql,array($npsn_nss));
+        return $query->result();
+	}
+
 	function getdaerah($no_daerah) {
         $sql="SELECT * FROM master_daerah where no_daerah=?";
         $query=$this->db->query($sql,array($no_daerah));
@@ -99,11 +105,30 @@ class M_cetakkinerja extends CI_Model {
 		return $query->result();
 	}
 
+	function getdatagurukompetensi($nuptk) {
+		$sql="SELECT * FROM `".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$_SESSION["tahun"]."` as a ON c.hub_jenis_guru=a.jenis_guru and FIND_IN_SET(a.detail_guru,c.hub_detail_guru) where a.nuptk_guru_sd=?";
+		$query=$this->db->query($sql,array($nuptk));
+		return $query->result();
+	}
+
 	function getdatacetakkinerja2($id_kompetensi, $id_kelompok, $nuptk) {
 		$sql="SELECT * FROM `".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as d ON a.id_indikator=d.id_indikator_penilaian_sd where b.id_kompetensi=? and c.id_kelompok=? and d.nuptk_penilaian_sd=? order by no_urut_indikator ASC";
 		$query=$this->db->query($sql,array($id_kompetensi, $id_kelompok, $nuptk));
 		return $query->result();
 	}
+
+	function getdatacetakkinerja3($id_kelompok) {
+		$sql="SELECT * FROM `".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok where c.id_kelompok=?";
+		$query=$this->db->query($sql,array($id_kelompok));
+		return $query->result();
+	}
+
+	function getdatacetakkinerja4( $id_kelompok, $nuptk) {
+		$sql="SELECT * FROM `".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as d ON a.id_indikator=d.id_indikator_penilaian_sd where c.id_kelompok=? and d.nuptk_penilaian_sd=? order by no_urut_indikator ASC";
+		$query=$this->db->query($sql,array($id_kelompok, $nuptk));
+		return $query->result();
+	}
+
 	function cetakkinerja_list($nuptk) {
 		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
         $rowku = $queryku->row_array();
