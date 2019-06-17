@@ -129,6 +129,12 @@ class M_cetakkinerja extends CI_Model {
 		return $query->result();
 	}
 
+	function getdatacetakkinerja5( $id_kelompok, $nuptk) {
+		$sql="SELECT * FROM `".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` as d ON a.id_indikator=d.id_indikator_penilaian_sd where c.id_kelompok=? and d.nuptk_penilaian_sd=? group by no_urut_kompetensi ASC";
+		$query=$this->db->query($sql,array($id_kelompok, $nuptk));
+		return $query->result();
+	}
+
 	function cetakkinerja_list($nuptk) {
 		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
         $rowku = $queryku->row_array();
@@ -136,9 +142,10 @@ class M_cetakkinerja extends CI_Model {
 		$detail_guru = $rowku['detail_guru'];
 		$db = get_instance()->db->conn_id;
 		$params = $_REQUEST;
-		$aColumns = array('id_kompetensi','id_indikator','kelompok_kompetensi','nama_kompetensi','if(id_indikator IS NOT NULL,"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Kompetensi selesai dinilai</span>","")','id_kelompok','no_urut_kompetensi','no_urut_indikator');
+		$aColumns = array('id_kompetensi','id_indikator','kelompok_kompetensi','nama_kompetensi','if(count(id_indikator) = (select count(skor) from `'.D_PENILAIAN_SD.$this->session->userdata("tahun").'` where id_kompetensi_penilaian_sd=id_kompetensi and nuptk_penilaian_sd="'.$nuptk.'"),"<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Kompetensi selesai dinilai</span>","<span class=\"kt-badge kt-badge--inline kt-badge--danger\"><i class=\"flaticon2-delete\"></i>Kompetensi belum selesai dinilai</span>") as hitung','id_indikator','id_kelompok','no_urut_kompetensi','no_urut_indikator');
 		$sIndexColumn = "b.id_kompetensi";
-		$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi having count(id_indikator)= (select count(skor) from `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` where nuptk_penilaian_sd='".$nuptk."')";
+		//$sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi";
+		$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi";
 		$sLimit = "";
 		/*  Paging */
 		if ($this->input->post('start') !== "" && $this->input->post('length') != '-1' )
@@ -192,6 +199,7 @@ class M_cetakkinerja extends CI_Model {
 		$rResultTotal = $this->db->query($sQuery);
 		$aResultTotal = $rResultTotal->row()->Count;
 		$iTotal = $aResultTotal;
+
 		/* Output	 */
 		$output = array(
 			"sEcho" => intval($this->input->post('sEcho')),
@@ -206,9 +214,19 @@ class M_cetakkinerja extends CI_Model {
 			{
 				if ( $i == 1)
 				{
-					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
+                    if ($aRow['hitung'] == "<span class=\"kt-badge kt-badge--inline kt-badge--success\"><i class=\"flaticon2-checkmark\"></i>Kompetensi selesai dinilai</span>") {
+                    $row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
 					<a href='cetakkinerja/cetakpenilaian?id_kelompok=".$aRow['id_kelompok']."&id_kompetensi=".$aRow['id_kompetensi']."' data-target='#' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-file-pdf'></i> Cetak PDF Penilaian&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Komptensi</a>
 					</div>";
+                    } else {
+					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap !important;'>
+					<a href='' data-target='#' class='btn btn-danger btn-sm btnku btn-elevate btn-elevate-air disabled' id='upload-file' data-id='".$aRow['id_indikator']."'><i class='fa fa-times'></i> Penilaian Kompetensi&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Belum Selesai</a>
+					</div>";
+					}
+				}
+				else if ( $i == 4)
+				{
+					$row[] = $aRow['hitung'];
 				}
 				else if ($aColumns[$i] != "")
 				{

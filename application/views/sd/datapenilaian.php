@@ -678,6 +678,18 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 				<div class="col-sm-12 col-md-12 col-xl-12">
 				<!--begin::Portlet-->
 				<div class="kt-portlet kt-portlet--tab">
+				<div class="kt-portlet__head kt-portlet__head--lg">
+						<div class="kt-portlet__head-label">
+						<h3 class="kt-portlet__head-title" style="font-weight:800 !important">
+						<i class="fa fa-tachometer-alt" style="padding-right:5px"></i> Penilaian Kinerja
+						</h3>
+						</div>
+							<div class="kt-portlet__head-toolbar">
+								<div class="kt-portlet__head-wrapper">
+									
+								</div>
+							</div>
+						</div>
 						<div class="kt-portlet__body">						
 							<div class="alert alert-warning data_penilaian" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_penilaian dataTables" id="data_penilaian" width=100%>

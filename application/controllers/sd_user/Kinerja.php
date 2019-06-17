@@ -229,6 +229,7 @@ class Kinerja extends CI_Controller {
 			} 
 			$data_kinerja = array(
 				'id_indikator_penilaian_sd'=>$id_indikator,
+				'id_kompetensi_penilaian_sd'=>$id_kompetensi,
 				'nuptk_penilaian_sd'=>$nuptk_guru_sd,
 				'upload_file_penilaian_sd'=>$config['upload_path'].$this->upload->data('file_name'),
 			);

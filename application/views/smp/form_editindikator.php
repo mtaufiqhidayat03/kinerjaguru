@@ -1,6 +1,6 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user")) { ?>
 <script type="text/javascript">
-function rubah()
+function rubah_edit()
 {
 	$(function(){
 		//$('#editid_kompetensi_indikator_smp').select2('destroy');
@@ -50,7 +50,7 @@ function rubah()
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-    <select name="editkelompok_kompetensi" data-rel='chosen' class="form-control" id="editkelompok_kompetensi" required onChange="javascript:rubah(this)">
+    <select name="editkelompok_kompetensi" data-rel='chosen' class="form-control" id="editkelompok_kompetensi" required onChange="javascript:rubah_edit(this)">
 	<option value=""></option>
     </select>
 	</div>

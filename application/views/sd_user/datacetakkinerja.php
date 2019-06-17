@@ -66,7 +66,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 						<div class="kt-portlet__body">
 						<div class="form-group">
-							<b>*) Cetak PDF Lampiran 1C dan 1D akan tampil jika semua kompetensi sudah dinilai oleh assesor</b><br/>
+							<!-- <b>*) Cetak PDF Lampiran 1C dan 1D akan tampil jika semua kompetensi sudah dinilai oleh assesor</b><br/> -->
 							<?php 
 							$nuptk = $this->session->userdata("username");
 							$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
@@ -74,7 +74,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							$jenis_guru = $rowku['jenis_guru'];
 							$detail_guru = $rowku['detail_guru'];
 							$sIndexColumn = "b.id_kompetensi";
-							$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi having count(id_indikator)= (select count(skor) from `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` where nuptk_penilaian_sd='".$nuptk."')";
+							$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi";
+							//$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi having count(id_indikator)= (select count(skor) from `".D_PENILAIAN_SD.$this->session->userdata("tahun")."` where nuptk_penilaian_sd='".$nuptk."')";
 							$sQuery = "SELECT COUNT(DISTINCT(".$sIndexColumn.")) as 'Count' FROM  $sTable";
 							$rResultTotal = $this->db->query($sQuery);
 							$aResultTotal = $rResultTotal->row()->Count;

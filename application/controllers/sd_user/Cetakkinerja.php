@@ -155,7 +155,7 @@ class Cetakkinerja extends CI_Controller {
 		}	
 	}
 
-	function lampiransatuc(){
+	function lampiransatuc() {
 		$success = require_once "dompdf/autoload.inc.php";
 		if (!$success) {
 			echo "Error. Cannot include and initialize dompdf";
@@ -310,7 +310,7 @@ class Cetakkinerja extends CI_Controller {
 		$nuptk = $this->session->userdata("username");
 		$data20= $this->m_cetakkinerja->getdatagurukompetensi($nuptk);
 		foreach ($data20 as $row20) {$id_kelompok = $row20->id_kelompok;};
-		$data= $this->m_cetakkinerja->getdatacetakkinerja3($id_kelompok);	
+		$data= $this->m_cetakkinerja->getdatacetakkinerja5($id_kelompok, $nuptk);
 		$jumkompetensi = 0;	
 		$nilaimakspk= 0;	
 		foreach ($data as $row) {
@@ -339,23 +339,23 @@ class Cetakkinerja extends CI_Controller {
 		$cetak .= "<tr>
 			<td style='border: 1px solid black;'><p class='hangingindent2'><center>".$row->no_urut_kompetensi."</center></p></td>
 			<td style='border: 1px solid black;'><p class='hangingindent2'>".$row->nama_kompetensi."</p></td>
-			<td style='border: 1px solid black;'><center><b>". $nilaiakhir.$id_indikator." kelompok ".$id_kelompok." kompetensi ".$id_kompetensi."</b></center></td>
+			<td style='border: 1px solid black;'><center><b>". $nilaiakhir."</b></center></td>
 			</tr>";			
 			$gabungan = $gabungan + $nilaiakhir;
 			$nilaiakhir = 0;
+			$jumkompetensi = $jumkompetensi + 1;
 		};
-		$jumhasilakhir = $jumhasilakhir + $gabungan;
-		$jumkompetensi = $jumkompetensi + 1;
+		$jumhasilakhir = $jumhasilakhir + $gabungan;		
 		$nilaimakspk = $nilaimakspk + ($jumkompetensi * 4);
 		$konversi = ($jumhasilakhir/$nilaimakspk)*100;
 		};
 		$cetak .= "<tr valign='top'>
 				   <td style='border: 1px solid black;' colspan='2'><b>Jumlah (Hasil penilaian kinerja guru)</b></td>
 				   <td style='border: 1px solid black;'><center><b>".$jumhasilakhir."</b></center></td>
-					</tr>";
+				   </tr>";
 		$cetak .= "<tr>
 				   <td style='border: 1px solid black;' colspan='2' valign='top'>Konversi nilai PK Guru ke dalam skala 0 - 100<br/>Nilai PK Guru (100) = <u><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nilai PK Guru&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i></u> x 100<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>nilai maksimum PK Guru</i></td>
-				   <td style='border: 1px solid black;' valign='middle'><center><b>".$konversi."</b></center></td>
+				   <td style='border: 1px solid black;' valign='middle'><center><b>".round($konversi,3)."</b></center></td>
 					</tr>";
 		$cetak .= "</table>";
 		$cetak .= "<p style='font-size:11px;'>*) Nilai diisi berdasarkan laporan dan evaluasi PK Guru. Nilai minimum per kompetensi = 1 dan nilai maksimum = 4</p>";
@@ -415,11 +415,10 @@ class Cetakkinerja extends CI_Controller {
 			padding-left: 24px ;
 			text-indent: -20px ;
 		  } </style>";
-		$cetak .= "<b>Kompetensi ".$row->no_urut_kompetensi." : <a style='border-bottom: 1px solid #000000;'>".$row->nama_kompetensi."</a></b>";
-		$cetak .= "<br/>";
-		$cetak .= "Nama Guru&nbsp;&nbsp;&nbsp;&nbsp;: ".$nama_guru;
-		$cetak .= "<br/>";
-		$cetak .= "Nama Penilai&nbsp;: ".$nama_assesor;
+		$cetak .= "<div style='font-size:17px;'><b>Kompetensi ".$row->no_urut_kompetensi." : <a style='border-bottom: 1px solid #000000;'>".$row->nama_kompetensi."</a></b></div>";
+		$cetak .= "<a style='font-size:17px;'>Nama Guru&nbsp;&nbsp;&nbsp;&nbsp;: ".$nama_guru;
+		$cetak .= "</a><br/>";
+		$cetak .= "<a style='font-size:17px;'>Nama Penilai&nbsp;: ".$nama_assesor."</a>";
 		//sebelum pengamatan jika status ya
         if ($row->sebelum_pengamatan =="Ya") {
             $cetak .= "<br/><br/>";
@@ -437,7 +436,7 @@ class Cetakkinerja extends CI_Controller {
 					<td colspan=2><i>Tanggapan Penilai terhadap dokumen dan/atau keterangan guru</i><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 					<tr>
-					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/><br/></td>
+					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 				   </table>";
 		}
@@ -458,7 +457,7 @@ class Cetakkinerja extends CI_Controller {
 					<td colspan=2><i>Kegiatan/aktivitas guru dan peserta didik selama pengamatan:</i><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 					<tr>
-					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/><br/></td>
+					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 				   </table>";
 		}
@@ -479,7 +478,7 @@ class Cetakkinerja extends CI_Controller {
 					<td colspan=2><i>Setelah Pengamatan: Tanggapan Penilai terhadap dokumen dan/atau keterangan guru</i><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 					<tr>
-					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/><br/></td>
+					<td colspan=2><i>Tindak lanjut yang diperlukan:</i><br/><br/><br/><br/><br/><br/></td>
 					</tr>
 				   </table>";
 		}
@@ -553,11 +552,11 @@ class Cetakkinerja extends CI_Controller {
 		$cetak .= "<tr><td>Total Skor untuk Kompetensi ".$row->no_urut_kompetensi." </td><td colspan=3><center><b>".$totalskor."</b></center></td></tr>";
 		$cetak .= "<tr><td>Skor maksimum Kompetensi ".$row->no_urut_kompetensi." = jumlah indikator x 2</td><td colspan=3><center><b>".$skormaks."</b></center></td></tr>";
 		$cetak .= "<tr><td>Prosentase = (total skor / ".$skormaks.") x 100%</td><td colspan=3><center><b>".$prosentase." %</b></center></td></tr>";
-		$cetak .= "<tr><td>Nilai untuk Kompetensi ".$row->no_urut_kompetensi."<br/>(0% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 25% = 1; 25% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 50% = 2;<br/>50% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 75% = 3; 75% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 100% = 4)</td><td colspan=3><center><b>".$nilaiakhir."</b></center></td></tr>";
-		$cetak .= "</table> ";
+		$cetak .= "<tr><td>Nilai untuk Kompetensi ".$row->no_urut_kompetensi."<br/>(0% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 25% = 1; 25% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 50% = 2;<br/>50% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 75% = 3; 75% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 100% = 4)</td><td colspan=3><center><b>".round($nilaiakhir,3)."</b></center></td></tr>";
+		$cetak .= "</table>";
 		}
 		$dompdf =  new Dompdf\Dompdf();		
-		$dompdf->loadHtml('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><a style="display: inline-block; font-size:13px; text-align: left; width: 100%;font-family:\'times new roman\';">'.$cetak.'</a>');
+		$dompdf->loadHtml('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><a style="display: inline-block; font-size:14px; text-align: left; width: 100%;font-family:\'times new roman\';">'.$cetak.'</a>');
 		// (Optional) Setup the paper size and orientation
 		$dompdf->setPaper('A4', 'portrait');
 		// Render the HTML as PDF
@@ -570,7 +569,5 @@ class Cetakkinerja extends CI_Controller {
 		//$dompdf->stream();
 		}
 	}
-
-
 }
 ?>

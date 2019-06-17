@@ -52,7 +52,7 @@ class Indikator extends CI_Controller {
 			$list = array();
 			foreach ($data as $row)
 			{
-				$list[$key]['id'] = $row->id_kelompok_kompetensi_smp;
+				$list[$key]['id'] = $row->id_kompetensi;
 				 $list[$key]['text'] = $row->nama_kompetensi;
 				 $key++;
 			}

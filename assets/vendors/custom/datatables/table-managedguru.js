@@ -1063,7 +1063,7 @@ var DatatablesDataSourceAjaxServer = function() {
 		table13.DataTable({
 			lengthMenu: [5, 10, 25, 50,100],
 			// Order settings
-			order: [[2, 'asc'],[0, 'asc']],
+			order: [[3, 'asc'],[2, 'asc'],[0, 'asc']],
 			pageLength: 25,
 			autoWidth: false,
 			searching: false,
@@ -1077,6 +1077,7 @@ var DatatablesDataSourceAjaxServer = function() {
 			"aoColumnDefs": [
 				{"bSortable":false,"sWidth": "15%", "className": "dt-center", "aTargets": [1] },
 				{"iDataSort": 0, "aTargets": [2] } ,
+				{"bSortable":false, "aTargets": [4] } ,
 			], 
 			columns: [
 				{   // Responsive control column
@@ -1088,7 +1089,7 @@ var DatatablesDataSourceAjaxServer = function() {
 				null,null,null,null
 			],			
 			"language": {
-				"sUrl" :"../assets/vendors/custom/datatables/datatables.id.json"
+				"sUrl" :"../assets/vendors/custom/datatables/datatables_edit.id.json"
 			},
 			initComplete: function()
       		{
@@ -1123,13 +1124,14 @@ var DatatablesDataSourceAjaxServer = function() {
      		 },
 			"fnDrawCallback": function () {
 				if((this.fnPagingInfo().iFilteredTotal) == 0) {
-					if($('#data_cetak_kinerja_filter input').val() != '') {
-					$("div.alert.alert-warning.data_kelompok").empty().append('Kata kunci <strong>'+$('#data_cetak_kinerja_filter input').val()+'</strong> tidak menampilkan data hasil pencarian');
+					/*if($('#data_cetak_kinerja_filter input').val() != '') {
+					$("div.alert.alert-warning.data_cetak_kinerja").empty().append('Kata kunci <strong>'+$('#data_cetak_kinerja_filter input').val()+'</strong> tidak menampilkan data hasil pencarian');
 					$("div.alert.alert-warning.data_cetak_kinerja").css("display","block");
 					} else {
 					$("div.alert.alert-warning.data_cetak_kinerja").empty().append('Tidak ada data yang sesuai dengan kriteria yang diinginkan');
 					$("div.alert.alert-warning.data_cetak_kinerja").css("display","block");
-					}
+					} */
+					$("div.alert.alert-warning.data_cetak_kinerja").css("display","none");
 					} else {
 					$("div.alert.alert-warning.data_cetak_kinerja").empty().append('');
 					$("div.alert.alert-warning.data_cetak_kinerja").css("display","none");
