@@ -95,18 +95,18 @@
         <option value="Pengatur / II C" <?php if ($baris->pangkat_jabatan=="Pengatur / II C") { echo "selected=selected";}?>>Pengatur / II C</option>
         <option value="Pengatur Tk. I / II D" <?php if ($baris->pangkat_jabatan=="Pengatur Tk. I / II D") { echo "selected=selected";}?>>Pengatur Tk. I / II D</option>
         </optgroup>
-        <optgroup label="Golongan III">
-        <option value="Penata Muda / Guru Pertama / III A" <?php if ($baris->pangkat_jabatan=="Penata Muda / Guru Pertama / III A") { echo "selected=selected";}?>>Penata Muda / Guru Pertama / III A</option>
-        <option value="Penata Muda Tk.I / Guru Pertama / III B" <?php if ($baris->pangkat_jabatan=="Penata Muda Tk.I / Guru Pertama / III B") { echo "selected=selected";}?>>Penata Muda Tk.I / Guru Pertama / III B</option>
-        <option value="Penata / Guru Muda / III C" <?php if ($baris->pangkat_jabatan=="Penata / Guru Muda / III C") { echo "selected=selected";}?>>Penata Muda Tk.I / Guru>Penata / Guru Muda / III C</option>
-        <option value="Penata Tk. I / Guru Muda / III D" <?php if ($baris->pangkat_jabatan=="Penata Tk. I / Guru Muda / III D") { echo "selected=selected";}?>>Penata Tk. I / Guru Muda / III D</option>
+		<optgroup label="Golongan III">
+        <option value="Penata Muda - Guru Pertama / III A" <?php if ($baris->pangkat_jabatan=="Penata Muda - Guru Pertama / III A") { echo "selected=selected";}?>>Penata Muda - Guru Pertama / III A</option>
+        <option value="Penata Muda Tk.I - Guru Pertama / III B" <?php if ($baris->pangkat_jabatan=="Penata Muda Tk.I - Guru Pertama / III B") { echo "selected=selected";}?>>Penata Muda Tk.I - Guru Pertama / III B</option>
+        <option value="Penata - Guru Muda / III C" <?php if ($baris->pangkat_jabatan=="Penata - Guru Muda / III C") { echo "selected=selected";}?>>Penata - Guru Muda / III C</option>
+        <option value="Penata Tk. I - Guru Muda / III D" <?php if ($baris->pangkat_jabatan=="Penata Tk. I - Guru Muda / III D") { echo "selected=selected";}?>>Penata Tk. I - Guru Muda / III D</option>
         </optgroup>
         <optgroup label="Golongan IV">
-        <option value="Pembina / Guru Madya / IV A" <?php if ($baris->pangkat_jabatan=="Pembina / Guru Madya / IV A") { echo "selected=selected";}?>>Pembina / Guru Madya / IV A</option>
-        <option value="Pembina Tk. I / Guru Madya / IV B" <?php if ($baris->pangkat_jabatan=="Pembina Tk. I / Guru Madya / IV B") { echo "selected=selected";}?>>Pembina Tk. I / Guru Madya / IV B</option>
-        <option value="Pembina Utama Muda / Guru Madya / IV C" <?php if ($baris->pangkat_jabatan=="Pembina Utama Muda / Guru Madya / IV C") { echo "selected=selected";}?>>Pembina Utama Muda / Guru Madya / IV C</option>
-        <option value="Pembina Utama Madya / Guru Utama / IV D" <?php if ($baris->pangkat_jabatan=="Pembina Utama Madya / Guru Utama / IV D") { echo "selected=selected";}?>>Pembina Utama Madya / Guru Utama / IV D</option>
-        <option value="Pembina Utama / Guru Utama / IV E" <?php if ($baris->pangkat_jabatan=="Pembina Utama / Guru Utama / IV E") { echo "selected=selected";}?>>Pembina Utama / Guru Utama / IV E</option>
+        <option value="Pembina - Guru Madya / IV A" <?php if ($baris->pangkat_jabatan=="Pembina - Guru Madya / IV A") { echo "selected=selected";}?>>Pembina - Guru Madya / IV A</option>
+        <option value="Pembina Tk. I - Guru Madya / IV B" <?php if ($baris->pangkat_jabatan=="Pembina Tk. I - Guru Madya / IV B") { echo "selected=selected";}?>>Pembina Tk. I - Guru Madya / IV B</option>
+        <option value="Pembina Utama Muda - Guru Madya / IV C" <?php if ($baris->pangkat_jabatan=="Pembina Utama Muda - Guru Madya / IV C") { echo "selected=selected";}?>>Pembina Utama Muda - Guru Madya / IV C</option>
+        <option value="Pembina Utama Madya - Guru Utama / IV D" <?php if ($baris->pangkat_jabatan=="Pembina Utama Madya - Guru Utama / IV D") { echo "selected=selected";}?>>Pembina Utama Madya - Guru Utama / IV D</option>
+        <option value="Pembina Utama - Guru Utama / IV E" <?php if ($baris->pangkat_jabatan=="Pembina Utama - Guru Utama / IV E") { echo "selected=selected";}?>>Pembina Utama - Guru Utama / IV E</option>
         </optgroup>
       </select>
       </div></div></td>

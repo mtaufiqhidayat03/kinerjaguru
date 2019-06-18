@@ -17,9 +17,9 @@ table.dataTable thead tr th{
 	 white-space: nowrap; 
 }
 table.dataTable tbody tr td {
-  /* word-wrap: break-word;
-	word-break: break-all; */
-	white-space: nowrap;
+	word-wrap: break-word;
+	word-break: break-all; 
+	/* white-space: nowrap;*/
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-child:before {
   display: none;

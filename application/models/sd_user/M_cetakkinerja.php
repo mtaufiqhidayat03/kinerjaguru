@@ -7,7 +7,6 @@ class M_cetakkinerja extends CI_Model {
 		return $query->result();
 	}
 
-
 	function tanggal_showdetail($tanggal)
 	{
 		$tgl1=explode("-",$tanggal);
@@ -135,6 +134,12 @@ class M_cetakkinerja extends CI_Model {
 		return $query->result();
 	}
 
+	function getdatahasilkuisioner($nuptk) {
+		$sql="SELECT nama_kuisioner, no_kuisioner, id_kelompok_kuisioner_sd, kelompok_kompetensi, nilai_kuisioner, nama_guru, id_kuisioner, nuptk_kuisioner_sd, upload_file_kuisioner_sd FROM `".D_KUISIONER_SD.$this->session->userdata('tahun')."` as a left join `".M_KUISIONER_SD."` as b ON a.id_kuisioner_sd=b.id_kuisioner left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kuisioner_sd=c.id_kelompok left join `".M_GURU_SD."` as d ON a.nuptk_kuisioner_sd=d.nuptk where nuptk=?";
+		$query=$this->db->query($sql,array($nuptk));
+		return $query->result();
+	}
+
 	function cetakkinerja_list($nuptk) {
 		$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));
         $rowku = $queryku->row_array();
@@ -146,6 +151,7 @@ class M_cetakkinerja extends CI_Model {
 		$sIndexColumn = "b.id_kompetensi";
 		//$sTable = "`".M_INDIKATOR_SD."` as a left join `".M_KOMPETENSI_SD."` as b ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi";
 		$sTable = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere." group by id_kompetensi";
+		$sTable2 = "`".M_KOMPETENSI_SD."` as b left join `".M_KELOMPOK_KOMPETENSI_SD."` as c ON b.id_kelompok_kompetensi_sd=c.id_kelompok left join `".M_INDIKATOR_SD."` as a ON a.id_kompetensi_indikator_sd=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SD.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_sd='".$nuptk."'".$sWhere;
 		$sLimit = "";
 		/*  Paging */
 		if ($this->input->post('start') !== "" && $this->input->post('length') != '-1' )
@@ -195,7 +201,7 @@ class M_cetakkinerja extends CI_Model {
 		$iFilteredTotal = $aResultFilterTotal;
 		
 		/* Total data set length */
-		$sQuery = "SELECT COUNT(DISTINCT(".$sIndexColumn.")) as 'Count' FROM  $sTable";
+		$sQuery = "SELECT COUNT(DISTINCT ".$sIndexColumn.") as 'Count' FROM  $sTable2";
 		$rResultTotal = $this->db->query($sQuery);
 		$aResultTotal = $rResultTotal->row()->Count;
 		$iTotal = $aResultTotal;

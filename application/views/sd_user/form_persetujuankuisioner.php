@@ -68,7 +68,7 @@ table#sesuaikan tbody tr td {
 	</tr>
 	<tr valign="top">
    <td height="50"></td>
-    <td valign="top"><label>Skor Kuisioner</label></td>
+    <td valign="top"><label>Skor / Nilai Kuisioner</label></td>
     <td valign="top">:</td>
     <td valign="top">
     <div class="form-group row">

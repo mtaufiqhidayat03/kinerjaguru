@@ -116,7 +116,7 @@ class M_kompetensiadmin extends CI_Model {
 			{
 				if ( $i == 1)
 				{
-					$row[] = "<div class='btn-group-vertical center' role='group'>
+					$row[] = "<div class='btn-group-vertical center' role='group' style='white-space: nowrap; !important'>
 					<a data-toggle='modal' href='kompetensi/form_editkompetensi?id_kompetensi=".$aRow['id_kompetensi']."' data-target='#edit_data' class='btn btn-info btn-sm btnku btn-elevate btn-elevate-air' id='edit-data' data-id='".$aRow['id_kompetensi']."'><i class='fa fa-pencil-alt'></i> Edit Data</a>
 					<a data-toggle='modal'  href='kompetensi/form_hapuskompetensi?id_kompetensi=".$aRow['id_kompetensi']."' class='btn btn-sm btn-danger btnku btn-elevate btn-elevate-air' data-target='#hapus_data'  id='hapus-data' data-id='".$aRow['id_kompetensi']."'><i class='fa fa-eraser'></i> Hapus Data</a>
 					<a href='indikator?id_kompetensi=".$aRow['id_kompetensi']."' class='btn btn-dark btn-sm btnku btn-elevate btn-elevate-air' data-target='#cek_data' id='cek_data' data-id='".$aRow['id_kompetensi']."'><i class='fa fa-search-plus'></i> Tampilkan Indikator</a>

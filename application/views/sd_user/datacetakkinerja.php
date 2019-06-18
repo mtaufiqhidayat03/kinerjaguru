@@ -66,7 +66,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						</div>
 						<div class="kt-portlet__body">
 						<div class="form-group">
-							<!-- <b>*) Cetak PDF Lampiran 1C dan 1D akan tampil jika semua kompetensi sudah dinilai oleh assesor</b><br/> -->
+							<b>*) Harap untuk mengisi setiap indikator, kompetensi dan kuisioner serta status sudah selesai dinilai oleh assesor<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pada menu "Penilaian Kinerja" dan "Penilaian Kuisioner" sebelum cetak lampiran 1C dan 1D</b><br/><br/>
 							<?php 
 							$nuptk = $this->session->userdata("username");
 							$queryku = $this->db->get_where(D_GURU_SD.$this->session->userdata('tahun'), array('nuptk_guru_sd' => $nuptk));

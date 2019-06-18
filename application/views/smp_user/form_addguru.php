@@ -100,17 +100,17 @@
         <option value="Pengatur Tk. I / II D">Pengatur Tk. I / II D</option>
         </optgroup>
         <optgroup label="Golongan III">
-        <option value="Penata Muda / Guru Pertama / III A">Penata Muda / Guru Pertama / III A</option>
-        <option value="Penata Muda Tk.I / Guru Pertama / III B">Penata Muda Tk.I / Guru Pertama / III B</option>
-        <option value="Penata / Guru Muda / III C">Penata / Guru Muda / III C</option>
-        <option value="Penata Tk. I / Guru Muda / III D">Penata Tk. I / Guru Muda / III D</option>
+        <option value="Penata Muda - Guru Pertama / III A">Penata Muda - Guru Pertama / III A</option>
+        <option value="Penata Muda Tk.I - Guru Pertama / III B">Penata Muda Tk.I - Guru Pertama / III B</option>
+        <option value="Penata - Guru Muda / III C">Penata - Guru Muda / III C</option>
+        <option value="Penata Tk. I - Guru Muda / III D">Penata Tk. I - Guru Muda / III D</option>
         </optgroup>
         <optgroup label="Golongan IV">
-        <option value="Pembina / Guru Madya / IV A">Pembina / Guru Madya / IV A</option>
-        <option value="Pembina Tk. I / Guru Madya / IV B">Pembina Tk. I / Guru Madya / IV B</option>
-        <option value="Pembina Utama Muda / Guru Madya / IV C">Pembina Utama Muda / Guru Madya / IV C</option>
-        <option value="Pembina Utama Madya / Guru Utama / IV D">Pembina Utama Madya / Guru Utama / IV D</option>
-        <option value="Pembina Utama / Guru Utama / IV E">Pembina Utama / Guru Utama / IV E</option>
+        <option value="Pembina - Guru Madya / IV A">Pembina - Guru Madya / IV A</option>
+        <option value="Pembina Tk. I - Guru Madya / IV B">Pembina Tk. I - Guru Madya / IV B</option>
+        <option value="Pembina Utama Muda - Guru Madya / IV C">Pembina Utama Muda - Guru Madya / IV C</option>
+        <option value="Pembina Utama Madya - Guru Utama / IV D">Pembina Utama Madya - Guru Utama / IV D</option>
+        <option value="Pembina Utama - Guru Utama / IV E">Pembina Utama - Guru Utama / IV E</option>
         </optgroup>
       </select>
       </div></div></td>
