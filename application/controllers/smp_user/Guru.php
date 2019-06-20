@@ -22,12 +22,17 @@ class Guru extends CI_Controller {
         }
     }
         
-   /* function form_addguru(){
+   function form_addguru(){
         if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
         if ( $this->session->userdata('status') == "login" and !empty($this->session->userdata('username')) and !empty($this->session->userdata('id_user')))
         {
-            //$data['n1'] = $this->m_guruuser->getsekolah(); 
-            $this->load->view(FOLDER_SMP_USER.'form_addguru');
+			$nuptk = $this->session->userdata('username');
+			$nipku = $this->m_guruuser->getdataguru($nuptk);
+			foreach ($nipku as $baris) {
+				$nip = $baris->nip;
+			}			
+            $data['n2'] = $this->m_guruuser->npsn_nss_smp($nip); 
+            $this->load->view(FOLDER_SMP_USER.'form_addguru', $data);
         } else {
             $this->load->view('v_sesiberakhir');
         }
@@ -75,6 +80,14 @@ class Guru extends CI_Controller {
             );
 			$data = $this->m_guruuser->addguru($data_guru);
 			$data = $this->m_guruuser->addguru_p($data_guru2);
+			$queryku = $this->db->get_where("`".D_GURU_SMP.$this->session->userdata('tahun')."`", array('nuptk_guru_smp' => $nuptk));
+			if ($queryku->num_rows() == 0) {
+				$data_guru2 = array(
+						'npsn_nss_guru_smp'=>$this->input->post('npsn_nss'),
+						'nuptk_guru_smp'=>$this->input->post('nuptk'),
+				);
+			$data = $this->m_guruuser->updategurusekolah2($data_guru2);
+			}
                 if ($this->db->affected_rows() != 1) {
                     echo "Tidak ada data yang berhasil diinput";
                 } else {
@@ -89,7 +102,7 @@ class Guru extends CI_Controller {
         } else {
             show_404();
         }
-    } */
+    } 
     
     function form_editguru() {
           if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {

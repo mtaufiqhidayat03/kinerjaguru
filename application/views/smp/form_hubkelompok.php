@@ -83,8 +83,8 @@ return false;
         <select name="jenis_guru" data-rel='chosen'  class="form-control" required id="jenis_guru" onChange="javascript:rubah(this)">
         <option value="">Pilih jenis guru dibawah ini</option>
         <optgroup label="Guru Sekolah Dasar">
-        <option value="Guru Kelas">Guru Kelas</option>
-		<option value="Guru Mata Pelajaran">Guru Mata Pelajaran</option>
+        <option value="Guru Mata Pelajaran">Guru Mata Pelajaran</option>
+		<option value="Guru Bimbingan Konseling">Guru Bimbingan Konseling</option>
         </optgroup>
       </select>
       </div></div></td>

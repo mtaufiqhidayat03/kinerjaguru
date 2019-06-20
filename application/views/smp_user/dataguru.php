@@ -59,6 +59,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 						<div class="kt-portlet__body">	
 						<div class="form-group">
 						<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+										href="<?php echo base_url().FOLDER_SMP_USER."guru/form_addguru";?>"
+										data-target="#tambah_data" data-toggle="modal" id="sample_tambah_data">
+										<i class="la la-plus"></i>
+										Tambah Data
+									</a>
+						<a class="btn btn-success btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 										href="<?php echo base_url().FOLDER_SMP_USER."guru/exportguru";?>"
 										data-target="#" id="sample_export_excel">
 										<i class="fa fa-file-excel"></i>

@@ -366,14 +366,14 @@ class Cetakkinerja extends CI_Controller {
 		$cetak .= "<br/>";
 		$cetak .= "<table width=100% class='center'>";
 		$cetak .= "<tr valign='top'>
-				   <td width='100%' colspan=5 align='right'>.......................... , .............................................</td>
+				   <td colspan=5 align='right'>.......................... , .............................................</td>
 					</tr>";
 		$cetak .= "<tr valign='top'>
-				   <td width='27%'>Guru Yang Dinilai</td>
-				   <td width='7%'></td>
-				   <td width='27%'>Penilai</td>
-				   <td width='7%'></td>
-				   <td width='30%'>Kepala Sekolah/Atasan Langsung</td>
+				   <td width='30%'>Guru Yang Dinilai</td>
+				   <td width='2%'></td>
+				   <td width='30%'>Penilai</td>
+				   <td width='2%'></td>
+				   <td width='35%'>Kepala Sekolah/Atasan Langsung</td>
 					</tr>";
 		$cetak .= "<tr valign='top'><td height=60px></td><td></td><td></td><td></td><td></td></tr>";
 		$cetak .= "<tr valign='top'>
@@ -630,27 +630,27 @@ class Cetakkinerja extends CI_Controller {
 					<td colspan='2' style='border: 1px solid black;'>Nilai Akhir PKG = Nilai PKG x Persentase Nilai PKG dari Kehadiran</td>
 					<td colspan='3' style='border: 1px solid black;'><center>".round($nilaiakhirpkg,2)."</center></td>
 					</tr>";
-		if ($nilaiakhirpkg >= 91 and $nilaiakhirpkg <=100) {
-			$sebutan = "Amat Baik";
-			$sebutan2 = "125%";
-			$npk = 1.25;
-		} else if ($nilaiakhirpkg >= 76 and $nilaiakhirpkg <=90) {
-			$sebutan = "Baik";
-			$sebutan2 = "100%";
-			$npk = 1;
-		} else if ($nilaiakhirpkg >= 61 and $nilaiakhirpkg <=75) {
-			$sebutan = "Cukup";
-			$sebutan2 = "75%";
-			$npk = 0.75;
-		} else if ($nilaiakhirpkg >= 51 and $nilaiakhirpkg <=60) {
-			$sebutan = "Sedang";
-			$sebutan2 = "50%";
-			$npk = 0.5;
-		} else if ($nilaiakhirpkg <= 50) {
-			$sebutan = "Kurang";
-			$sebutan2 = "25%";
-			$npk = 0.25;
-		}
+					if ($nilaiakhirpkg > 90 and $nilaiakhirpkg <=100) {
+						$sebutan = "Amat Baik";
+						$sebutan2 = "125%";
+						$npk = 1.25;
+					} else if ($nilaiakhirpkg > 75 and $nilaiakhirpkg <=90) {
+						$sebutan = "Baik";
+						$sebutan2 = "100%";
+						$npk = 1;
+					} else if ($nilaiakhirpkg > 60 and $nilaiakhirpkg <=75) {
+						$sebutan = "Cukup";
+						$sebutan2 = "75%";
+						$npk = 0.75;
+					} else if ($nilaiakhirpkg > 50 and $nilaiakhirpkg <=60) {
+						$sebutan = "Sedang";
+						$sebutan2 = "50%";
+						$npk = 0.5;
+					} else if ($nilaiakhirpkg <= 50) {
+						$sebutan = "Kurang";
+						$sebutan2 = "25%";
+						$npk = 0.25;
+					}
 		$cetak .=	"<tr valign='middle'>
 					<td colspan='2' style='border: 1px solid black;'>
 					<table width='100%'><tr><td width='50%' style='border-right: 1px solid black;'>Sebutan</td><td width='50%'>Nilai Persentase Kinerja<br/>(NPK)</td></tr></table>
@@ -727,13 +727,6 @@ class Cetakkinerja extends CI_Controller {
 			$jwm = 24;
 			if ($jm > $jwm) {
 				$jm = 24;
-			}
-			}
-			else if (strtolower($row1111->jenis_guru) == "guru bimbingan konseling") 
-			{
-			$jwm = 150;
-			if ($jm > $jwm) {
-				$jm = 150;
 			}
 			}
 		}

@@ -1,6 +1,6 @@
 <?php if ($this->session->userdata("username") && $this->session->userdata("id_user") ) { ?>
 <script type='text/javascript'>
-function rubah()
+function rubah2()
 {
 var opt = $('#jenis_guru').find(':selected');
 var jenisguru = opt.val();
@@ -23,7 +23,7 @@ if (jenisguru === "Guru Bimbingan Konseling") {
 <div class="modal-body">
 <div class="portlet-body">
 <form action="" method="" id="form_guru_sekolah" class="form_guru_sekolah" enctype="multipart/form-data" >
-<table width="100%" height="100%" id="guru_sekolah">
+<table width="100%" height="100%" id="guru_sekolahmapel">
 <?php foreach($n1 as $baris) {  ?>
 	<tr valign="top">
     <td width="11" height="70"></td>
@@ -75,7 +75,7 @@ if (jenisguru === "Guru Bimbingan Konseling") {
 	<div class="form-group row">
 	<div class="kt-input-icon kt-input-icon--left">
 	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
-        <select name="jenis_guru" data-rel='chosen'  class="form-control" required id="jenis_guru" onChange="javascript:rubah(this)">
+        <select name="jenis_guru" data-rel='chosen'  class="form-control" required id="jenis_guru" onChange="javascript:rubah2(this)">
         <option value="">Pilih jenis guru dibawah ini</option>
         <optgroup label="Guru Sekolah Menengah Pertama">
         <option value="Guru Mata Pelajaran">Guru Mata Pelajaran</option>

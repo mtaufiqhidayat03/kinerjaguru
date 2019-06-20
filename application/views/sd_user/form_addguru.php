@@ -9,6 +9,17 @@
 <form action="" method="post" id="form_adddata" class="form_adddata" enctype="multipart/form-data" >
 <table width="100%" border="0" height="100%" id="tabel_adddata">
 <tbody>
+<tr valign=top>
+    <td width="6" height="60"></td>
+    <td width="175"><label>NPSN/NSS</label></td>
+    <td width="16">:</td>
+    <td width="378">
+	<div class="form-group row">
+	<div class="kt-input-icon kt-input-icon--left">
+	<span class="kt-input-icon__icon kt-input-icon__icon--left"><span><i class="la la-keyboard-o"></i></span></span>
+	<input name="npsn_nss" readonly type="text" required class="form-control" id="npsn_nss" placeholder="Silahkan masukkan NPSN/NSS Sekolah" value="<?php foreach($n2 as $baris) { echo $baris->npsn_nss_sd; }?>"></div></div>
+	</td>
+  </tr>
   <tr valign=top>
     <td width="6" height="60"></td>
     <td width="175"><label>NUPTK</label></td>

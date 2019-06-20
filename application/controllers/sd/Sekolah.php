@@ -16,7 +16,8 @@ class Sekolah extends CI_Controller {
 				show_404();
 			}
         }
-    }
+	}
+	
 
 	function ambildatagurusd(){
 		if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) 

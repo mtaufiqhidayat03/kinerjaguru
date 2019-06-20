@@ -100,7 +100,11 @@ class Login extends CI_Controller{
 				$data_session['sekolah'] = "SD";
 				$data_session['nama'] = $nama_gurusd;
               } else if($levelgurusmp == 1){
-				$data_session['level'] = "Guru";
+				if ($levelkepseksmp == 1) {
+                    $data_session['level'] = "Kepsek";
+                } else {
+					$data_session['level'] = "Guru";
+				}
 				$data_session['sekolah'] = "SMP";
 				$data_session['nama'] = $nama_gurusmp;
               }

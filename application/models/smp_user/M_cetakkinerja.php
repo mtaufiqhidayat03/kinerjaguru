@@ -74,6 +74,12 @@ class M_cetakkinerja extends CI_Model {
         return $query->result();
 	}
 
+	function getdatajenisguru($nuptk){
+        $sql="SELECT * FROM `".D_GURU_SMP.$this->session->userdata("tahun")."` where nuptk_guru_smp=?";
+        $query=$this->db->query($sql,array($nuptk));
+        return $query->result();
+	}
+
 	function getdataassesor($nuptk){
         $sql="SELECT nuptk_assesor, nama_guru FROM `".D_ASSESOR_SMP.$this->session->userdata("tahun")."` as a left join `".M_GURU_SMP."` as b ON a.nuptk_assesor=b.nuptk where tugas_assesor=?";
         $query=$this->db->query($sql,array($nuptk));

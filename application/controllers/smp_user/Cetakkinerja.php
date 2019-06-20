@@ -15,8 +15,9 @@ class Cetakkinerja extends CI_Controller {
             if (isset($id_kompetensi) and $id_kompetensi !== "") { 
 			  $this->load->view(FOLDER_SMP_USER.'datacetakkinerja'); 
             } else {
-              $data['n20'] = ""; 
-			  $this->load->view(FOLDER_SMP_USER.'datacetakkinerja');
+			  $nuptk = $this->session->userdata("username");
+              $data['n20'] = $this->m_cetakkinerja->getdatasekolah($nuptk); 
+			  $this->load->view(FOLDER_SMP_USER.'datacetakkinerja', $data);
             }
             
         }
@@ -59,10 +60,18 @@ class Cetakkinerja extends CI_Controller {
 		$nama_guru = $row2->nama_guru;
 		$tanggal = $row2->tmt_guru;
 		$tmt_guru = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
+		$data21= $this->m_cetakkinerja->getdatajenisguru($nuptk);
+		foreach ($data21 as $row21) {$jenisguru = $row21->jenis_guru;};
 		$cetak .="<style>table, th, td {border: 0px solid black;border-collapse: collapse;} table{page-break-inside: auto;}.page_break { page-break-before: always; }#right{float:right;width:100px;border:1px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center{margin-left:auto;margin-right:auto;}.hangingindent{padding-left: 24px ;text-indent: -20px ;} table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+		$cetak .= "<div id='right'><center><b>Lampiran 2B</b></center></div>";
+		$cetak .= "<br/><br/><br/><br/>";
+		$cetak .= "<div id='judul'><center><b>LAPORANAN EVALUASI<br/>PENILAIAN KINERJA GURU BIMBINGAN DAN KONSELING/KONSELOR</center></b></div>";
+		} else {
 		$cetak .= "<div id='right'><center><b>Lampiran 1B</b></center></div>";
 		$cetak .= "<br/><br/><br/><br/>";
 		$cetak .= "<div id='judul'><center><b>LAPORANAN EVALUASI<br/>PENILAIAN KINERJA GURU KELAS/GURU MATA PELAJARAN</center></b></div>";
+		}
 		$cetak .= "<br/><br/>";
 		$cetak .= "<table width=90% class='center'>";
 		$cetak .= "<tr valign='top'>
@@ -154,7 +163,11 @@ class Cetakkinerja extends CI_Controller {
 		$gettahun = $this->m_cetakkinerja->cek_tahun($tahun);
 		foreach ($gettahun as $rowku) {$tahunku=$rowku->tahun;}
 		// Output the generated PDF to Browser
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+		$namefile = "Lampiran 2B (".$nama_guru.") Tahun ".$tahunku;
+		} else {
 		$namefile = "Lampiran 1B (".$nama_guru.") Tahun ".$tahunku;
+		}
 		$dompdf->stream($namefile.".pdf");
 		}	
 	}
@@ -167,6 +180,8 @@ class Cetakkinerja extends CI_Controller {
 		$nuptk = $this->session->userdata("username");
 		$tahun = $this->session->userdata("tahun");
 		$data2= $this->m_cetakkinerja->getdataguru($nuptk);
+		$data21= $this->m_cetakkinerja->getdatajenisguru($nuptk);
+		foreach ($data21 as $row21) {$jenisguru = $row21->jenis_guru;};
 		$data3= $this->m_cetakkinerja->getdataassesor($nuptk);
 		$data5= $this->m_cetakkinerja->getdatasekolah($nuptk);		
 		$cetak = "";
@@ -184,10 +199,16 @@ class Cetakkinerja extends CI_Controller {
 		$nama_guru = $row2->nama_guru;
 		$tanggal = $row2->tmt_guru;
 		$tmt_guru = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
-		$cetak .="<style>#dataguru{border: 0px solid black;border-collapse: collapse;} #periode{border-collapse: collapse;} #kompetensi{border-collapse: collapse; font-size:12px;} table{page-break-inside: auto;}.page_break { page-break-before: always; } #right{float:right;width:100px;border:2px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center {margin-left:auto;margin-right:auto;} .hangingindent {padding-left: 10px ; text-indent: 0px ;}.hangingindent2 {padding-left: 10px ; text-indent: 0px ; font-size:14px}  table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";
+		$cetak .="<style>#dataguru{border: 0px solid black;border-collapse: collapse;} #periode{border-collapse: collapse;} #kompetensi{border-collapse: collapse; font-size:12px;} table{page-break-inside: auto;}.page_break { page-break-before: always; } #right{float:right;width:100px;border:2px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center {margin-left:auto;margin-right:auto;} .hangingindent {padding-left: 10px ; text-indent: 0px ;}.hangingindent2 {padding-left: 10px ; text-indent: 0px ; font-size:14px}  table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";		
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+		$cetak .= "<div id='right'><center><b>Lampiran 2C</b></center></div>";
+		$cetak .= "<br/><br/><br/><br/>";
+		$cetak .= "<div id='judul'><center><b>REKAP HASIL PENILAIAN KINERJA GURU BIMBINGAN DAN KONSELING/KONSELOR</b></center></div>";
+		} else {
 		$cetak .= "<div id='right'><center><b>Lampiran 1C</b></center></div>";
 		$cetak .= "<br/><br/><br/><br/>";
 		$cetak .= "<div id='judul'><center><b>REKAP HASIL PENILAIAN KINERJA GURU KELAS/MATA PELAJARAN</b></center></div>";
+		}
 		$cetak .= "<br/><br/>";
 		$cetak .= "<table width=100% class='center dataguru' id='dataguru'>";
 		$cetak .= "<tr valign='top'>
@@ -366,14 +387,14 @@ class Cetakkinerja extends CI_Controller {
 		$cetak .= "<br/>";
 		$cetak .= "<table width=100% class='center'>";
 		$cetak .= "<tr valign='top'>
-				   <td width='100%' colspan=5 align='right'>.......................... , .............................................</td>
+				   <td colspan=5 align='right'>.......................... , .............................................</td>
 					</tr>";
-		$cetak .= "<tr valign='top'>
-				   <td width='27%'>Guru Yang Dinilai</td>
-				   <td width='7%'></td>
-				   <td width='27%'>Penilai</td>
-				   <td width='7%'></td>
-				   <td width='30%'>Kepala Sekolah/Atasan Langsung</td>
+		$cetak .= "<tr valign='top' width='100%'>
+				   <td width='30%'>Guru Yang Dinilai</td>
+				   <td width='2%'></td>
+				   <td width='30%'>Penilai</td>
+				   <td width='2%'></td>
+				   <td width='35%'>Kepala Sekolah/Atasan Langsung</td>
 					</tr>";
 		$cetak .= "<tr valign='top'><td height=60px></td><td></td><td></td><td></td><td></td></tr>";
 		$cetak .= "<tr valign='top'>
@@ -397,7 +418,11 @@ class Cetakkinerja extends CI_Controller {
 		$gettahun = $this->m_cetakkinerja->cek_tahun($tahun);
 		foreach ($gettahun as $rowku) {$tahunku=$rowku->tahun;}
 		// Output the generated PDF to Browser
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+		$namefile = "Lampiran 2C (".$row2->nama_guru.") Tahun ".$tahunku;
+		} else {
 		$namefile = "Lampiran 1C (".$row2->nama_guru.") Tahun ".$tahunku;
+		}
 		$dompdf->stream($namefile.".pdf");
 		}	
 	}
@@ -428,10 +453,18 @@ class Cetakkinerja extends CI_Controller {
 		$nama_guru = $row2->nama_guru;
 		$tanggal = $row2->tmt_guru;
 		$tmt_guru = $this->m_cetakkinerja->tanggal_showdetail($tanggal);
+		$data21= $this->m_cetakkinerja->getdatajenisguru($nuptk);
+		foreach ($data21 as $row21) {$jenisguru = $row21->jenis_guru;};
 		$cetak .="<style>#dataguru{border: 0px solid black;border-collapse: collapse;} #periode{border-collapse: collapse;} #kompetensi{border-collapse: collapse; font-size:12px;} #penilaian{border-collapse: collapse; font-size:12px;}  table{page-break-inside: auto;}.page_break { page-break-before: always; } #right{float:right;width:100px;border:2px solid black;padding:5px;}#judul{font-size:16px;}#judul2{font-size:14px;}table.center {margin-left:auto;margin-right:auto;} .hangingindent {padding-left: 10px ; text-indent: 0px ;}.hangingindent2 {padding-left: 10px ; text-indent: 0px ; font-size:14px;}  table tbody tr td {word-wrap: break-word;word-break: break-word;}</style>";
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+		$cetak .= "<div id='right'><center><b>Lampiran 2D</b></center></div>";
+		$cetak .= "<br/><br/><br/><br/>";
+		$cetak .= "<div id='judul'><center><b>FORMAT PERHITUNGAN ANGKA KREDIT PK GURU BK</b></center></div>";
+		} else {
 		$cetak .= "<div id='right'><center><b>Lampiran 1D</b></center></div>";
 		$cetak .= "<br/><br/><br/><br/>";
 		$cetak .= "<div id='judul'><center><b>FORMAT PERHITUNGAN ANGKA KREDIT PK GURU KELAS/<br/>GURU MATA PELAJARAN</b></center></div>";
+		}
 		$cetak .= "<br/><br/>";
 		$cetak .= "<table width=100% class='center dataguru' id='dataguru'>";
 		$cetak .= "<tr valign='top'>
@@ -606,7 +639,7 @@ class Cetakkinerja extends CI_Controller {
 		}
 		$cetak .=	"<tr valign='top'>
 					<td colspan='2' style='border: 1px solid black;'>Nilai PKG = <i>Jumlah Nilai</i></td>
-					<td colspan='3' style='border: 1px solid black;'><center>".$jumpkg."</center></td>
+					<td colspan='3' style='border: 1px solid black;'><center>".round($jumpkg,3)."</center></td>
 					</tr>";
 		$data11 = $this->m_cetakkinerja->getdatahasilkuisioner($nuptk);
 		foreach ($data11 as $row11) {
@@ -630,19 +663,19 @@ class Cetakkinerja extends CI_Controller {
 					<td colspan='2' style='border: 1px solid black;'>Nilai Akhir PKG = Nilai PKG x Persentase Nilai PKG dari Kehadiran</td>
 					<td colspan='3' style='border: 1px solid black;'><center>".round($nilaiakhirpkg,2)."</center></td>
 					</tr>";
-		if ($nilaiakhirpkg >= 91 and $nilaiakhirpkg <=100) {
+		if ($nilaiakhirpkg > 90 and $nilaiakhirpkg <=100) {
 			$sebutan = "Amat Baik";
 			$sebutan2 = "125%";
 			$npk = 1.25;
-		} else if ($nilaiakhirpkg >= 76 and $nilaiakhirpkg <=90) {
+		} else if ($nilaiakhirpkg > 75 and $nilaiakhirpkg <=90) {
 			$sebutan = "Baik";
 			$sebutan2 = "100%";
 			$npk = 1;
-		} else if ($nilaiakhirpkg >= 61 and $nilaiakhirpkg <=75) {
+		} else if ($nilaiakhirpkg > 60 and $nilaiakhirpkg <=75) {
 			$sebutan = "Cukup";
 			$sebutan2 = "75%";
 			$npk = 0.75;
-		} else if ($nilaiakhirpkg >= 51 and $nilaiakhirpkg <=60) {
+		} else if ($nilaiakhirpkg > 50 and $nilaiakhirpkg <=60) {
 			$sebutan = "Sedang";
 			$sebutan2 = "50%";
 			$npk = 0.5;
@@ -681,7 +714,7 @@ class Cetakkinerja extends CI_Controller {
 			$akpkb = 4+8;
 			$akp = 10;
 		}
-		else if ($golonganku ==" IV A") {
+		else if ($golonganku == " IV A") {
 			$akk = 150;
 			$akpkb = 4+12;
 			$akp = 15;
@@ -706,17 +739,18 @@ class Cetakkinerja extends CI_Controller {
 			$akpkb = 4+12;
 			$akp = 15;
 		}
-		$data111 = $this->m_cetakkinerja->getdatahasilkuisioner($nuptk);
-		foreach ($data111 as $row111) {
-			if (strtolower($row111->nama_kuisioner) == "jumlah jam mengajar") 
-			{
-			$jm = $row111->nilai_kuisioner;
-			}
-		}
+		
 		$data1111 = $this->m_cetakkinerja->getdatasekolah($nuptk);
 		foreach ($data1111 as $row1111) {
 			if (strtolower($row1111->jenis_guru) == "guru kelas") 
 			{
+			$data111 = $this->m_cetakkinerja->getdatahasilkuisioner($nuptk);
+			foreach ($data111 as $row111) {
+			if (strtolower($row111->nama_kuisioner) == "jumlah jam mengajar") 
+			{
+			$jm = $row111->nilai_kuisioner;
+			}
+			}
 			$jwm = 24;
 			if ($jm > $jwm) {
 				$jm = 24;
@@ -724,6 +758,13 @@ class Cetakkinerja extends CI_Controller {
 			}
 			else if (strtolower($row1111->jenis_guru) == "guru mata pelajaran") 
 			{
+			$data111 = $this->m_cetakkinerja->getdatahasilkuisioner($nuptk);
+			foreach ($data111 as $row111) {
+			if (strtolower($row111->nama_kuisioner) == "jumlah jam mengajar") 
+			{
+			$jm = $row111->nilai_kuisioner;
+			}
+			}
 			$jwm = 24;
 			if ($jm > $jwm) {
 				$jm = 24;
@@ -731,6 +772,13 @@ class Cetakkinerja extends CI_Controller {
 			}
 			else if (strtolower($row1111->jenis_guru) == "guru bimbingan konseling") 
 			{
+			$data111 = $this->m_cetakkinerja->getdatahasilkuisioner($nuptk);
+			foreach ($data111 as $row111) {
+			if (strtolower($row111->nama_kuisioner) == "jumlah jam konseli") 
+			{
+			$jm = $row111->nilai_kuisioner;
+			}
+			}
 			$jwm = 150;
 			if ($jm > $jwm) {
 				$jm = 150;
@@ -740,19 +788,19 @@ class Cetakkinerja extends CI_Controller {
 		$angkakredit = (($akk - $akpkb - $akp) * $jm / $jwm * $npk ) / 4;
 		$cetak .=	"<tr valign='middle'>
 					<td colspan='2' style='border: 1px solid black;'>Angka Kredit : <i><u>(AKK - AKPKB - AKP) x JM / JWM x NPK</u></i><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4</Angka></td>
-					<td colspan='3' style='border: 1px solid black;'><center>".$angkakredit."</center></td>
+					<td colspan='3' style='border: 1px solid black;'><center>".round($angkakredit,2)."</center></td>
 					</tr>";
 		$cetak .= "</table>";	
 		$cetak .= "<br/>";
 		$cetak .= "<table width=100% class='center'>";
 		$cetak .= "<tr valign='top'>
-				   <td width='100%' colspan=5 align='right'>.......................... , .............................................</td>
+				   <td colspan=5 align='right'>.......................... , .............................................</td>
 					</tr>";
 		$cetak .= "<tr valign='top'>
-				   <td width='27%'>Guru Yang Dinilai</td>
-				   <td width='7%'></td>
-				   <td width='27%'>Penilai</td>
-				   <td width='7%'></td>
+				   <td width='30%'>Guru Yang Dinilai</td>
+				   <td width='2%'></td>
+				   <td width='30%'>Penilai</td>
+				   <td width='2%'></td>
 				   <td width='30%'>Kepala Sekolah/Atasan Langsung</td>
 					</tr>";
 		$cetak .= "<tr valign='top'><td height=60px></td><td></td><td></td><td></td><td></td></tr>";
@@ -777,7 +825,12 @@ class Cetakkinerja extends CI_Controller {
 		$gettahun = $this->m_cetakkinerja->cek_tahun($tahun);
 		foreach ($gettahun as $rowku) {$tahunku=$rowku->tahun;}
 		// Output the generated PDF to Browser
-		$namefile = "Lampiran 1D (".$row2->nama_guru.") Tahun ".$tahunku;
+		if ($jenisguru == "Guru Bimbingan Konseling") {
+			$namefile = "Lampiran 2D (".$row2->nama_guru.") Tahun ".$tahunku;
+		} else {
+
+			$namefile = "Lampiran 1D (".$row2->nama_guru.") Tahun ".$tahunku;
+		}
 		$dompdf->stream($namefile.".pdf");
 		}	
 	}

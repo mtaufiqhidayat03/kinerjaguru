@@ -80,6 +80,21 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							$aResultTotal = $rResultTotal->row()->Count;
 							if ($aResultTotal > 0 ) { 
 							?>
+							<?php foreach ($n20 as $baris20) { if (strtolower($baris20->jenis_guru) == "guru bimbingan konseling") { ?>
+							<b>*) Harap untuk mengisi setiap indikator, kompetensi dan kuisioner serta status sudah selesai dinilai oleh assesor<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pada menu "Penilaian Kinerja" dan "Penilaian Kuisioner" sebelum cetak lampiran 2C dan 2D</b><br/><br/>
+							<a class="btn btn-warning btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatub";?>"
+								data-target="#" id="sample_tambah_data">
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 2B</a>
+							<a class="btn btn-dark btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatuc";?>"
+								data-target="#" id="sample_tambah_data">
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 2C</a>
+							<a class="btn btn-info btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
+								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatud";?>"
+								data-target="#" id="sample_tambah_data">
+								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 2D</a>
+							<?php } else { ?>
 							<b>*) Harap untuk mengisi setiap indikator, kompetensi dan kuisioner serta status sudah selesai dinilai oleh assesor<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pada menu "Penilaian Kinerja" dan "Penilaian Kuisioner" sebelum cetak lampiran 1C dan 1D</b><br/><br/>
 							<a class="btn btn-warning btn-elevate btn-icon-sm btn-elevate2 btn-elevate-air2"
 								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatub";?>"
@@ -93,6 +108,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatud";?>"
 								data-target="#" id="sample_tambah_data">
 								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 1D</a>
+							<?php }} ?>
 							<?php  } ?>	
 							</div>
 							<div class="alert alert-warning data_cetak_kinerja" style="display:none"></div>

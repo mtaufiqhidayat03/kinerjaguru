@@ -25,7 +25,13 @@ class M_sekolahadmin extends CI_Model {
         $query=$this->db->query($sql, array($tahun));
         return $query->result();
 	}
-    
+
+	function getdatasekolah($npsn_nss){
+        $sql="SELECT * FROM `".M_SD."` as a left join master_daerah as b on a.no_daerah=b.no_daerah where npsn_nss=?";
+        $query=$this->db->query($sql,array($npsn_nss));
+        return $query->result();
+	}
+	
     function prov(){
         $query=$this->db->query("SELECT nama_provinsi FROM master_daerah group by nama_provinsi");
         return $query->result();

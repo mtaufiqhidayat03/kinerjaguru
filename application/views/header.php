@@ -155,6 +155,12 @@
     foreach ($query as $row) {
 		echo "Sekolah : ".$row->nama_sekolah;
 	}
+	$nuptk2 = $this->session->userdata("username");
+    $sql2= "SELECT nama_sekolah FROM `".D_GURU_SMP.$_SESSION["tahun"]."` as a left join `".M_SMP."` as b ON b.npsn_nss=a.npsn_nss_guru_smp where nuptk_guru_smp=?";
+    $query2=$this->db->query($sql2, array($nuptk2))->result();
+    foreach ($query2 as $row2) {
+		echo "Sekolah : ".$row2->nama_sekolah;
+	}
 	?>
 	</h4>
 	</div></div>
