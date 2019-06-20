@@ -843,7 +843,7 @@ var DatatablesDataSourceAjaxServer = function() {
 			},
 			initComplete: function()
       		{
-						unblockPageUI();
+			unblockPageUI();
 			 var dtable2 = $('#data_evaluasi').dataTable().api();
 			 var searchWait = 0;
 			 var searchWaitInterval;

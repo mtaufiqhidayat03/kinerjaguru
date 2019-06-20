@@ -3,7 +3,7 @@ class Cetakkinerja extends CI_Controller {
 
     function __construct() {
 		parent::__construct();
-        $this->load->model(FOLDER_SD_USER.'m_cetakkinerja');
+        $this->load->model(FOLDER_SMP_USER.'m_cetakkinerja');
     }
 
 	function index() {
@@ -13,10 +13,10 @@ class Cetakkinerja extends CI_Controller {
         } else {
 			$id_kompetensi = $this->input->get('id_kompetensi');
             if (isset($id_kompetensi) and $id_kompetensi !== "") { 
-			  $this->load->view(FOLDER_SD_USER.'datacetakkinerja'); 
+			  $this->load->view(FOLDER_SMP_USER.'datacetakkinerja'); 
             } else {
               $data['n20'] = ""; 
-			  $this->load->view(FOLDER_SD_USER.'datacetakkinerja');
+			  $this->load->view(FOLDER_SMP_USER.'datacetakkinerja');
             }
             
         }
