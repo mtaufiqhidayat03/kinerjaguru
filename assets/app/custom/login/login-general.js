@@ -56,7 +56,7 @@ var KTLoginGeneral = function () {
                         }
                     }
                 }), r.valid() && (s.addClass("kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light").attr("disabled", !0), r.ajaxSubmit({
-                    url: "login/aksi_login",
+                    url: "aksi_login",
                     success: function (n, a, l, o) {
                         setTimeout(function () {
                             s.removeClass("kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light").attr("disabled", !1), r.clearForm(), r.validate().resetForm(), e();
