@@ -198,7 +198,7 @@ class Cetakkinerja extends CI_Controller {
 				   </tr>";
 		$cetak .= "<tr valign='top'>
 				   <td width='5%' height='20px'></td>
-				   <td width='40%'>NIP</td>
+				   <td width='40%'>NIP/Karpeg</td>
 				   <td width='2%'>:</td>
 				   <td width='63%' class='underline'>".$row2->nip." / ".$row2->karpeg."</td>
 				   </tr>";
@@ -359,7 +359,7 @@ class Cetakkinerja extends CI_Controller {
 				   </tr>";
 		$cetak .= "<tr>
 				   <td style='border: 1px solid black;' colspan='2' valign='top'>Konversi nilai PK Guru ke dalam skala 0 - 100<br/>Nilai PK Guru (100) = <u><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nilai PK Guru&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i></u> x 100<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>nilai maksimum PK Guru</i></td>
-				   <td style='border: 1px solid black;' valign='middle'><center><b>".round($konversi,3)."</b></center></td>
+				   <td style='border: 1px solid black;' valign='middle'><center><b>".round($konversi,2)."</b></center></td>
 					</tr>";
 		$cetak .= "</table>";
 		$cetak .= "<p style='font-size:11px;'>*) Nilai diisi berdasarkan laporan dan evaluasi PK Guru. Nilai minimum per kompetensi = 1 dan nilai maksimum = 4</p>";
@@ -442,7 +442,7 @@ class Cetakkinerja extends CI_Controller {
 				   </tr>";
 		$cetak .= "<tr valign='top'>
 				   <td width='5%' height='20px'></td>
-				   <td width='40%'>NIP</td>
+				   <td width='40%'>NIP/Karpeg</td>
 				   <td width='2%'>:</td>
 				   <td width='63%' class='underline'>".$row2->nip." / ".$row2->karpeg."</td>
 				   </tr>";
@@ -583,9 +583,9 @@ class Cetakkinerja extends CI_Controller {
 		$cetak .=	"<tr valign='top'>
 					<td style='border: 1px solid black;' class='hangingindent2'><center>1</center></td>
 					<td style='border: 1px solid black;' class='hangingindent2'>Atasan (Kepala Sekolah/Pengawas/Guru Senior)</td>
-					<td style='border: 1px solid black;'><center>".round($konversi,3)."</center></td>
+					<td style='border: 1px solid black;'><center>".round($konversi,2)."</center></td>
 					<td style='border: 1px solid black;'><center>70%</center></td>
-					<td style='border: 1px solid black;'><center>".round($hasilkonversi,3)."</center></td>
+					<td style='border: 1px solid black;'><center>".round($hasilkonversi,2)."</center></td>
 					</tr>";
 		$nuptk = $this->session->userdata("username");
 		$no = 1;
@@ -929,8 +929,8 @@ class Cetakkinerja extends CI_Controller {
 		}
 		$cetak .= "<tr><td>Total Skor untuk Kompetensi ".$row->no_urut_kompetensi." </td><td colspan=3><center><b>".$totalskor."</b></center></td></tr>";
 		$cetak .= "<tr><td>Skor maksimum Kompetensi ".$row->no_urut_kompetensi." = jumlah indikator x 2</td><td colspan=3><center><b>".$skormaks."</b></center></td></tr>";
-		$cetak .= "<tr><td>Prosentase = (total skor / ".$skormaks.") x 100%</td><td colspan=3><center><b>".$prosentase." %</b></center></td></tr>";
-		$cetak .= "<tr><td>Nilai untuk Kompetensi ".$row->no_urut_kompetensi."<br/>(0% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 25% = 1; 25% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 50% = 2;<br/>50% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 75% = 3; 75% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 100% = 4)</td><td colspan=3><center><b>".round($nilaiakhir,3)."</b></center></td></tr>";
+		$cetak .= "<tr><td>Persentase = (total skor / ".$skormaks.") x 100%</td><td colspan=3><center><b>".round($prosentase,2)." %</b></center></td></tr>";
+		$cetak .= "<tr><td>Nilai untuk Kompetensi ".$row->no_urut_kompetensi."<br/>(0% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 25% = 1; 25% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 50% = 2;<br/>50% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 75% = 3; 75% &lt; X <a style='border-bottom: 1px solid #000000;'>&lt;</a> 100% = 4)</td><td colspan=3><center><b>".round($nilaiakhir,2)."</b></center></td></tr>";
 		$cetak .= "</table>";
 		}
 		$dompdf =  new Dompdf\Dompdf();		

@@ -73,7 +73,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 							$jenis_guru = $rowku['jenis_guru'];
 							$detail_guru = $rowku['detail_guru'];
 							$sIndexColumn = "b.id_kompetensi";
-							$sTable = "`".M_KOMPETENSI_SMP."` as b left join `".M_KELOMPOK_KOMPETENSI_SMP."` as c ON b.id_kelompok_kompetensi_smp=c.id_kelompok left join `".M_INDIKATOR_SMP."` as a ON a.id_kompetensi_indikator_smp=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SMP.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET('".$detail_guru."',c.hub_detail_guru) where nuptk_guru_smp='".$nuptk."'".$sWhere." group by id_kompetensi";
+							$sTable = "`".M_KOMPETENSI_SMP."` as b left join `".M_KELOMPOK_KOMPETENSI_SMP."` as c ON b.id_kelompok_kompetensi_smp=c.id_kelompok left join `".M_INDIKATOR_SMP."` as a ON a.id_kompetensi_indikator_smp=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SMP.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru where nuptk_guru_smp='".$nuptk."'".$sWhere." group by id_kompetensi";
 							//$sTable = "`".M_KOMPETENSI_SMP."` as b left join `".M_KELOMPOK_KOMPETENSI_SMP."` as c ON b.id_kelompok_kompetensi_smp=c.id_kelompok left join `".M_INDIKATOR_SMP."` as a ON a.id_kompetensi_indikator_smp=b.id_kompetensi and a.keaktifan_indikator='Aktif' and b.keaktifan='Aktif' left join `".D_GURU_SMP.$this->session->userdata("tahun")."` as d ON c.hub_jenis_guru=d.jenis_guru and FIND_IN_SET(".$detail_guru.",c.hub_detail_guru) where nuptk_guru_smp='".$nuptk."'".$sWhere." group by id_kompetensi having count(id_indikator)= (select count(skor) from `".D_PENILAIAN_SMP.$this->session->userdata("tahun")."` where nuptk_penilaian_smp='".$nuptk."')";
 							$sQuery = "SELECT COUNT(DISTINCT(".$sIndexColumn.")) as 'Count' FROM  $sTable";
 							$rResultTotal = $this->db->query($sQuery);
@@ -108,8 +108,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.details-control:first-chi
 								href="<?php echo base_url().FOLDER_SMP_USER."cetakkinerja/lampiransatud";?>"
 								data-target="#" id="sample_tambah_data">
 								<i class="fa fa-file-pdf"></i>Cetak PDF Lampiran 1D</a>
-							<?php }} ?>
-							<?php  } ?>	
+							<?php } ?>
+							<?php } ?>
+							<?php } ?>	
 							</div>
 							<div class="alert alert-warning data_cetak_kinerja" style="display:none"></div>
 							<table class="table table-striped table-bordered table-hover data_cetak_kinerja dataTables" id="data_cetak_kinerja" width=100%>
